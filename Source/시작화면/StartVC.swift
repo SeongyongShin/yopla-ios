@@ -16,9 +16,7 @@ class StartVC: BaseViewController {
         loginBtn.backgroundColor = .mainHotPink
         registBtn.setTitleColor(.mainHotPink, for: .normal)
         registBtn.backgroundColor = .white
-//        let yourBackImage = UIImage(named: "
         self.navigationController?.navigationBar.tintColor = .black
-        
 
         
     }

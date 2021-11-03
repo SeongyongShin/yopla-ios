@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecipeProfile" id="gTV-IL-0wX" customClass="RecipeProfileCell" customModule="yopla" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="403" height="383"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="403" height="383"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food1" translatesAutoresizingMaskIntoConstraints="NO" id="jtj-YG-Dnx">
+                        <rect key="frame" x="0.0" y="0.0" width="403" height="383"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PcO-gI-n5G" customClass="HalfRoundView1" customModule="yopla" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="272.5" width="403" height="110.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV5-nX-Hbk">
+                                <rect key="frame" x="20" y="10" width="373" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="9lT-jP-EFZ" customClass="RoundImageView" customModule="yopla" customModuleProvider="target">
+                                <rect key="frame" x="10" y="45.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="ZdK-38-geP"/>
+                                    <constraint firstAttribute="width" secondItem="9lT-jP-EFZ" secondAttribute="height" multiplier="1:1" id="fCm-UT-Pdl"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="es8-hC-bVm">
+                                <rect key="frame" x="70" y="50.5" width="78" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="dd5-Id-JnL">
+                                <rect key="frame" x="70" y="70.5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Ghi-R7-c2O"/>
+                                    <constraint firstAttribute="width" secondItem="dd5-Id-JnL" secondAttribute="height" multiplier="1:1" id="eeH-wq-j0g"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFr-kC-2x0">
+                                <rect key="frame" x="92" y="73.5" width="34" height="14.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sdR-MP-GtE">
+                                <rect key="frame" x="368" y="68" width="25" height="30"/>
+                                <color key="tintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sdR-MP-GtE" secondAttribute="height" multiplier="1:1" id="AGy-Do-Mhb"/>
+                                </constraints>
+                                <imageReference key="image" image="bookmark" catalog="system" symbolScale="large"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sdR-MP-GtE" firstAttribute="height" secondItem="9lT-jP-EFZ" secondAttribute="height" multiplier="0.5" id="2QP-zm-24R"/>
+                            <constraint firstItem="CFr-kC-2x0" firstAttribute="leading" secondItem="dd5-Id-JnL" secondAttribute="trailing" constant="2" id="4zP-m1-QGR"/>
+                            <constraint firstItem="yV5-nX-Hbk" firstAttribute="top" secondItem="PcO-gI-n5G" secondAttribute="top" constant="10" id="6VY-S7-aDP"/>
+                            <constraint firstItem="dd5-Id-JnL" firstAttribute="top" secondItem="es8-hC-bVm" secondAttribute="bottom" constant="2" id="Atl-hC-4E3"/>
+                            <constraint firstItem="es8-hC-bVm" firstAttribute="top" secondItem="9lT-jP-EFZ" secondAttribute="top" constant="5" id="Df7-Md-Upu"/>
+                            <constraint firstItem="dd5-Id-JnL" firstAttribute="leading" secondItem="es8-hC-bVm" secondAttribute="leading" id="Hkp-Tw-NQl"/>
+                            <constraint firstItem="es8-hC-bVm" firstAttribute="leading" secondItem="9lT-jP-EFZ" secondAttribute="trailing" constant="10" id="KMt-hO-Llt"/>
+                            <constraint firstAttribute="bottom" secondItem="9lT-jP-EFZ" secondAttribute="bottom" constant="15" id="MKW-dM-Fxm"/>
+                            <constraint firstAttribute="bottom" secondItem="sdR-MP-GtE" secondAttribute="bottom" constant="15" id="NFP-0k-V7f"/>
+                            <constraint firstItem="9lT-jP-EFZ" firstAttribute="leading" secondItem="PcO-gI-n5G" secondAttribute="leading" constant="10" id="avN-V5-7H9"/>
+                            <constraint firstAttribute="trailing" secondItem="sdR-MP-GtE" secondAttribute="trailing" constant="10" id="cFs-lq-tyl"/>
+                            <constraint firstItem="yV5-nX-Hbk" firstAttribute="leading" secondItem="PcO-gI-n5G" secondAttribute="leading" constant="20" id="g8f-4q-18S"/>
+                            <constraint firstItem="9lT-jP-EFZ" firstAttribute="top" secondItem="yV5-nX-Hbk" secondAttribute="bottom" constant="15" id="iNF-ib-gNc"/>
+                            <constraint firstAttribute="trailing" secondItem="yV5-nX-Hbk" secondAttribute="trailing" constant="10" id="j2A-6t-6S7"/>
+                            <constraint firstItem="CFr-kC-2x0" firstAttribute="centerY" secondItem="dd5-Id-JnL" secondAttribute="centerY" id="wzd-XO-lnn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="PcO-gI-n5G" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3wq-MZ-VfR"/>
+                <constraint firstItem="jtj-YG-Dnx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="5YM-M7-uSI"/>
+                <constraint firstAttribute="trailing" secondItem="jtj-YG-Dnx" secondAttribute="trailing" id="BSs-Ff-5OS"/>
+                <constraint firstAttribute="bottom" secondItem="jtj-YG-Dnx" secondAttribute="bottom" id="IBI-pM-7HO"/>
+                <constraint firstAttribute="bottom" secondItem="PcO-gI-n5G" secondAttribute="bottom" id="RCA-N6-WMd"/>
+                <constraint firstAttribute="trailing" secondItem="PcO-gI-n5G" secondAttribute="trailing" id="cB1-Ae-Z2s"/>
+                <constraint firstItem="jtj-YG-Dnx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xX0-RO-I6B"/>
+            </constraints>
+            <size key="customSize" width="403" height="383"/>
+            <connections>
+                <outlet property="rpBookmark" destination="sdR-MP-GtE" id="L1G-uk-bZJ"/>
+                <outlet property="rpHeartCount" destination="CFr-kC-2x0" id="LCG-Yi-F5I"/>
+                <outlet property="rpImage" destination="jtj-YG-Dnx" id="g3z-rx-fHC"/>
+                <outlet property="rpNickName" destination="es8-hC-bVm" id="QyP-x6-u4a"/>
+                <outlet property="rpProfile" destination="9lT-jP-EFZ" id="qSI-cU-8Mh"/>
+                <outlet property="rpTitle" destination="yV5-nX-Hbk" id="Yk6-rv-k2q"/>
+            </connections>
+            <point key="canvasLocation" x="393.47826086956525" y="220.64732142857142"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
+        <image name="food1" width="552" height="548"/>
+        <image name="heart" width="42" height="35"/>
+        <image name="profile" width="160" height="162"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

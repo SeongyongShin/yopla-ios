@@ -121,6 +121,7 @@ extension LoginVC{
         }
         nextConstraint.constant = Constant.keyboardHeight! + 30
         self.buttonSV.frame.origin.y -= Constant.keyboardHeight!
+        self.buttonSV.layoutIfNeeded()
         keyboardShow = true
     }
     
@@ -141,6 +142,7 @@ extension LoginVC{
         
         nextConstraint.constant = 30
         self.buttonSV.frame.origin.y += Constant.keyboardHeight!
+        self.buttonSV.layoutIfNeeded()
         keyboardShow = false
     }
 }
