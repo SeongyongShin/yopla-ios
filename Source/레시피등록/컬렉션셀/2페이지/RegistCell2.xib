@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RegistCell2" id="gTV-IL-0wX" customClass="RegistCell2" customModule="yopla" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="367" height="743"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="367" height="743"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tTX-sh-6eR">
+                        <rect key="frame" x="0.0" y="0.0" width="367" height="371.5"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlE-bR-dwh">
+                        <rect key="frame" x="0.0" y="371.5" width="367" height="1"/>
+                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Bt9-fO-UEN"/>
+                        </constraints>
+                    </view>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#레시피 태그 설정" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HHg-8F-4Pc">
+                        <rect key="frame" x="0.0" y="372.5" width="367" height="52"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bh2-iX-Hii">
+                        <rect key="frame" x="0.0" y="424.5" width="367" height="1"/>
+                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="57O-x6-fT8"/>
+                        </constraints>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="iJc-K6-dBY">
+                        <rect key="frame" x="20" y="435.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="Qqe-Sy-P6H"/>
+                            <constraint firstAttribute="height" constant="30" id="vuY-MU-2D6"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="THd-ZV-xgw">
+                        <rect key="frame" x="168.5" y="435.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="7Ao-3o-U8X"/>
+                            <constraint firstAttribute="width" constant="30" id="sYe-Nt-34J"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54A-fz-mky" customClass="BaseButton" customModule="yopla" customModuleProvider="target">
+                        <rect key="frame" x="60" y="436.5" width="78.5" height="28"/>
+                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <menu key="menu" id="pR7-VH-DAA">
+                            <children>
+                                <command title="Item 1" id="gQA-hq-zf4" userLabel="item1"/>
+                                <command title="Item 2" id="oTD-0f-6ve" userLabel="item2"/>
+                            </children>
+                        </menu>
+                        <state key="normal" title="한식"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99k-zU-rBA" customClass="BaseButton" customModule="yopla" customModuleProvider="target">
+                        <rect key="frame" x="208.5" y="436.5" width="138.5" height="28"/>
+                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <menu key="menu" id="z5y-uP-tcu">
+                            <children>
+                                <command title="Item 1" id="5s9-HZ-zbE"/>
+                                <command title="Item 2" id="cvO-dw-23q"/>
+                            </children>
+                        </menu>
+                        <state key="normal" title="정성을 들인 요리"/>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RKH-Yh-JuD">
+                        <rect key="frame" x="0.0" y="475.5" width="367" height="1"/>
+                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="5S6-sd-ada"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7W-sd-hXS" customClass="BaseButton" customModule="yopla" customModuleProvider="target">
+                        <rect key="frame" x="20" y="526.5" width="327" height="52"/>
+                        <color key="backgroundColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="레시피 내용 작성하기"/>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="THd-ZV-xgw" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="1S5-Ot-jG0"/>
+                <constraint firstItem="Bh2-iX-Hii" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2pB-d0-Ozf"/>
+                <constraint firstAttribute="trailing" secondItem="q7W-sd-hXS" secondAttribute="trailing" constant="20" id="5yH-Jf-6EI"/>
+                <constraint firstItem="iJc-K6-dBY" firstAttribute="top" secondItem="Bh2-iX-Hii" secondAttribute="bottom" constant="10" id="6tV-44-IkM"/>
+                <constraint firstAttribute="trailing" secondItem="tTX-sh-6eR" secondAttribute="trailing" id="8AH-ir-Jc2"/>
+                <constraint firstItem="99k-zU-rBA" firstAttribute="leading" secondItem="THd-ZV-xgw" secondAttribute="trailing" constant="10" id="8d9-Ov-Nmx"/>
+                <constraint firstItem="tTX-sh-6eR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9YV-bX-IPD"/>
+                <constraint firstItem="tlE-bR-dwh" firstAttribute="top" secondItem="tTX-sh-6eR" secondAttribute="bottom" id="AAc-wi-iOJ"/>
+                <constraint firstItem="HHg-8F-4Pc" firstAttribute="top" secondItem="tlE-bR-dwh" secondAttribute="bottom" id="CNW-bN-vGj"/>
+                <constraint firstItem="q7W-sd-hXS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="E6L-ET-6df"/>
+                <constraint firstItem="q7W-sd-hXS" firstAttribute="top" secondItem="RKH-Yh-JuD" secondAttribute="bottom" constant="50" id="FXz-o4-syU"/>
+                <constraint firstItem="HHg-8F-4Pc" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.07" id="FYh-yS-jsT"/>
+                <constraint firstItem="tTX-sh-6eR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="GhJ-0M-ahW"/>
+                <constraint firstItem="RKH-Yh-JuD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KA8-Al-epQ"/>
+                <constraint firstAttribute="trailing" secondItem="RKH-Yh-JuD" secondAttribute="trailing" id="KbB-B4-aMx"/>
+                <constraint firstItem="THd-ZV-xgw" firstAttribute="leading" secondItem="54A-fz-mky" secondAttribute="trailing" constant="30" id="Np3-4p-vhN"/>
+                <constraint firstItem="54A-fz-mky" firstAttribute="centerY" secondItem="iJc-K6-dBY" secondAttribute="centerY" id="OEl-nv-uJV"/>
+                <constraint firstAttribute="trailing" secondItem="99k-zU-rBA" secondAttribute="trailing" constant="20" id="RkZ-Kv-EBj"/>
+                <constraint firstItem="iJc-K6-dBY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="Tk2-Vh-AGy"/>
+                <constraint firstAttribute="trailing" secondItem="tlE-bR-dwh" secondAttribute="trailing" id="Ue6-o2-upg"/>
+                <constraint firstAttribute="trailing" secondItem="Bh2-iX-Hii" secondAttribute="trailing" id="W8I-82-9M0"/>
+                <constraint firstAttribute="trailing" secondItem="HHg-8F-4Pc" secondAttribute="trailing" id="eMj-GE-fU3"/>
+                <constraint firstItem="HHg-8F-4Pc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="eUe-5d-367"/>
+                <constraint firstItem="54A-fz-mky" firstAttribute="leading" secondItem="iJc-K6-dBY" secondAttribute="trailing" constant="10" id="fmr-4P-gBX"/>
+                <constraint firstItem="q7W-sd-hXS" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.07" id="gPA-vB-oyx"/>
+                <constraint firstItem="tlE-bR-dwh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="inO-3M-gfI"/>
+                <constraint firstItem="99k-zU-rBA" firstAttribute="centerY" secondItem="THd-ZV-xgw" secondAttribute="centerY" id="iwQ-Ze-0hv"/>
+                <constraint firstItem="THd-ZV-xgw" firstAttribute="centerY" secondItem="iJc-K6-dBY" secondAttribute="centerY" id="ksn-Ft-hQh"/>
+                <constraint firstItem="Bh2-iX-Hii" firstAttribute="top" secondItem="HHg-8F-4Pc" secondAttribute="bottom" id="nfb-kB-K1p"/>
+                <constraint firstItem="tTX-sh-6eR" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.5" id="q4C-Zt-TdT"/>
+                <constraint firstItem="RKH-Yh-JuD" firstAttribute="top" secondItem="THd-ZV-xgw" secondAttribute="bottom" constant="10" id="w8H-79-Gs0"/>
+            </constraints>
+            <size key="customSize" width="367" height="743"/>
+            <connections>
+                <outlet property="categoryBtn1" destination="54A-fz-mky" id="u3n-l4-jes"/>
+                <outlet property="categoryBtn2" destination="99k-zU-rBA" id="dQp-ql-8hc"/>
+                <outlet property="imageView" destination="tTX-sh-6eR" id="r2a-gy-M1x"/>
+                <outlet property="nextBtn" destination="q7W-sd-hXS" id="Ifr-pq-CIU"/>
+            </connections>
+            <point key="canvasLocation" x="364.49275362318843" y="311.71875"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="profile" width="160" height="162"/>
+    </resources>
+</document>

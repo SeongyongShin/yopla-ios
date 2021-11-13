@@ -8,6 +8,7 @@
 import UIKit
 
 class LoginVC: BaseViewController{
+    lazy var logInDataManager: PostSignInDataManager = PostSignInDataManager()
     
     @IBOutlet weak var backSV: UIStackView!
     @IBOutlet weak var leftImage: UIImageView!
@@ -17,6 +18,10 @@ class LoginVC: BaseViewController{
     @IBOutlet weak var buttonSV: UIStackView!
     @IBOutlet weak var findSV: UIStackView!
     @IBOutlet weak var nextConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var passwordTF: UITextField!
+    
     var keyboardShow = false
     
     override func viewDidLoad() {
@@ -80,7 +85,11 @@ extension LoginVC{
     
     @IBAction func logInPressed(_ sender: Any) {
         //메인화면 이동
-        makeRootVC("Main")
+//        if emailTF.text != "" && passwordTF.text != ""{
+//            logInDataManager.postSignIn(PostSignInRequest(loginId: emailTF.text!, password: passwordTF.text!), delegate: self)
+//        }
+        
+            makeRootVC("Main")
     }
 
 }
@@ -144,5 +153,17 @@ extension LoginVC{
         self.buttonSV.frame.origin.y += Constant.keyboardHeight!
         self.buttonSV.layoutIfNeeded()
         keyboardShow = false
+    }
+}
+// MARK: 로그인 api 리턴
+extension LoginVC{
+    // 로그인 성공
+    func didSuccessSignIn(result: PostSignInResult){
+//        self.presentBottomAlert(message: "로그인 성공")
+        makeRootVC("Main")
+    }
+    // 로그인 실패
+    func failedToRequest(message: String){
+        self.presentAlert(title: message)
     }
 }

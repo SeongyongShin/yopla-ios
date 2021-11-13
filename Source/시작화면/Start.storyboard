@@ -171,6 +171,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="중복 확인"/>
+                                                                <connections>
+                                                                    <action selector="confirmEmailValid:" destination="NqB-U0-cBk" eventType="touchUpInside" id="5Zn-u1-o9j"/>
+                                                                </connections>
                                                             </button>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이메일을 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b6R-E3-IkO">
                                                                 <rect key="frame" x="109.5" y="143.5" width="195" height="27"/>
@@ -267,6 +270,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="인증번호 발송"/>
+                                                                <connections>
+                                                                    <action selector="verifyPhoneNumber:" destination="NqB-U0-cBk" eventType="touchUpInside" id="bfT-Zw-AKu"/>
+                                                                </connections>
                                                             </button>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="- 빼고 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kux-4P-06Z">
                                                                 <rect key="frame" x="116.5" y="112" width="190.5" height="27"/>
@@ -282,6 +288,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="인증번호 확인"/>
+                                                                <connections>
+                                                                    <action selector="confirmVerifyPhoneNumber:" destination="NqB-U0-cBk" eventType="touchUpInside" id="LC6-qu-4se"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -507,6 +516,12 @@
                         <outlet property="emailValidBtn" destination="2sd-99-wXO" id="Ct0-gs-aYh"/>
                         <outlet property="nextBtn" destination="ID3-z4-gcW" id="sJs-Cz-i8c"/>
                         <outlet property="nextConstraint" destination="ped-ir-HG2" id="qw1-T6-JIx"/>
+                        <outlet property="nickNameTF" destination="1rH-8h-mPq" id="tfJ-CW-GR6"/>
+                        <outlet property="passwordConfirmTF" destination="0re-Kx-jZD" id="14J-F4-700"/>
+                        <outlet property="passwordTF" destination="Sa7-gh-s4g" id="FYk-PY-P2d"/>
+                        <outlet property="phoneCodeTF" destination="Cvb-c0-ovx" id="Zmo-zF-V22"/>
+                        <outlet property="phoneNumberTF" destination="Kux-4P-06Z" id="qHt-6n-mQP"/>
+                        <outlet property="profileImage" destination="dCP-Ki-Dds" id="7xw-jG-E0F"/>
                         <outlet property="registScroll" destination="g3b-YG-Vyf" id="R8C-Y3-Za5"/>
                         <segue destination="7gp-ql-OnY" kind="unwind" identifier="goHomeFromRegist" unwindAction="unwindToStart:" id="VMk-0f-iwb"/>
                     </connections>
@@ -666,12 +681,14 @@
                     <connections>
                         <outlet property="backSV" destination="Ohd-bg-2cC" id="Jf4-jT-8Vx"/>
                         <outlet property="buttonSV" destination="suK-IJ-PTi" id="TLb-Zh-i7Y"/>
+                        <outlet property="emailTF" destination="rx8-JO-iEo" id="Px8-xs-1Lt"/>
                         <outlet property="findLabel" destination="ngx-Zm-HjW" id="40n-wF-s95"/>
                         <outlet property="findSV" destination="OXP-Ng-aEK" id="Hha-yq-rYv"/>
                         <outlet property="homeLabel" destination="lei-To-3zR" id="i6F-CN-j2l"/>
                         <outlet property="leftImage" destination="suO-MO-ZjG" id="eB6-5U-bDa"/>
                         <outlet property="loginBtn" destination="pwC-8Y-phr" id="Bbt-K1-EPP"/>
                         <outlet property="nextConstraint" destination="Gfu-1R-MOH" id="8HW-2W-2Uh"/>
+                        <outlet property="passwordTF" destination="I2r-kw-aah" id="AbZ-UV-Ejs"/>
                         <segue destination="8Xv-dj-EWr" kind="unwind" identifier="goHomeFromLogin" unwindAction="unwindToStart:" id="bHA-Xi-jCF"/>
                     </connections>
                 </viewController>

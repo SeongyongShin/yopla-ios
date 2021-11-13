@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 struct Constant{
+    static let BASE_URL = "https://freeman-service.com"
     static let BASE_CORNER_RADIUS = CGFloat(5.0)
     static var keyboardHeight: CGFloat?
+    
 }

@@ -8,14 +8,21 @@
 import UIKit
 
 class MainVC: BaseViewController {
-
+    @IBOutlet weak var registRecipeBtn: RoundButton1!
+    
     @IBOutlet weak var commonRecipe: UILabel!
     @IBOutlet weak var personRecipe: UILabel!
     @IBOutlet weak var recipeIndicator: UIView!
     @IBOutlet weak var recipeIndicatorConstant: NSLayoutConstraint!
     @IBOutlet weak var adBannerCV: UICollectionView!
     @IBOutlet weak var categoryCV: UICollectionView!
+    @IBOutlet weak var popularCV: UICollectionView!
+    @IBOutlet weak var recommandCV: UICollectionView!
     @IBOutlet weak var shortRPCV: UICollectionView!
+    @IBOutlet weak var shortViewConstant: NSLayoutConstraint!
+    @IBOutlet weak var popularCVConstant: NSLayoutConstraint!
+    @IBOutlet weak var popularCVTopConstant: NSLayoutConstraint!
+    @IBOutlet weak var recommandCVConstant: NSLayoutConstraint!
     var current_tab = 0
     var category_list = ["한식", "양식", "일-중식", "아시안", "후식", "베이커리", "카페", "주류", "비건", "다이어트"]
     
@@ -26,6 +33,8 @@ class MainVC: BaseViewController {
         
         // 컬렉션뷰 잡아주기
         setCV()
+        
+        setComponent()
     }
 
 }
@@ -50,9 +59,20 @@ extension MainVC{
     // 라벨 터치 시 호출함수
     @objc func changeView(_ sender: UITapGestureRecognizer){
         if sender.view?.tag == 0 && current_tab != 0{
+            UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
             changeViewSubFunc(sender.view!.tag, labelEnabled: true, indicatorX: 0)
+            shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.01)
+            popularCVTopConstant.constant = -10
+            shortRPCV.isHidden = true
+//            self.layoutIfNeeded()
+            
         }else if sender.view?.tag == 1 && current_tab != 1{
+            UserDefaults.standard.set(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
             changeViewSubFunc(sender.view!.tag, labelEnabled: false, indicatorX: recipeIndicator.frame.width)
+            popularCVTopConstant.constant = 30
+            shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.4)
+            shortRPCV.isHidden = false
+//            self.layoutIfNeeded()
         }
     }
     
@@ -78,7 +98,26 @@ extension MainVC{
         categoryCV.delegate = self
         shortRPCV.dataSource = self
         shortRPCV.delegate = self
+        shortRPCV.clipsToBounds = false
+        popularCV.dataSource = self
+        popularCV.delegate = self
+        recommandCV.dataSource = self
+        recommandCV.delegate = self
+        popularCVTopConstant.constant = -10
+        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         shortRPCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
+        popularCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
+        recommandCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
+        popularCVConstant.constant = (popularCV.frame.width / 2) * 4
+        recommandCVConstant.constant = (recommandCV.frame.width / 2) * 4
+        shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.01)
+        shortRPCV.isHidden = true
+        popularCV.layoutIfNeeded()
+        self.view.layoutIfNeeded()
+    }
+    
+    func setComponent(){
+        self.registRecipeBtn.backgroundColor = .mainHotPink
     }
 }
 
@@ -98,6 +137,10 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     // 셀 크기 화면 꽉차게
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         sizeOfCell(collectionView)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
     //광고뷰 셀 중앙정렬
@@ -125,10 +168,15 @@ extension MainVC{
         // 레시피 카테고리
         else if tag == 1{
             return 10
-        }else if tag == 2{
+        }
+        // 숏 레시피
+        else if tag == 2{
             return 5
         }
-        return 1
+        // 인기 레시피
+        else{
+            return 8
+        }
     }
     
     //광고 셀 반환
@@ -142,8 +190,13 @@ extension MainVC{
             cell.categoryImage.image = UIImage(named: "\(indexPath.item + 1)c")
             cell.categoryLabel.text = "\(category_list[indexPath.item])"
             return cell
+        }else if collectionView.tag == 2{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeProfile", for: indexPath) as! RecipeProfileCell
+            return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeProfile", for: indexPath) as! RecipeProfileCell
+            cell.smallMode()
+            cell.layoutIfNeeded()
             return cell
         }
     }
@@ -155,12 +208,19 @@ extension MainVC{
             return CGSize(width: collectionView.frame.width , height: collectionView.frame.height)
         }else if collectionView.tag == 1{
             return CGSize(width: collectionView.frame.width / 8 , height: collectionView.frame.height)
-        }else{
+        }else if collectionView.tag == 2{
             var height1 = collectionView.frame.height
             if collectionView.frame.height > collectionView.frame.width{
                 height1 = collectionView.frame.width
             }
             return CGSize(width: height1, height: height1)
+        }else{
+            return CGSize(width: (collectionView.frame.width / 2) - 5, height: (collectionView.frame.width / 2) - 5)
         }
+    }
+}
+
+extension MainVC{
+    @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
     }
 }
