@@ -7,10 +7,10 @@
 import UIKit
 
 struct PostSignUpRequest :Encodable{
-    var loginID: String?
+    var loginId: String?
     var password: String?
     var nickname: String?
     var email: String?
     var phoneNumber: String?
-    var profileImage: Data?
+    var profileImageUrl: String?
 }

@@ -9,15 +9,17 @@ import UIKit
 
 class RegistVC: BaseViewController {
     var signUpRequest = PostSignUpRequest()
-    
+    var hasProfileImage = false
     var email_valid = false
     var phone_number_valid = false
     var phone_valid = false
     var nickName_valid = false
     var phoneCodeId: Int?
     var phoneCodeNum: Int?
+    
     let imagePickerController = UIImagePickerController()
     @IBOutlet weak var profileImage: RoundImageView1!
+    lazy var AWSNetworkManager: AWSDataManager = AWSDataManager()
     lazy var duplicationDataManager: GetDuplicationDataManager = GetDuplicationDataManager()
     lazy var verifyPhoneNumberDataManager: GetVerifyPhoneNumberDataManager = GetVerifyPhoneNumberDataManager()
     lazy var signUpDataManager: PostSignUpDataManager = PostSignUpDataManager()
@@ -229,11 +231,23 @@ extension RegistVC{
                 return
             }
         }else if currentPage == 2{
-            signUpRequest.nickname = self.nickNameTF.text ?? "test\(Int.random(in: 0...9999))"
-            signUpRequest.profileImage = self.profileImage.image!.jpegData(compressionQuality: 0.2)!
-            if self.signUpRequest.phoneNumber != nil && self.signUpRequest.email != nil && self.signUpRequest.nickname != nil && self.signUpRequest.loginID != nil{
-                self.signUpDataManager.postSignUp(signUpRequest, delegate: self)
+            self.signUpRequest.nickname = self.nickNameTF.text ?? "tester\(Int.random(in: 0...99999))"
+            if hasProfileImage{
+                let req = AWSNetworkManager.uploadImage(image: profileImage.image!)
+                req.done{
+                    url in
+                    print("succed: ", url)
+                    self.signUpRequest.profileImageUrl = "\(url)"
+                    self.goSignUp()
+                }.catch{
+                        error in
+                    print("error: ", error.localizedDescription)
+                }
+            }else{
+                self.goSignUp()
             }
+            
+
         }
         
         if currentPage < 2{
@@ -271,7 +285,7 @@ extension RegistVC{
         self.presentBottomAlert(message: "사용가능한 이메일입니다.")
         email_valid = true
         self.signUpRequest.email = self.emailTF.text
-        self.signUpRequest.loginID = self.emailTF.text
+        self.signUpRequest.loginId = self.emailTF.text
     }
     func didfailedEmail(){
         self.emailValidBtn.backgroundColor = .white
@@ -299,7 +313,7 @@ extension RegistVC{
     
     
     // 회원가입 성공
-    func didSuccessSignUp(result: PostSignUpResult){
+    func didSuccessSignUp(result: PostSignUpResult?){
         self.presentBottomAlert(message: "회원가입 성공")
     }
     // 회원가입 실패
@@ -319,8 +333,17 @@ extension RegistVC: UIImagePickerControllerDelegate & UINavigationControllerDele
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let image = info[UIImagePickerController.InfoKey.originalImage]{
             profileImage.image = (image as! UIImage)
+            self.hasProfileImage = true
         }
         dismiss(animated: true, completion: nil)
-        
+    }
+}
+
+extension RegistVC{
+    func goSignUp(){
+        signUpRequest.nickname = self.nickNameTF.text ?? "test\(Int.random(in: 0...9999))"
+        if self.signUpRequest.phoneNumber != nil && self.signUpRequest.email != nil && self.signUpRequest.nickname != nil && self.signUpRequest.loginId != nil{
+            self.signUpDataManager.postSignUp(signUpRequest, delegate: self)
+        }
     }
 }

@@ -9,7 +9,7 @@ struct PostSignUpResponse: Decodable {
     var isSuccess: Bool
     var code: Int
     var message: String
-    var result : PostSignUpResult
+    var result : PostSignUpResult?
 }
 
 struct PostSignUpResult: Decodable{

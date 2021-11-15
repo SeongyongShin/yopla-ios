@@ -6,7 +6,9 @@
 //
 
 import UIKit
-
+import CoreData
+import AWSS3
+import AWSCore
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,7 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().backgroundColor = .clear
 //        UINavigationBar.appearance().isTranslucent = true
+        let PoolId = Bundle.main.object(forInfoDictionaryKey: "AWSPoolId") as! String
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.APNortheast2,
+           identityPoolId:PoolId )
 
+        let configuration = AWSServiceConfiguration(region:.APNortheast2, credentialsProvider:credentialsProvider)
+
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
         return true
     }
 
