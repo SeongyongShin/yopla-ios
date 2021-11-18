@@ -9,8 +9,11 @@ import UIKit
 import AVFoundation
 
 class RegistRecipeVC: BaseViewController {
+    @IBOutlet weak var homeBtn: UIButton!
+    @IBOutlet weak var homeImage: UIImageView!
+    @IBOutlet weak var topbar: UIView!
+    @IBOutlet weak var topbar2: UIView!
     var thumbImage: UIImage = UIImage()
-    
     var keyboardHeight:CGFloat = 0
     var keyboardShow = false
     let max_page = 2
@@ -19,7 +22,14 @@ class RegistRecipeVC: BaseViewController {
         super.viewDidLoad()
         setComponent()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        if Constant.viewFromDetail{
+            self.performSegue(withIdentifier: "goToMainFromThumNail", sender: self)
+            Constant.viewFromDetail = false
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
+
         // 키보드리스너 추가
         self.addKeyboardNotifications()
         
@@ -35,7 +45,10 @@ class RegistRecipeVC: BaseViewController {
 //MARK: 컴포넌트 설정
 extension RegistRecipeVC{
     func setComponent(){
-        
+        self.topbar.backgroundColor = .white
+        self.topbar2.backgroundColor = .white
+        self.homeBtn.isHidden = true
+        self.homeImage.isHidden = true
         for i in 1...2{
             registCV.register(UINib(nibName: "RegistCell\(i)", bundle: nil), forCellWithReuseIdentifier: "RegistCell\(i)")
         }
@@ -51,6 +64,7 @@ extension RegistRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegistCell\(indexPath.item + 1)", for: indexPath)
         if indexPath.item == 0{
             let cell = cell as! RegistCell1
@@ -69,6 +83,28 @@ extension RegistRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         if indexPath.item == 1{
             let cell = cell as! RegistCell2
             cell.imageView.image = self.thumbImage
+            self.topbar.backgroundColor = .mainBackground
+            self.topbar2.backgroundColor = .mainBackground
+            self.homeBtn.isHidden = false
+            self.homeImage.isHidden = false
+        }else{
+            self.topbar.backgroundColor = .white
+            self.topbar2.backgroundColor = .white
+            self.homeBtn.isHidden = true
+            self.homeImage.isHidden = true
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == 0{
+            self.topbar.backgroundColor = .mainBackground
+            self.topbar2.backgroundColor = .mainBackground
+            self.homeBtn.isHidden = false
+            self.homeImage.isHidden = false
+        }else{
+            self.topbar.backgroundColor = .white
+            self.topbar2.backgroundColor = .white
+            self.homeBtn.isHidden = true
+            self.homeImage.isHidden = true
         }
     }
     // 셀 크기 화면 꽉차게
@@ -148,5 +184,16 @@ extension RegistRecipeVC: CellDelegate{
     
     func getImageInfo()->UIImage{
         return thumbImage
+    }
+    
+    func goToDetail(){
+        self.performSegue(withIdentifier: "goToRegistRecipe", sender: self)
+    }
+}
+
+extension RegistRecipeVC{
+    
+    @IBAction func unwindToThumnail(_ sender: UIStoryboardSegue) {
+        
     }
 }

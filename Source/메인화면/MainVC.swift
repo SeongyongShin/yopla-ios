@@ -36,7 +36,12 @@ class MainVC: BaseViewController {
         
         setComponent()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        Constant.videoUrls.removeAll()
+        Constant.registThumbNail = nil
+        Constant.registDetail.removeAll()
+        Constant.registId = nil
+    }
 }
 
 //MARK: 라벨 터치 타겟 설정

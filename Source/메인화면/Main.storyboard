@@ -502,7 +502,7 @@
                             <constraint firstItem="0fZ-Yn-9qd" firstAttribute="leading" secondItem="e2i-lb-ALu" secondAttribute="leading" id="xlq-G3-lOv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="EaE-iW-cg4"/>
+                    <navigationItem key="navigationItem" id="S2p-gO-8KI"/>
                     <connections>
                         <outlet property="adBannerCV" destination="3yD-di-nWf" id="IoK-fC-Qe7"/>
                         <outlet property="categoryCV" destination="TO6-nz-97R" id="Ror-a8-A0a"/>
@@ -523,7 +523,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vDp-yP-Uzt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1392.753623188406" y="-650.22321428571422"/>
+            <point key="canvasLocation" x="2302.898550724638" y="-650.22321428571422"/>
         </scene>
         <!--RecipeDetail-->
         <scene sceneID="3xp-Ro-4CC">
@@ -533,7 +533,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZc-GH-yNx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2469" y="-856"/>
+            <point key="canvasLocation" x="3378.985507246377" y="-856.47321428571422"/>
         </scene>
         <!--RegistRecipe-->
         <scene sceneID="dRJ-RO-nzq">
@@ -543,7 +543,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lcy-H9-7fI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2462" y="-711"/>
+            <point key="canvasLocation" x="3371.0144927536235" y="-711.16071428571422"/>
         </scene>
         <!--SearchRecipe-->
         <scene sceneID="lMB-ya-f6y">
@@ -553,7 +553,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oG-J6-kRL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2464" y="-789"/>
+            <point key="canvasLocation" x="3373.1884057971015" y="-789.50892857142856"/>
         </scene>
     </scenes>
     <resources>

@@ -91,6 +91,9 @@
                         <color key="backgroundColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="레시피 내용 작성하기"/>
+                        <connections>
+                            <action selector="goToDetail:" destination="gTV-IL-0wX" eventType="touchUpInside" id="5P5-Fj-iuM"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

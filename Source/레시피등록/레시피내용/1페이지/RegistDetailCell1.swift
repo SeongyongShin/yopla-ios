@@ -1,53 +1,90 @@
 //
-//  RegistCell1.swift
+//  RegistDetailCell1.swift
 //  yopla
 //
-//  Created by 신성용 on 2021/11/11.
+//  Created by 신성용 on 2021/11/15.
 //
 
 import UIKit
 import Photos
 
-class RegistCell1: UICollectionViewCell {
-
+class RegistDetailCell1: UICollectionViewCell {
+    var videoCount = 0
+    var contentType = "video"
+    var currentDetailPage = 0
+    @IBOutlet weak var thumnailV: UIView!
+    @IBOutlet weak var thumNailLabel: UILabel!
     @IBOutlet weak var thumbNailIV: UIImageView!
-    @IBOutlet weak var myGalleryCV: UICollectionView!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     var fetchResult: PHFetchResult<PHAsset>?
-    var delegate : CellDelegate?
+    var delegate : RegistRecipeDetailCellDelegate?
+    var documentDirectory: String?
+    lazy var awsDataManager: AWSDataManager = AWSDataManager()
+    
+    @IBOutlet weak var myGalleryCV: UICollectionView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        myGalleryCV.register(UINib(nibName: "RegistCell1_1", bundle: nil), forCellWithReuseIdentifier: "RegistCell1_1")
+        Constant.videoUrls.removeAll()
+        myGalleryCV.register(UINib(nibName: "RegistRecipeImageCell", bundle: nil), forCellWithReuseIdentifier: "RegistRecipeImageCell")
+        myGalleryCV.register(UINib(nibName: "RegistRecipeVideoCell", bundle: nil), forCellWithReuseIdentifier: "RegistRecipeVideoCell")
         myGalleryCV.dataSource = self
         myGalleryCV.delegate = self
         requestPhotosPermission()
         checkCameraPermission()
+        documentDirectory = NSSearchPathForDirectoriesInDomains(.picturesDirectory, .userDomainMask, true).first
     }
 
 }
 
-extension RegistCell1: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension RegistDetailCell1: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegistCell1_1", for: indexPath) as! RegistCell1_1
-        
+//        print("here")
         guard let asset: PHAsset = self.fetchResult?.object(at: indexPath.row) else {
+            return UICollectionViewCell()
+        }
+        
+        if asset.mediaType.rawValue == 1{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegistRecipeImageCell", for: indexPath) as! RegistRecipeImageCell
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: cell.frame.width, height: cell.frame.height), contentMode: .aspectFill, options: nil) {
+                image, _ in
+                cell.myImage?.image = image
+            }
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegistRecipeVideoCell", for: indexPath) as! RegistRecipeVideoCell
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: cell.frame.width, height: cell.frame.height), contentMode: .aspectFill, options: nil) {
+                image, _ in
+                cell.myImage?.image = image
+            }
+            asset.getURL()
+            cell.tag = videoCount + 1
+            videoCount += 1
             return cell
         }
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: cell.frame.width, height: cell.frame.height), contentMode: .aspectFill, options: nil) {
-            image, _ in
-            cell.myImage?.image = image
-        }
-        return cell
+
     }
     // 셀 크기 화면 꽉차게
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/3 , height: collectionView.frame.height/2.5)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("here")
+        var tempurl: URL? = nil
+        if let tags = collectionView.cellForItem(at: indexPath)?.tag{
+            if tags > 0{
+                print(Constant.videoUrls[tags-1])
+                self.contentType = "video"
+                tempurl = Constant.videoUrls[tags-1]
+            }else{
+                self.contentType = "image"
+            }
+
+        }
+        
         guard let asset: PHAsset = self.fetchResult?.object(at: indexPath.row) else {
             return
         }
@@ -56,6 +93,7 @@ extension RegistCell1: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             self.thumbNailIV.image = image
             self.thumbNailIV.alpha = 1
             self.delegate?.setimageInfo(image: image!)
+            self.delegate?.setTempDetail(title: nil, content: nil,type: self.contentType, ingredient: nil, image: image, videoURL: tempurl)
         }
     }
     
@@ -63,7 +101,7 @@ extension RegistCell1: UICollectionViewDelegate, UICollectionViewDataSource, UIC
 
 
 //MARK: 사진 바로 띄우기 허가
-extension RegistCell1{
+extension RegistDetailCell1{
     private func requestPhotosPermission() {
             let photoAuthorizationStatusStatus = PHPhotoLibrary.authorizationStatus()
 
@@ -106,10 +144,11 @@ extension RegistCell1{
 
             let fetchOption = PHFetchOptions()
             fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-
             self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOption)
-
+        
             OperationQueue.main.addOperation {
+                Constant.videoUrls.removeAll()
+                self.videoCount = 0
                 self.myGalleryCV.reloadData()
             }
         
@@ -122,5 +161,11 @@ extension RegistCell1{
                print("Camera: 권한 거부")
            }
        })
+    }
+}
+extension RegistDetailCell1{
+    func clear(){
+        self.thumbNailIV.image = UIImage()
+        self.thumNailLabel.isHidden = false
     }
 }

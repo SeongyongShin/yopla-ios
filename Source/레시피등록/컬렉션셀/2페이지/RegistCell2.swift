@@ -8,6 +8,7 @@
 import UIKit
 
 class RegistCell2: UICollectionViewCell{
+    var keyboardShowed = false
     let test_category = ["한식","중식","양식","기타"]
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nextBtn: BaseButton!
@@ -42,5 +43,8 @@ class RegistCell2: UICollectionViewCell{
     // 외부 터치 시 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.contentView.endEditing(true)
+    }
+    @IBAction func goToDetail(_ sender: Any) {
+        self.delegate?.goToDetail()
     }
 }

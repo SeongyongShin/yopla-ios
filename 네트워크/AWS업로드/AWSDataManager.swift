@@ -41,7 +41,7 @@ class AWSDataManager{
             
         }
     }
-    @available(iOS, deprecated: 13.0)
+//    @available(iOS, deprecated: 13.0)
     func uploadVideo(with resource: URL)->Promise<URL> {
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.APNortheast2,
                                                                 identityPoolId:"ap-northeast-2:666ae0e2-ad51-4e40-b734-74eecf0b0a98c")
@@ -50,7 +50,7 @@ class AWSDataManager{
         
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         s3Url = AWSS3.default().configuration.endpoint.url
-            let key = "\(resource)"
+        let key = "\(UUID().uuidString)\(resource)"
             let localImageUrl = resource
             let request = AWSS3TransferManagerUploadRequest()!
             request.bucket = self.bucketName
