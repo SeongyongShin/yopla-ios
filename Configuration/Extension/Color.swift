@@ -14,6 +14,8 @@ extension UIColor {
         assert(blue >= 0 && blue <= 255, "Invalid blue component")
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
     }
+    class var gradient1: UIColor{UIColor(red:252, green: 176, blue: 142)}
+    class var gradient2: UIColor{UIColor(red:252, green: 100, blue: 111)}
     class var buttonPink:UIColor{UIColor(red:253, green: 107, blue: 123)}
     class var mainHotPink: UIColor{UIColor(red:240, green: 117, blue: 114)}
     class var mainBackground: UIColor{UIColor(red:255, green: 242, blue: 239)}

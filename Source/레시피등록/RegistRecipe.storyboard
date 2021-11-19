@@ -213,6 +213,32 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <view contentMode="scaleToFill" id="1yp-mZ-IK4" userLabel="로딩뷰">
+                                <rect key="frame" x="0.0" y="98" width="414" height="732"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="wUh-Sg-ze3">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="732"/>
+                                        <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="color" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등록 중입니다. 잠시만 기다려주세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTB-Yy-0yV">
+                                        <rect key="frame" x="88" y="406" width="238" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wUh-Sg-ze3" secondAttribute="trailing" id="5aZ-W1-wBs"/>
+                                    <constraint firstItem="fTB-Yy-0yV" firstAttribute="centerY" secondItem="wUh-Sg-ze3" secondAttribute="centerY" constant="50" id="GdQ-Pw-rVS"/>
+                                    <constraint firstAttribute="bottom" secondItem="wUh-Sg-ze3" secondAttribute="bottom" id="PqK-A8-h1C"/>
+                                    <constraint firstItem="wUh-Sg-ze3" firstAttribute="leading" secondItem="1yp-mZ-IK4" secondAttribute="leading" id="cXt-Sv-t7t"/>
+                                    <constraint firstItem="wUh-Sg-ze3" firstAttribute="top" secondItem="1yp-mZ-IK4" secondAttribute="top" id="lTv-3k-jBL"/>
+                                    <constraint firstItem="fTB-Yy-0yV" firstAttribute="centerX" secondItem="wUh-Sg-ze3" secondAttribute="centerX" id="xsl-rn-9FG"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IWq-ym-4yQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -233,8 +259,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="gDj-6F-bBc"/>
                     <connections>
+                        <outlet property="activityView" destination="wUh-Sg-ze3" id="f3z-1k-jGV"/>
                         <outlet property="homeBtn" destination="B1w-ir-a4e" id="hh7-xA-gTb"/>
                         <outlet property="homeImage" destination="l2N-So-x2O" id="PTk-Rq-3Yh"/>
+                        <outlet property="loadingLabel" destination="fTB-Yy-0yV" id="Lya-iO-rKP"/>
+                        <outlet property="loadingView" destination="1yp-mZ-IK4" id="SVi-xF-iGF"/>
                         <outlet property="minusBtn" destination="bEX-bY-PXm" id="MKc-L3-BHT"/>
                         <outlet property="minusImage" destination="bLG-uo-gG0" id="ofT-kn-Yh9"/>
                         <outlet property="registDetailCV" destination="sfF-sU-i6P" id="I5b-rM-JJD"/>

@@ -11,8 +11,8 @@ import Alamofire
 class PostThumbNailDataManager{
     
     // 썸네일 등록
-    func postThumbNail(_ parameters: PostThumbNailRequest, delegate: LoginVC) {
-        AF.request("\(Constant.BASE_URL)/app/users/recipes", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+    func postThumbNail(_ parameters: PostThumbNailRequest, delegate: RegistRecipeDetailVC) {
+        AF.request("\(Constant.BASE_URL)/app/users/recipes", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: PostThumbNailResponse.self) { response in
                 switch response.result {
@@ -20,7 +20,7 @@ class PostThumbNailDataManager{
                     // 성공했을 때
                     print(response)
                     if response.isSuccess{
-//                        delegate.didSuccessSignIn(result: response.result)
+                        delegate.didSuccessRegistthumbNail(result: response.result)
                     }
                     // 실패했을 때
                     else {
@@ -33,6 +33,7 @@ class PostThumbNailDataManager{
                         }
                     }
                 case .failure(let error):
+                    print(response)
                     print(error.localizedDescription)
                 }
             }

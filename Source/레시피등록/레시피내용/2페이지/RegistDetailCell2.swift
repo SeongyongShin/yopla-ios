@@ -18,13 +18,14 @@ class RegistDetailCell2: UICollectionViewCell {
     @IBOutlet weak var nextBtn: BaseButton!
     @IBOutlet weak var prevBtn: BaseButton!
     var delegate: RegistRecipeDetailCellDelegate?
+//    var imageDidSet = false
     override func awakeFromNib() {
         super.awakeFromNib()
         setComponent()
     }
     @IBAction func goToNext(_ sender: Any) {
         if self.titleTF.text!.count != 0 && self.ingredientTF.text!.count != 0 && self.contentTV.text!.count != 0{
-            self.delegate?.setTempDetail(title: self.titleTF.text, content: self.contentTV.text, type: nil, ingredient: self.ingredientTF.text, image: nil, videoURL: nil)
+            self.delegate?.setTempDetail(title: self.titleTF.text, content: self.contentTV.text, fileType: nil, ingredient: self.ingredientTF.text, image: nil, videoURL: nil)
             self.delegate?.setDetail()
         }else{
             self.delegate?.presentAlert(msg: "빈 칸을 채워주세요")

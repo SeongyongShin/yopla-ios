@@ -8,6 +8,10 @@
 import UIKit
 
 class MainVC: BaseViewController {
+    @IBOutlet weak var menuV: UIView!
+    @IBOutlet weak var searchV: UIView!
+    @IBOutlet weak var editV: UIView!
+    @IBOutlet weak var heartV: UIView!
     @IBOutlet weak var registRecipeBtn: RoundButton1!
     
     @IBOutlet weak var commonRecipe: UILabel!
@@ -57,6 +61,25 @@ extension MainVC{
         personRecipe.addGestureRecognizer(tapGestureRecognizer2)
     }
     
+    @objc func tabMenu(_ sender: UITapGestureRecognizer){
+        let tag = sender.view!.tag
+        //메뉴버튼
+        if tag == 0{
+            
+        }
+        //검색버튼
+        else if tag == 1{
+            self.performSegue(withIdentifier: "goSearchFromMain", sender: self)
+        }
+        //edit 버튼
+        else if tag == 2{
+            
+        }
+        //heart 버튼
+        else{
+            
+        }
+    }
 }
 
 //MARK: 터치 시 함수
@@ -115,6 +138,7 @@ extension MainVC{
         recommandCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
         popularCVConstant.constant = (popularCV.frame.width / 2) * 4
         recommandCVConstant.constant = (recommandCV.frame.width / 2) * 4
+        recommandCV.clipsToBounds = false
         shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.01)
         shortRPCV.isHidden = true
         popularCV.layoutIfNeeded()
@@ -122,7 +146,12 @@ extension MainVC{
     }
     
     func setComponent(){
-        self.registRecipeBtn.backgroundColor = .mainHotPink
+        self.registRecipeBtn.setGradient(color1: .gradient1, color2: .gradient2)
+        self.registRecipeBtn.clipsToBounds = true
+        self.menuV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
+        self.searchV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
+        self.editV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
+        self.heartV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
     }
 }
 

@@ -187,6 +187,12 @@ extension RegistRecipeVC: CellDelegate{
     }
     
     func goToDetail(){
+        var tempThumbNail = ThumbPage()
+        tempThumbNail.title = "짜장면"
+        tempThumbNail.category = "중식"
+        tempThumbNail.tag = "#집에서"
+        tempThumbNail.image = self.thumbImage
+        Constant.tempThumbNails = tempThumbNail
         self.performSegue(withIdentifier: "goToRegistRecipe", sender: self)
     }
 }
@@ -194,6 +200,6 @@ extension RegistRecipeVC: CellDelegate{
 extension RegistRecipeVC{
     
     @IBAction func unwindToThumnail(_ sender: UIStoryboardSegue) {
-        
+
     }
 }

@@ -93,7 +93,7 @@ extension RegistDetailCell1: UICollectionViewDelegate, UICollectionViewDataSourc
             self.thumbNailIV.image = image
             self.thumbNailIV.alpha = 1
             self.delegate?.setimageInfo(image: image!)
-            self.delegate?.setTempDetail(title: nil, content: nil,type: self.contentType, ingredient: nil, image: image, videoURL: tempurl)
+            self.delegate?.setTempDetail(title: nil, content: nil,fileType: self.contentType, ingredient: nil, image: image, videoURL: tempurl)
         }
     }
     

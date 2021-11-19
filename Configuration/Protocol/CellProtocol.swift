@@ -19,7 +19,7 @@ protocol RegistRecipeDetailCellDelegate{
     func getImageInfo()->UIImage
     func goToDetail()
     func setDetail()
-    func setTempDetail(title: String?, content: String?, type: String?, ingredient: String?, image: UIImage?, videoURL: URL?)
+    func setTempDetail(title: String?, content: String?, fileType: String?, ingredient: String?, image: UIImage?, videoURL: URL?)
     func getDetail()
 //    func endEdit()
     func presentAlert(msg: String)

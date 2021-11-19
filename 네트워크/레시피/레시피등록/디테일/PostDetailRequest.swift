@@ -18,5 +18,5 @@ struct PostNewRecipe: Encodable{
     var ingredients: String
     var contents: String
     var detailFileUrl: String
-    var type: String
+    var fileType: String
 }

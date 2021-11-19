@@ -8,10 +8,17 @@
 import UIKit
 
 class RegistRecipeDetailVC: BaseViewController {
+    @IBOutlet weak var loadingLabel: UILabel!
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     var thumbImage: UIImage = UIImage()
     var currentDetailPage = 0
     var currentCellState = 0
     var tempDetail = DetailPage()
+    let awsDataManager = AWSDataManager()
+    lazy var postThumbNailDataManager: PostThumbNailDataManager = PostThumbNailDataManager()
+    lazy var PostDetailDataManager: PostDetailDataManager = yopla.PostDetailDataManager()
+    
     @IBOutlet weak var homeImage: UIImageView!
     @IBOutlet weak var minusImage: UIImageView!
     @IBOutlet weak var homeBtn: UIButton!
@@ -33,6 +40,8 @@ extension RegistRecipeDetailVC{
         
         registDetailCV.delegate = self
         registDetailCV.dataSource = self
+        self.loadingView.isHidden = true
+        self.loadingView.layer.opacity = 0.5
     }
 }
 //컬렉션뷰 설정
@@ -160,7 +169,7 @@ extension RegistRecipeDetailVC: RegistRecipeDetailCellDelegate{
         self.registDetailCV.reloadData()
         
     }
-    func setTempDetail(title: String?, content: String?, type: String?, ingredient: String?, image: UIImage?, videoURL: URL?) {
+    func setTempDetail(title: String?, content: String?, fileType: String?, ingredient: String?, image: UIImage?, videoURL: URL?) {
 
         if title != nil{
             self.tempDetail.title = title
@@ -174,8 +183,8 @@ extension RegistRecipeDetailVC: RegistRecipeDetailCellDelegate{
         if ingredient != nil{
             self.tempDetail.ingredient = ingredient
         }
-        if type != nil{
-            self.tempDetail.type = type
+        if fileType != nil{
+            self.tempDetail.fileType = fileType
         }
         if videoURL != nil{
             self.tempDetail.videoURL = videoURL
@@ -195,8 +204,8 @@ extension RegistRecipeDetailVC: RegistRecipeDetailCellDelegate{
             if ingredient != nil{
                 self.tempDetailList[self.currentDetailPage].ingredient = ingredient
             }
-            if type != nil{
-                self.tempDetailList[self.currentDetailPage].type = type
+            if fileType != nil{
+                self.tempDetailList[self.currentDetailPage].fileType = fileType
             }
             if videoURL != nil{
                 self.tempDetailList[self.currentDetailPage].videoURL = videoURL
@@ -237,8 +246,185 @@ extension RegistRecipeDetailVC{
             if sender.tag == 1{
                 
             }else{
+                DispatchQueue.main.async {
+                    self.loadingView.isHidden = false
+                    self.activityView.startAnimating()
+                }
+                
+                let cell = self.registDetailCV.cellForItem(at: IndexPath(row: 1, section: 0)) as! RegistDetailCell2
+                if self.currentDetailPage == self.tempDetailList.count{
+                    if cell.titleTF.text!.count != 0 && cell.ingredientTF.text!.count != 0 && cell.contentTV.text!.count != 0{
+                        self.tempDetail.title = cell.titleTF.text
+                        self.tempDetail.content = cell.contentTV.text
+                        self.tempDetail.ingredient = cell.ingredientTF.text
+                        self.tempDetailList.append(self.tempDetail)
+                        self.setThumbNailAPIAvailable()
+                    }else{
+                        DispatchQueue.main.async {
+                            self.loadingView.isHidden = true
+                            self.activityView.stopAnimating()
+                        }
+                        self.presentBottomAlert(message: "빈 칸을 채워주세요")
+                    }
+                }else{
+                    if cell.titleTF.text!.count != 0 && cell.ingredientTF.text!.count != 0 && cell.contentTV.text!.count != 0{
+                        self.tempDetail.title = cell.titleTF.text
+                        self.tempDetail.content = cell.contentTV.text
+                        self.tempDetail.ingredient = cell.ingredientTF.text
+                        if self.tempDetail.image != nil{
+                            self.tempDetailList[self.currentDetailPage].image = self.tempDetail.image
+                        }
+                        if self.tempDetail.fileType != nil{
+                            self.tempDetailList[self.currentDetailPage].fileType = self.tempDetail.fileType
+                        }
+                        if self.tempDetail.title != nil{
+                            self.tempDetailList[self.currentDetailPage].title = self.tempDetail.title
+                        }
+                        if self.tempDetail.content != nil{
+                            self.tempDetailList[self.currentDetailPage].content = self.tempDetail.content
+                        }
+                        if self.tempDetail.ingredient != nil{
+                            self.tempDetailList[self.currentDetailPage].ingredient = self.tempDetail.ingredient
+                        }
+                        if self.tempDetail.videoURL != nil{
+                            self.tempDetailList[self.currentDetailPage].videoURL = self.tempDetail.videoURL
+                        }
+                        self.setThumbNailAPIAvailable()
+                    }else{
+                        DispatchQueue.main.async {
+                            self.loadingView.isHidden = true
+                            self.activityView.stopAnimating()
+                        }
+                        self.presentBottomAlert(message: "빈 칸을 채워주세요")
+                    }
+                }
+                
                 
             }
         }
+    }
+}
+// 완료 후 처리
+extension RegistRecipeDetailVC{
+    func setThumbNailAPIAvailable(){
+        let req = awsDataManager.uploadImage(image: (Constant.tempThumbNails?.image)!)
+        req.done{
+            url in
+            Constant.registThumbNail = PostThumbNailRequest(userId: 2, recipeName: Constant.tempThumbNails!.title!, category: Constant.tempThumbNails!.category!, frontImageUrl: "\(url)", tags: [Constant.tempThumbNails!.tag!])
+            print(Constant.registThumbNail)
+            DispatchQueue.main.async {
+                self.loadingLabel.text = "썸네일 등록 완료. 내용을 등록하는 중입니다."
+            }
+            self.setDetailAPIAvailable()
+        }.catch{
+            error in
+            DispatchQueue.main.async {
+                self.loadingView.isHidden = true
+                self.activityView.stopAnimating()
+            }
+            self.presentBottomAlert(message: "문제가 발생했습니다.")
+        print("error: ", error.localizedDescription)
+    }
+    }
+    func setDetailAPIAvailable(){
+        var tempList:[TempDetailPage] = []
+        var index = 0
+        var uploadCount = 0
+        for i in tempDetailList{
+            if i.fileType == "image"{
+                let req = awsDataManager.uploadImage(image: i.image!)
+                let countIndex = index
+                req.done{
+                    url in
+                    DispatchQueue.main.async {
+                        self.loadingLabel.text = "내용 \(uploadCount)페이지 등록 완료"
+                    }
+                    let beforeList = PostNewRecipe(title: i.title!, ingredients: i.ingredient!, contents: i.content!, detailFileUrl: "\(url)", fileType: "image")
+                    tempList.append(TempDetailPage(index: countIndex, detail: beforeList))
+                    uploadCount += 1
+                    print(uploadCount, countIndex)
+                    if uploadCount == self.tempDetailList.count{
+                        let newDetail = tempList.sorted(by: {$0.index! < $1.index!})
+                        print(newDetail)
+                        self.setPostDetailAPIAvailable(dataList: newDetail)
+                    }
+                }.catch{
+                    
+                    error in
+                    DispatchQueue.main.async {
+                        self.loadingView.isHidden = true
+                        self.activityView.stopAnimating()
+                    }
+                    self.presentBottomAlert(message: "문제가 발생했습니다.")
+                print("error: ", error.localizedDescription)
+            }
+            }else{
+                let req = awsDataManager.uploadVideo(with: i.videoURL!)
+                let countIndex = index
+                req.done{
+                    url in
+                    DispatchQueue.main.async {
+                        self.loadingLabel.text = "내용 \(uploadCount)페이지 등록 완료"
+                    }
+                    let beforeList = PostNewRecipe(title: i.title!, ingredients: i.ingredient!, contents: i.content!, detailFileUrl: "\(url)", fileType: "video")
+                    tempList.append(TempDetailPage(index: countIndex, detail: beforeList))
+                    uploadCount += 1
+                    print(uploadCount, countIndex)
+                    if uploadCount == self.tempDetailList.count{
+                        let newDetail = tempList.sorted(by: {$0.index! < $1.index!})
+                        print(newDetail)
+                        self.setPostDetailAPIAvailable(dataList: newDetail)
+                    }
+                }.catch{
+                    error in
+                    DispatchQueue.main.async {
+                        self.loadingView.isHidden = true
+                        self.activityView.stopAnimating()
+                    }
+                    
+                    self.presentBottomAlert(message: "문제가 발생했습니다.")
+                print("error: ", error.localizedDescription)
+            }
+            }
+            index += 1
+
+        }
+
+    }
+    func setPostDetailAPIAvailable(dataList: [TempDetailPage]){
+        for i in dataList{
+            Constant.registDetail.append(i.detail)
+        }
+        print(Constant.registDetail)
+        self.postThumbNailDataManager.postThumbNail(Constant.registThumbNail!, delegate: self)
+    }
+}
+
+//MARK: 등록 결과
+extension RegistRecipeDetailVC{
+    func didSuccessRegistthumbNail(result: Int){
+        print(result)
+        
+        self.PostDetailDataManager.postThumbNail(PostDetailRequest(recipeId: result, newRecipeDetails: Constant.registDetail), delegate: self)
+    }
+    func didSuccessPostDetail(result: String){
+        print(result)
+        DispatchQueue.main.async {
+            self.activityView.stopAnimating()
+            self.loadingLabel.text = "레시피를 등록했습니다."
+        }
+        DispatchQueue.main.async {
+            Thread.sleep(forTimeInterval: 2)
+            self.loadingView.isHidden = true
+            self.performSegue(withIdentifier: "goToThumNailFromDetail", sender: self)
+            Constant.viewFromDetail = true
+        }
+    }
+    func failedToRequest(message: String){
+        DispatchQueue.main.async {
+            self.loadingView.isHidden = true
+            self.activityView.stopAnimating()
+        }
+        self.presentBottomAlert(message: message)
     }
 }
