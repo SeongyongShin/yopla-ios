@@ -8,5 +8,6 @@
 import UIKit
 
 class AdCell: UICollectionViewCell {
+    var adIdx: Int = 0
     @IBOutlet weak var adImage: UIImageView!
 }

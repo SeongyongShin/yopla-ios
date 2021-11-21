@@ -8,6 +8,7 @@
 import UIKit
 
 class RecipeProfileCell: BaseCollectionViewCell {
+    var recipeIdx: Int = 0
     @IBOutlet weak var rpNickName: UILabel!
     @IBOutlet weak var rpProfile: RoundImageView!
     @IBOutlet weak var rpTitle: UILabel!

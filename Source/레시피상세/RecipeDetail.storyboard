@@ -268,7 +268,7 @@
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t6-lO-B9Z">
                                                         <rect key="frame" x="20" y="94.5" width="374" height="300.5"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <mutableString key="text">식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.</mutableString>
+                                                        <string key="text">식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.식용유에 춘장을 넣은 후 튀겨 주세요. 짜장면 맛의 절반 이상은 춘장이 결정하는데요. 춘장을 그대로 사용하면 텁텁한 맛이 나지만, 기름에 튀기면 구석구석 기름이 배어 텁텁함이 사리지고 고소한 맛이 나면서 식당에서 파는 짜장과 90% 이상 비슷한 맛을 낼 수 있다고 해요.</string>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -474,6 +474,9 @@
                                 <state key="normal" title="레시피 북마크 하기">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="bookMarking:" destination="uC9-dE-Bwm" eventType="touchUpInside" id="S3A-j2-BWN"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VxX-Zt-3Ur" userLabel="상단가리개">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>

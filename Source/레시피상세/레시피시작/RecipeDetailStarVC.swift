@@ -8,7 +8,7 @@
 import UIKit
 
 class RecipeDetailStarVC: BaseViewController {
-
+    
     @IBOutlet weak var recipeBookMarkBtn: BaseButton!
     @IBOutlet var stars: [UIImageView]!
     @IBOutlet weak var starScore: UILabel!
@@ -32,7 +32,9 @@ extension RecipeDetailStarVC{
         }
         starScore.text = "\(sender.view!.tag + 1).0"
     }
-    
+    @IBAction func bookMarking(_ sender: Any){
+        BookmarkDataManager().postBookMark(recipeId: Constant.CURRENT_RECIPE, delegate: self)
+    }
 }
 
 //MARK: 컴포넌트들 설정
@@ -48,8 +50,15 @@ extension RecipeDetailStarVC{
         }
     }
 }
-
-
+//통신
+extension RecipeDetailStarVC{
+    func didSuccessBookMark(message: String){
+        self.presentBottomAlert(message: message)
+    }
+    func failedToRequest(message: String){
+        self.presentBottomAlert(message: message)
+    }
+}
 extension RecipeDetailStarVC{
     @IBAction func unwindToStar(_ sender: UIStoryboardSegue) {
         

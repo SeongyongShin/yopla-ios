@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IG7-bq-Wo9" userLabel="베이스">
                         <rect key="frame" x="0.0" y="0.0" width="403" height="383"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food1" translatesAutoresizingMaskIntoConstraints="NO" id="jtj-YG-Dnx">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jtj-YG-Dnx">
                                 <rect key="frame" x="0.0" y="0.0" width="403" height="383"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PcO-gI-n5G" customClass="HalfRoundView1" customModule="yopla" customModuleProvider="target">
@@ -140,7 +140,6 @@
     </objects>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
-        <image name="food1" width="552" height="548"/>
         <image name="heart" width="42" height="35"/>
         <image name="profile" width="160" height="162"/>
         <systemColor name="systemBackgroundColor">

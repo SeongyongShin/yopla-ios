@@ -87,7 +87,7 @@
                                         <command title="Item 2" id="cn0-Qu-NBJ"/>
                                     </children>
                                 </menu>
-                                <state key="normal" title="최신 순">
+                                <state key="normal" title="제목">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
@@ -128,12 +128,24 @@
                     <connections>
                         <outlet property="filterBtn" destination="Odn-m0-UEn" id="yGB-1r-BeC"/>
                         <outlet property="searchResultCV" destination="PLo-XV-FeA" id="rZY-AP-itX"/>
+                        <outlet property="searchTF" destination="t6E-fA-hXi" id="d5b-ZX-mNT"/>
+                        <segue destination="iRz-RC-Aug" kind="show" identifier="goToDetailFromSearch" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="wg0-S7-Bbq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="jrI-EO-J4a" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="44.927536231884062" y="93.75"/>
+            <point key="canvasLocation" x="-335" y="117"/>
+        </scene>
+        <!--RecipeDetail-->
+        <scene sceneID="A44-8X-HZm">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="RecipeDetail" storyboardName="RecipeDetail" referencedIdentifier="RecipeDetail" id="iRz-RC-Aug" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="vc2-ZX-buF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SdR-XP-j5N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="889" y="75"/>
         </scene>
     </scenes>
     <resources>

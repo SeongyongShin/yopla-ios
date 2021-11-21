@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MainVC: BaseViewController {
+    lazy var recipeDataManager: GetRecipeDataManager = GetRecipeDataManager()
+    var adBanner: [GetPeopleRecipeResult]?
+    var shortRecipe: [GetPeopleRecipeThumnails]?
+    var hotRecipe: [GetPeopleRecipeThumnails]?
+    var recommendRecipe: [GetPeopleRecipeThumnails]?
+    
     @IBOutlet weak var menuV: UIView!
     @IBOutlet weak var searchV: UIView!
     @IBOutlet weak var editV: UIView!
@@ -39,12 +46,17 @@ class MainVC: BaseViewController {
         setCV()
         
         setComponent()
+        
+
     }
     override func viewWillAppear(_ animated: Bool) {
         Constant.videoUrls.removeAll()
         Constant.registThumbNail = nil
         Constant.registDetail.removeAll()
         Constant.registId = nil
+        DispatchQueue.global().async {
+            self.recipeDataManager.getPeopleRecipe(delegate: self)
+        }
     }
 }
 
@@ -153,6 +165,13 @@ extension MainVC{
         self.editV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
         self.heartV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
     }
+    
+    func reloadCV(){
+        self.recommandCV.reloadData()
+        self.popularCV.reloadData()
+        self.shortRPCV.reloadData()
+        self.adBannerCV.reloadData()
+    }
 }
 
 // MARK: 컬렉션뷰 델리겟, 데이터소스 설정
@@ -163,7 +182,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        if collectionView.tag == 0{
-        return adBannerCell(collectionView, cellForItemAt: indexPath)
+        return Cells(collectionView, cellForItemAt: indexPath)
 //        }
 
     }
@@ -174,6 +193,21 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tags = collectionView.tag
+        
+        
+        if tags == 0{
+            let cell = collectionView.cellForItem(at: indexPath) as! AdCell
+            Constant.CURRENT_RECIPE = cell.adIdx
+        }else if tags == 1{
+            
+        }else if tags == 2{
+            let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
+            Constant.CURRENT_RECIPE = cell.recipeIdx
+        }else{
+            let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
+            Constant.CURRENT_RECIPE = cell.recipeIdx
+        }
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
@@ -197,7 +231,11 @@ extension MainVC{
     func numberOfItem(_ tag: Int) -> Int{
         // 광고배너
         if tag == 0{
-            return 4
+            if self.adBanner != nil{
+                return self.adBanner!.count
+            }else{
+                return 1
+            }
         }
         // 레시피 카테고리
         else if tag == 1{
@@ -205,7 +243,7 @@ extension MainVC{
         }
         // 숏 레시피
         else if tag == 2{
-            return 5
+            return 8
         }
         // 인기 레시피
         else{
@@ -213,24 +251,80 @@ extension MainVC{
         }
     }
     
-    //광고 셀 반환
-    func adBannerCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+    //셀 반환
+    func Cells(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+        // 광고
         if collectionView.tag == 0{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdBanner", for: indexPath) as! AdCell
-            cell.adImage.image = UIImage(named: "adtest")
+//            cell.adImage.image = UIImage(named: "adtest")
+            cell.adImage.kf.indicatorType = .activity
+            if let getAd = self.adBanner{
+                let item = getAd[indexPath.item]
+                cell.adIdx = item.adverIdx
+                cell.adImage.kf.setImage(with: URL(string:item.imagePath), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+            }
             return cell
-        }else if collectionView.tag == 1{
+        }
+        // 카테고리
+        else if collectionView.tag == 1{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Category", for: indexPath) as! CategoryCell
             cell.categoryImage.image = UIImage(named: "\(indexPath.item + 1)c")
             cell.categoryLabel.text = "\(category_list[indexPath.item])"
             return cell
-        }else if collectionView.tag == 2{
+        }
+        //숏
+        else if collectionView.tag == 2{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeProfile", for: indexPath) as! RecipeProfileCell
+
+            cell.rpImage.kf.indicatorType = .activity
+            if let getShort = self.shortRecipe{
+                
+                let item = getShort[indexPath.item]
+                
+                cell.recipeIdx = item.recipeIdx
+                cell.rpImage.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                if let userUrl = item.userProfileImage{
+                    cell.rpProfile.kf.setImage(with: URL(string:userUrl), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                }
+                if item.bookmarked{
+                    cell.rpBookmark.image = UIImage(systemName: "bookmark.fill")
+                    cell.rpBookmark1.image = UIImage(systemName: "bookmark.fill")
+                }else{
+                    cell.rpBookmark.image = UIImage(systemName: "bookmark")
+                    cell.rpBookmark1.image = UIImage(systemName: "bookmark")
+                }
+                cell.rpNickName.text = item.userNickName
+                cell.rpTitle.text = item.title
+                cell.rpHeartCount.text = "\(item.hits)"
+            }
             return cell
-        }else{
+        }
+        //일반
+        else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeProfile", for: indexPath) as! RecipeProfileCell
             cell.smallMode()
             cell.layoutIfNeeded()
+            cell.rpImage.kf.indicatorType = .activity
+            if let getPeople = self.shortRecipe{
+                
+                let item = getPeople[indexPath.item]
+
+                cell.recipeIdx = item.recipeIdx
+                cell.rpImage.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                if let userUrl = item.userProfileImage{
+                    cell.rpProfile.kf.setImage(with: URL(string:userUrl), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                }
+                if item.bookmarked{
+                    cell.rpBookmark.image = UIImage(systemName: "bookmark.fill")
+                    cell.rpBookmark1.image = UIImage(systemName: "bookmark.fill")
+                }else{
+                    cell.rpBookmark.image = UIImage(systemName: "bookmark")
+                    cell.rpBookmark1.image = UIImage(systemName: "bookmark")
+                }
+                cell.rpNickName.text = item.userNickName
+                cell.rpTitle.text = item.title
+                cell.rpHeartCount.text = "\(item.hits)"
+            }
             return cell
         }
     }
@@ -251,6 +345,20 @@ extension MainVC{
         }else{
             return CGSize(width: (collectionView.frame.width / 2) - 5, height: (collectionView.frame.width / 2) - 5)
         }
+    }
+}
+
+//MARK: API 요청 관련
+extension MainVC{
+    func didSuccessRequestPeopleRecipe(result: GetPeopleRecipeResponse){
+        self.adBanner = result.result
+        self.shortRecipe = result.shorts
+        self.hotRecipe = result.hots
+        self.recommendRecipe = result.recommend
+        self.reloadCV()
+    }
+    func failedToRequest(message: String){
+        self.presentBottomAlert(message: message)
     }
 }
 
