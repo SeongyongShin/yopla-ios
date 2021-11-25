@@ -8,15 +8,30 @@
 import UIKit
 
 class RecipeDetailReviewVC: BaseViewController{
+    lazy var getReviewDataManager: GetRecipeReviewDataManager = GetRecipeReviewDataManager()
+    lazy var postReviewDataManager: PostReviewDataManager = PostReviewDataManager()
+    
+    var recipeReviews: [GetRecipeReviewResult]?
+    
     var keyboardHeight:CGFloat = 0
     var keyboardShow = false
     @IBOutlet weak var reviewContainerV: UIView!
     @IBOutlet weak var reviewPlaceHolder: UILabel!
-    @IBOutlet weak var reviewTextV: UITextView!
     @IBOutlet weak var reviewTable: UITableView!
+    @IBOutlet var reviewStars: [UIImageView]!
+    @IBOutlet weak var reviewTV: UITextView!
+    @IBOutlet weak var reviewV: UIView!
+    @IBOutlet weak var reviewTopConstant: NSLayoutConstraint!
+    @IBOutlet weak var reviewBottomConstant: NSLayoutConstraint!
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setComponent()
+        getReviewDataManager.getRecipeReview(recipeId: Constant.CURRENT_RECIPE, delegate: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,16 +44,37 @@ class RecipeDetailReviewVC: BaseViewController{
         self.removeKeyboardNotifications()
         
     }
+    @IBAction func reviewBtn(_ sender: UIButton){
+        if self.reviewTV.text != nil && self.reviewTV.text.count > 4{
+            let postRequest = PostReviewRequest(userId: Constant.USER_IDX, recipeId: Constant.CURRENT_RECIPE, content: self.reviewTV.text!, point: Constant.RECIPE_STAR)
+            postReviewDataManager.postREview(postRequest, delegate: self)
+        }else{
+            self.presentBottomAlert(message: "리뷰를 5자 이상 입력해주세요")
+        }
+        self.reviewV.endEditing(true)
+    }
 }
 
 // MARK: 컴포넌트 설정
 extension RecipeDetailReviewVC{
     func setComponent(){
+        self.reviewTable.delegate = self
+        self.reviewTable.dataSource = self
+        self.reviewTable.tableFooterView = UIView()
+        self.reviewTable.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
         self.reviewContainerV.layer.cornerRadius = 7
         self.reviewContainerV.layer.borderWidth = 1
         self.reviewContainerV.layer.borderColor = UIColor.mainHotPink.cgColor
-        self.reviewTextV.delegate = self
+        self.reviewTV.delegate = self
+        for i in 0 ... 4{
+            reviewStars[i].image = UIImage(systemName: "star")
+        }
+        for i in 0 ... Constant.RECIPE_STAR{
+            reviewStars[i].image = UIImage(systemName: "star.fill")
+        }
     }
+    
+
 }
 
 //MARK: 터치이벤트
@@ -54,6 +90,40 @@ extension RecipeDetailReviewVC: UITextViewDelegate{
             self.reviewPlaceHolder.text = "후기 작성하기(10자 이상)"
         }
     }
+}
+
+//MARK: 테이블뷰 델리겟
+extension RecipeDetailReviewVC: UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.recipeReviews != nil{
+            return self.recipeReviews!.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell") as! ReviewCell
+        cell.selectedBackgroundView = UIView()
+        if let review = recipeReviews{
+            let item = review[indexPath.row]
+            if item.userPI != nil{
+                cell.profileImage.kf.setImage(with: URL(string:item.userPI!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+            }
+            cell.nickName.text = item.userNickName
+            cell.content.text = item.content
+            cell.created_at.text = item.createdAt
+            
+            for i in 0 ... 4{
+                cell.stars[i].image = UIImage(systemName: "star")
+            }
+            for i in 0 ... (item.reviewScore - 1){
+                cell.stars[i].image = UIImage(systemName: "star.fill")
+            }
+        }
+        return cell
+    }
+    
+    
 }
 
 //MARK: 키보드만큼 올리기
@@ -87,8 +157,9 @@ extension RecipeDetailReviewVC{
         if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             self.keyboardHeight = keyboardRectangle.height
-            self.view.frame.origin.y -= self.keyboardHeight
-            self.view.layoutIfNeeded()
+            self.reviewV.frame.origin.y -= self.keyboardHeight
+            self.reviewBottomConstant.constant += self.keyboardHeight
+            self.reviewV.layoutIfNeeded()
             keyboardShow = true
         }
         
@@ -102,9 +173,29 @@ extension RecipeDetailReviewVC{
             //키보드가 떠있지 않으면
             return
         }
-        self.view.frame.origin.y += self.keyboardHeight
-        self.view.layoutIfNeeded()
+        self.reviewV.frame.origin.y += self.keyboardHeight
+        self.reviewBottomConstant.constant -= self.keyboardHeight
+        self.reviewV.layoutIfNeeded()
         
         keyboardShow = false
+    }
+}
+
+extension RecipeDetailReviewVC{
+    func didSuccessPostReview(result: Int?){
+        getReviewDataManager.getRecipeReview(recipeId: Constant.CURRENT_RECIPE, delegate: self)
+    }
+    func didSuccessGetReview(result: [GetRecipeReviewResult]?){
+        self.recipeReviews = result
+        self.reviewTable.reloadData()
+    }
+    func failedToRequest(message: String){
+        self.presentBottomAlert(message: message)
+    }
+}
+
+extension RecipeDetailReviewVC{
+    @IBAction func goToMainFromReview(_ sender: UIButton){
+        makeRootVC("Main")
     }
 }

@@ -1,13 +1,12 @@
 //
-//  PostThumbNailResponse.swift
+//  PostReviewResponse.swift
 //  yopla
 //
-//  Created by 신성용 on 2021/11/15.
+//  Created by 신성용 on 2021/11/24.
 //
 
 import Foundation
-
-struct PostThumbNailResponse: Decodable {
+struct PostReviewResponse: Decodable {
     var isSuccess: Bool
     var code: Int
     var message: String

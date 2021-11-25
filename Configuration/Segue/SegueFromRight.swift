@@ -14,7 +14,7 @@ class SegueFromRight: UIStoryboardSegue {
 
         src.view.superview?.insertSubview(dst.view, aboveSubview: src.view)
         dst.view.transform = CGAffineTransform(translationX: -src.view.frame.size.width, y: 0)
-
+        
         UIView.animate(withDuration: 0.25,
                               delay: 0.0,
                             options: .curveEaseInOut,
@@ -24,7 +24,6 @@ class SegueFromRight: UIStoryboardSegue {
                                 },
                         completion: { finished in
             src.dismiss(animated: false, completion: nil)
-//                                src.present(dst, animated: false, completion: nil)
                                     }
                         )
     }

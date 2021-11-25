@@ -18,9 +18,13 @@ class StartVC: BaseViewController {
         registBtn.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .black
 
-        
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        if Constant.DID_SUCCESS_SIGN_UP{
+            self.presentBottomAlert(message: "회원가입 성공! 로그인을 해주세요")
+            Constant.DID_SUCCESS_SIGN_UP = false
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
     }
     

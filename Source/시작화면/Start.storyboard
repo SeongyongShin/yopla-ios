@@ -357,6 +357,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="중복 확인"/>
+                                                                <connections>
+                                                                    <action selector="nickNameClick:" destination="NqB-U0-cBk" eventType="touchUpInside" id="j38-yy-mPJ"/>
+                                                                </connections>
                                                             </button>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임을 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1rH-8h-mPq">
                                                                 <rect key="frame" x="109.5" y="300" width="195" height="27"/>
@@ -470,7 +473,20 @@
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5n-Up-nFQ">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="73"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXs-Zb-cNJ">
+                                                <rect key="frame" x="0.0" y="63" width="374" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="QXs-Zb-cNJ" firstAttribute="leading" secondItem="q5n-Up-nFQ" secondAttribute="leading" id="2yh-v4-Ecq"/>
+                                            <constraint firstAttribute="trailing" secondItem="QXs-Zb-cNJ" secondAttribute="trailing" id="EGt-0c-TN0"/>
+                                            <constraint firstAttribute="bottom" secondItem="QXs-Zb-cNJ" secondAttribute="bottom" constant="10" id="sfl-Ks-kUN"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -514,15 +530,25 @@
                         <outlet property="buttonSV" destination="a1G-6c-Zrn" id="DxG-dv-DmQ"/>
                         <outlet property="emailTF" destination="b6R-E3-IkO" id="OUh-VE-EuK"/>
                         <outlet property="emailValidBtn" destination="2sd-99-wXO" id="Ct0-gs-aYh"/>
+                        <outlet property="emailValidUnderLine" destination="vCj-vX-V4p" id="ayu-qW-Z3g"/>
                         <outlet property="nextBtn" destination="ID3-z4-gcW" id="sJs-Cz-i8c"/>
                         <outlet property="nextConstraint" destination="ped-ir-HG2" id="qw1-T6-JIx"/>
+                        <outlet property="nickNameBtn" destination="OZ5-HJ-6lv" id="TI5-F1-DMZ"/>
                         <outlet property="nickNameTF" destination="1rH-8h-mPq" id="tfJ-CW-GR6"/>
+                        <outlet property="nickNameUnderLine" destination="TB8-4u-i95" id="fhF-gP-kfj"/>
                         <outlet property="passwordConfirmTF" destination="0re-Kx-jZD" id="14J-F4-700"/>
                         <outlet property="passwordTF" destination="Sa7-gh-s4g" id="FYk-PY-P2d"/>
                         <outlet property="phoneCodeTF" destination="Cvb-c0-ovx" id="Zmo-zF-V22"/>
+                        <outlet property="phoneCodeUnderLine" destination="12f-J1-3BI" id="w2N-ga-NLe"/>
+                        <outlet property="phoneCodeValidBtn" destination="QTP-aT-Cnv" id="fBy-7n-i5a"/>
                         <outlet property="phoneNumberTF" destination="Kux-4P-06Z" id="qHt-6n-mQP"/>
+                        <outlet property="phoneUnderLine" destination="JSv-Wm-7rZ" id="jTx-GQ-Gl6"/>
+                        <outlet property="phoneValidBtn" destination="fnk-yi-UUO" id="MLN-gL-gBF"/>
                         <outlet property="profileImage" destination="dCP-Ki-Dds" id="7xw-jG-E0F"/>
                         <outlet property="registScroll" destination="g3b-YG-Vyf" id="R8C-Y3-Za5"/>
+                        <outlet property="resultL" destination="QXs-Zb-cNJ" id="h8S-An-TLg"/>
+                        <outletCollection property="passwordUnderLine" destination="LkZ-bh-9by" collectionClass="NSMutableArray" id="043-MB-ycJ"/>
+                        <outletCollection property="passwordUnderLine" destination="VBN-YA-fge" collectionClass="NSMutableArray" id="3kD-HI-4Y3"/>
                         <segue destination="7gp-ql-OnY" kind="unwind" identifier="goHomeFromRegist" unwindAction="unwindToStart:" id="VMk-0f-iwb"/>
                     </connections>
                 </viewController>

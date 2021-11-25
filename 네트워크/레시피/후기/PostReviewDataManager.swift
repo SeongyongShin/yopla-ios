@@ -1,26 +1,26 @@
 //
-//  PostThumbNailDataManager.swift
+//  PostReviewDataManager.swift
 //  yopla
 //
-//  Created by 신성용 on 2021/11/15.
+//  Created by 신성용 on 2021/11/24.
 //
 
 import Foundation
 import Alamofire
 
-class PostThumbNailDataManager{
-    
+class PostReviewDataManager{
     // 썸네일 등록
-    func postThumbNail(_ parameters: PostThumbNailRequest, delegate: RegistRecipeDetailVC) {
-        AF.request("\(Constant.BASE_URL)/app/users/recipes", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
+    func postREview(_ parameters: PostReviewRequest, delegate: RecipeDetailReviewVC) {
+        
+        AF.request("\(Constant.BASE_URL)/app/users/recipes/reviews", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
-            .responseDecodable(of: PostThumbNailResponse.self) { response in
+            .responseDecodable(of: PostReviewResponse.self) { response in
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
                     print(response)
                     if response.isSuccess{
-                        delegate.didSuccessRegistthumbNail(result: response.result ?? 00)
+                        delegate.didSuccessPostReview(result: response.result)
                     }
                     // 실패했을 때
                     else {
@@ -28,7 +28,7 @@ class PostThumbNailDataManager{
                         switch response.code {
                         case 2000: delegate.failedToRequest(message: "문제~")
                         case 3000: delegate.failedToRequest(message: "문제")
-                        case 4000: delegate.failedToRequest(message: "적절한 요청이 아닙니다")
+                        case 4000: delegate.failedToRequest(message: "이미 후기를 등록하였습니다.")
                         default: delegate.failedToRequest(message: "문제 발생")
                         }
                     }

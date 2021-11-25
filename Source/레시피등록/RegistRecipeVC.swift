@@ -22,12 +22,6 @@ class RegistRecipeVC: BaseViewController {
         super.viewDidLoad()
         setComponent()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        if Constant.viewFromDetail{
-            self.performSegue(withIdentifier: "goToMainFromThumNail", sender: self)
-            Constant.viewFromDetail = false
-        }
-    }
     override func viewWillAppear(_ animated: Bool) {
 
         // 키보드리스너 추가

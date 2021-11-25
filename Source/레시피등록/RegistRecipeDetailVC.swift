@@ -239,8 +239,7 @@ extension RegistRecipeDetailVC{
     @IBAction func btnPressed(_ sender: UIButton){
         if self.currentCellState == 0 {
             if sender.tag == 2{
-                self.performSegue(withIdentifier: "goToThumNailFromDetail", sender: self)
-                Constant.viewFromDetail = true
+                makeRootVC("Main")
             }
         }else{
             if sender.tag == 1{
@@ -416,7 +415,7 @@ extension RegistRecipeDetailVC{
         DispatchQueue.main.async {
             Thread.sleep(forTimeInterval: 2)
             self.loadingView.isHidden = true
-            self.performSegue(withIdentifier: "goToThumNailFromDetail", sender: self)
+            self.makeRootVC("Main")
             Constant.viewFromDetail = true
         }
     }

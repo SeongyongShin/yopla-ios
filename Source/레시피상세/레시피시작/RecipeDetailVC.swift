@@ -6,14 +6,56 @@
 //
 
 import UIKit
+import Kingfisher
 
-class RecipeDetailVC: UIViewController {
+class RecipeDetailVC: BaseViewController {
 
+    lazy var getRecipeDetail: GetRecipeDetailDataManager = GetRecipeDetailDataManager()
+    
+    @IBOutlet weak var recipeTitleL: UILabel!
+    @IBOutlet weak var recipeTitleL2: UILabel!
+    @IBOutlet weak var recipeHeartL: UILabel!
+    @IBOutlet weak var recipeViewedL: UILabel!
+    @IBOutlet weak var profileIV: RoundImageView!
+    @IBOutlet weak var nickNameL: UILabel!
+    @IBOutlet weak var hashTagL: UILabel!
+    @IBOutlet weak var recipeIV: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getRecipeDetail.getRecipeDetail(delegate: self)
     }
+    
 
+}
+
+//MARK: API
+extension RecipeDetailVC{
+    func didSuccessDetail(result: GetRecipeDetailResponse){
+        Constant.CURRENT_RECIPE_DETAIL = result
+        self.recipeTitleL.text = result.result?.title ?? "제목이 없습니다."
+        self.recipeTitleL2.text = result.result?.title ?? "제목이 없습니다."
+        self.recipeIV.kf.setImage(with: URL(string:result.result!.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+        if result.result!.userProfileImage != nil{
+            self.profileIV.kf.setImage(with: URL(string:result.result!.userProfileImage!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+        }
+        self.nickNameL.text = result.result?.userNickName ?? "정보가 없습니다."
+        self.recipeHeartL.text = "\(result.result?.bookmarkCount ?? 0)"
+        self.recipeViewedL.text = "\(result.result?.hits ?? 0)"
+       
+        if let tags = result.result?.tags{
+            let tagList = tags.split(separator: ",")
+            for i in tagList{
+                let str1 = i.replacingOccurrences(of: "#", with: "")
+                self.hashTagL.text = self.hashTagL.text! + " #\(str1)"
+            }
+        }else{
+            self.hashTagL.text = ""
+        }
+    }
+    func failedToRequest(message: String){
+        self.presentBottomAlert(message: message)
+    }
 }
 
 extension RecipeDetailVC{

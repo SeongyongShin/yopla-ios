@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipeDetailStarVC: BaseViewController {
     
+    @IBOutlet weak var recipeTitle: UILabel!
+    @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var recipeBookMarkBtn: BaseButton!
     @IBOutlet var stars: [UIImageView]!
     @IBOutlet weak var starScore: UILabel!
@@ -31,6 +34,7 @@ extension RecipeDetailStarVC{
             self.stars[i].image = UIImage(systemName: "star.fill")
         }
         starScore.text = "\(sender.view!.tag + 1).0"
+        Constant.RECIPE_STAR = sender.view!.tag
     }
     @IBAction func bookMarking(_ sender: Any){
         BookmarkDataManager().postBookMark(recipeId: Constant.CURRENT_RECIPE, delegate: self)
@@ -42,6 +46,14 @@ extension RecipeDetailStarVC{
     // 컴포넌트 설정
     func setComponent(){
         self.recipeBookMarkBtn.setTitleColor(.black, for: .normal)
+        for i in 0...4{
+            self.stars[i].image = UIImage(systemName: "star")
+        }
+        for i in 0...Constant.RECIPE_STAR{
+            self.stars[i].image = UIImage(systemName: "star.fill")
+        }
+        self.recipeTitle.text = Constant.CURRENT_RECIPE_DETAIL!.result!.title
+        self.recipeImage.kf.setImage(with: URL(string:Constant.CURRENT_RECIPE_DETAIL!.result!.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
     }
     func setStarTapGesture(){
         for i in stars{
@@ -62,5 +74,8 @@ extension RecipeDetailStarVC{
 extension RecipeDetailStarVC{
     @IBAction func unwindToStar(_ sender: UIStoryboardSegue) {
         
+    }
+    @IBAction func goToMainFromReview(_ sender: UIButton){
+        makeRootVC("Main")
     }
 }

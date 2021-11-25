@@ -19,6 +19,9 @@ struct Constant{
     static var registId: Int?
     static var viewFromDetail = false
     static var JWT_TOKEN: String? =  "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyLCJpYXQiOjE2MzY5NjA0OTQsImV4cCI6MTYzODQzMTcyMn0.zJ5EvBTWV_RTsfb1o39JUzQwg0tcWRj3a85WBPQbz_A"
+    static var DID_SUCCESS_SIGN_UP = false
     static var USER_IDX = 2
     static var CURRENT_RECIPE = 0
+    static var RECIPE_STAR = 4
+    static var CURRENT_RECIPE_DETAIL: GetRecipeDetailResponse?
 }

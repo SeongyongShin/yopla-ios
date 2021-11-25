@@ -15,6 +15,13 @@ class MainVC: BaseViewController {
     var hotRecipe: [GetPeopleRecipeThumnails]?
     var recommendRecipe: [GetPeopleRecipeThumnails]?
     
+    @IBOutlet weak var myMenuV: UIView!
+    @IBOutlet weak var myMenuConst: NSLayoutConstraint!
+    @IBOutlet weak var myMenuBackV: UIView!
+    @IBOutlet weak var blurV: UIVisualEffectView!
+    @IBOutlet weak var maneTV: UITableView!
+    var myMenuList = ["내 정보", "내 레시피", "주문내역", "장바구니", "설정"]
+    
     @IBOutlet weak var menuV: UIView!
     @IBOutlet weak var searchV: UIView!
     @IBOutlet weak var editV: UIView!
@@ -50,12 +57,17 @@ class MainVC: BaseViewController {
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        Constant.videoUrls.removeAll()
-        Constant.registThumbNail = nil
-        Constant.registDetail.removeAll()
-        Constant.registId = nil
+        myMenuConst.constant = -self.view.frame.width
+        myMenuV.layoutIfNeeded()
+        self.clearConstant()
         DispatchQueue.global().async {
             self.recipeDataManager.getPeopleRecipe(delegate: self)
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if Constant.viewFromDetail{
+            self.presentBottomAlert(message: "레시피를 등록했습니다.")
+            Constant.viewFromDetail = false
         }
     }
 }
@@ -77,7 +89,7 @@ extension MainVC{
         let tag = sender.view!.tag
         //메뉴버튼
         if tag == 0{
-            
+            showSideBar()
         }
         //검색버튼
         else if tag == 1{
@@ -85,11 +97,11 @@ extension MainVC{
         }
         //edit 버튼
         else if tag == 2{
-            
+            self.performSegue(withIdentifier: "goMyRegistedRecipe", sender: self)
         }
         //heart 버튼
         else{
-            
+            self.performSegue(withIdentifier: "goMyrecipeReview", sender: self)
         }
     }
 }
@@ -132,6 +144,9 @@ extension MainVC{
 // MARK: 컴포넌트 설정
 extension MainVC{
     func setCV(){
+        maneTV.dataSource = self
+        maneTV.delegate = self
+        
         adBannerCV.dataSource = self
         adBannerCV.delegate = self
         categoryCV.dataSource = self
@@ -158,12 +173,15 @@ extension MainVC{
     }
     
     func setComponent(){
+        self.myMenuBackV.backgroundColor = .clear
         self.registRecipeBtn.setGradient(color1: .gradient1, color2: .gradient2)
         self.registRecipeBtn.clipsToBounds = true
         self.menuV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
         self.searchV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
         self.editV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
         self.heartV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
+        self.myMenuBackV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideSideBar)))
+        self.blurV.isHidden = true
     }
     
     func reloadCV(){
@@ -171,6 +189,16 @@ extension MainVC{
         self.popularCV.reloadData()
         self.shortRPCV.reloadData()
         self.adBannerCV.reloadData()
+    }
+    
+    func clearConstant(){
+        Constant.videoUrls.removeAll()
+        Constant.registThumbNail = nil
+        Constant.registDetail.removeAll()
+        Constant.registId = nil
+        Constant.RECIPE_STAR = 4
+        Constant.CURRENT_RECIPE = 0
+        Constant.CURRENT_RECIPE_DETAIL = nil
     }
 }
 
@@ -348,6 +376,41 @@ extension MainVC{
     }
 }
 
+//MARK: 마이메뉴 테이블 관련
+extension MainVC: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myMenuList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell") as! menuCell
+        cell.menuLabel.text = myMenuList[indexPath.row]
+        let backView = UIView()
+        backView.backgroundColor = .buttonPink
+        cell.selectedBackgroundView = backView
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! menuCell
+        cell.menuLabel.textColor = .buttonPink
+    }
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath){
+        let cell = tableView.cellForRow(at: indexPath) as! menuCell
+        cell.menuLabel.textColor = .white
+    }
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! menuCell
+        cell.menuLabel.textColor = .buttonPink
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! menuCell
+        cell.menuLabel.textColor = .white
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.maneTV.frame.height/5.5
+    }
+}
+
 //MARK: API 요청 관련
 extension MainVC{
     func didSuccessRequestPeopleRecipe(result: GetPeopleRecipeResponse){
@@ -361,6 +424,26 @@ extension MainVC{
         self.presentBottomAlert(message: message)
     }
 }
+
+//MARK: 사이드바 설정(애니메이션포함)
+extension MainVC{
+    func showSideBar(){
+        self.blurV.isHidden = false
+        UIView.animate(withDuration: 0.3, animations: {
+            self.myMenuV.frame = CGRect(x: 0, y: 0, width: self.myMenuV.frame.width, height: self.myMenuV.frame.height)
+        },completion: nil)
+    }
+    @objc func hideSideBar(){
+        DispatchQueue.main.async {
+            self.blurV.isHidden = true
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.myMenuV.frame = CGRect(x: -self.myMenuV.frame.width, y: 0, width: self.myMenuV.frame.width, height: self.myMenuV.frame.height)
+        },completion: nil)
+    }
+}
+
+
 
 extension MainVC{
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {

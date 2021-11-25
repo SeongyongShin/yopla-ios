@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--My Registed RecipeVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="MyRegistedRecipe" modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" customClass="MyRegistedRecipeVC" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCi-Bv-Ea5" userLabel="상단가리개">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VAa-Tt-syB" userLabel="상단탭">
+                                <rect key="frame" x="0.0" y="44" width="414" height="54"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KY-xo-KBV">
+                                        <rect key="frame" x="20" y="0.0" width="14.5" height="54"/>
+                                        <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <imageReference key="image" image="chevron.left" catalog="system" symbolScale="large"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjA-3z-MdE">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.5" height="54"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="BTW-Vz-f9W" kind="unwind" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToMain:" id="WGj-D3-nuj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyu-Yy-OYp">
+                                        <rect key="frame" x="175.5" y="0.0" width="63" height="54"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="내 레시피">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="dyu-Yy-OYp" secondAttribute="bottom" id="4ac-jL-YtY"/>
+                                    <constraint firstItem="XjA-3z-MdE" firstAttribute="leading" secondItem="VAa-Tt-syB" secondAttribute="leading" id="CA3-Yh-CVk"/>
+                                    <constraint firstItem="dyu-Yy-OYp" firstAttribute="top" secondItem="VAa-Tt-syB" secondAttribute="top" id="Ciz-pI-avU"/>
+                                    <constraint firstItem="XjA-3z-MdE" firstAttribute="top" secondItem="VAa-Tt-syB" secondAttribute="top" id="Hrh-4E-9jE"/>
+                                    <constraint firstItem="8KY-xo-KBV" firstAttribute="top" secondItem="VAa-Tt-syB" secondAttribute="top" id="ILE-mu-iaN"/>
+                                    <constraint firstAttribute="bottom" secondItem="8KY-xo-KBV" secondAttribute="bottom" id="JPe-ww-MEf"/>
+                                    <constraint firstAttribute="bottom" secondItem="XjA-3z-MdE" secondAttribute="bottom" id="VNb-ys-7eg"/>
+                                    <constraint firstItem="dyu-Yy-OYp" firstAttribute="centerX" secondItem="VAa-Tt-syB" secondAttribute="centerX" id="gm0-dg-Vdr"/>
+                                    <constraint firstItem="XjA-3z-MdE" firstAttribute="trailing" secondItem="8KY-xo-KBV" secondAttribute="trailing" constant="20" id="uwh-Gh-vtC"/>
+                                    <constraint firstItem="8KY-xo-KBV" firstAttribute="leading" secondItem="VAa-Tt-syB" secondAttribute="leading" constant="20" id="wJC-8l-4Qt"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sWz-Ba-YEo">
+                                <rect key="frame" x="0.0" y="99" width="414" height="763"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0z-gr-970">
+                                <rect key="frame" x="0.0" y="98" width="414" height="1"/>
+                                <color key="backgroundColor" red="0.8430330157" green="0.84311723709999997" blue="0.84711802010000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="5tF-4M-BCA"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="1" green="0.94098907710000002" blue="0.94034159179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DCi-Bv-Ea5" secondAttribute="trailing" id="00q-7v-Uuj"/>
+                            <constraint firstItem="DCi-Bv-Ea5" firstAttribute="bottom" secondItem="VAa-Tt-syB" secondAttribute="top" id="5Vw-RJ-7UQ"/>
+                            <constraint firstItem="DCi-Bv-Ea5" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="9TT-Pk-rwz"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="sWz-Ba-YEo" secondAttribute="trailing" id="AZ8-LH-2RZ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="sWz-Ba-YEo" secondAttribute="bottom" id="Agq-Wv-nNq"/>
+                            <constraint firstItem="K0z-gr-970" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="DT1-L4-iiM"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="VAa-Tt-syB" secondAttribute="trailing" id="DX9-uc-lcz"/>
+                            <constraint firstItem="DCi-Bv-Ea5" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="VHA-MI-Uz1"/>
+                            <constraint firstItem="VAa-Tt-syB" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.06" id="ZUX-eO-7WT"/>
+                            <constraint firstItem="VAa-Tt-syB" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="bxZ-xx-ljj"/>
+                            <constraint firstItem="K0z-gr-970" firstAttribute="top" secondItem="VAa-Tt-syB" secondAttribute="bottom" id="hRy-I4-1xr"/>
+                            <constraint firstItem="K0z-gr-970" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="io3-sr-c7B"/>
+                            <constraint firstItem="VAa-Tt-syB" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="ivY-4f-JwU"/>
+                            <constraint firstItem="sWz-Ba-YEo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="oxw-dp-tcb"/>
+                            <constraint firstItem="sWz-Ba-YEo" firstAttribute="top" secondItem="K0z-gr-970" secondAttribute="bottom" id="sJG-Bp-Bsf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="recipeTV" destination="sWz-Ba-YEo" id="Yep-qs-0tD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="BTW-Vz-f9W" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-26.086956521739133" y="65.625"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
