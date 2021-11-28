@@ -116,6 +116,6 @@ extension RecipeDetailPageVC{
     }
     
     @IBAction func goToMainFromDetail(_ sender: UIButton) {
-        makeRootVC("Main")
+        makeTabBarRootVC("MainTabBar")
     }
 }

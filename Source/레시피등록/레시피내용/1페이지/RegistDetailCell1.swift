@@ -17,7 +17,8 @@ class RegistDetailCell1: UICollectionViewCell {
     @IBOutlet weak var thumbNailIV: UIImageView!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     var fetchResult: PHFetchResult<PHAsset>?
-    var delegate : RegistRecipeDetailCellDelegate?
+    var delegate: RegistRecipeDetailCellDelegate?
+    var delegate2: RegistCellDelegate?
     var documentDirectory: String?
     lazy var awsDataManager: AWSDataManager = AWSDataManager()
     
@@ -94,6 +95,10 @@ extension RegistDetailCell1: UICollectionViewDelegate, UICollectionViewDataSourc
             self.thumbNailIV.alpha = 1
             self.delegate?.setimageInfo(image: image!)
             self.delegate?.setTempDetail(title: nil, content: nil,fileType: self.contentType, ingredient: nil, image: image, videoURL: tempurl)
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.3)
+                self.delegate2?.didSelectedImage()
+            }
         }
     }
     

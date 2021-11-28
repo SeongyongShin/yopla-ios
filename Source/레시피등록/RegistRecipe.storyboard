@@ -18,6 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KQY-Iu-dfi">
+                                <rect key="frame" x="0.0" y="98" width="414" height="764"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3vX-wa-vpq">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KrZ-BV-j3T" userLabel="상단바">
                                 <rect key="frame" x="0.0" y="44" width="414" height="54"/>
                                 <subviews>
@@ -33,7 +44,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="83" height="54"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
-                                            <segue destination="Usa-c0-m8K" kind="unwind" identifier="goToMainFromThumNail" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToMain:" id="AXo-JC-JnY"/>
+                                            <action selector="backPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jUK-O6-q20"/>
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xVS-T3-bTK">
@@ -47,14 +58,22 @@
                                         <rect key="frame" x="331" y="0.0" width="83" height="54"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
-                                            <segue destination="Usa-c0-m8K" kind="unwind" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToMain:" id="vJ5-3X-J7c"/>
+                                            <action selector="homePressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jdS-Ah-GVT"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="레시피 이름 정하기" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ceo-sW-cf2">
+                                        <rect key="frame" x="83" y="0.0" width="248" height="54"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="xVS-T3-bTK" secondAttribute="trailing" constant="20" id="7ha-Yo-JKI"/>
                                     <constraint firstItem="xVS-T3-bTK" firstAttribute="width" secondItem="xVS-T3-bTK" secondAttribute="height" id="ALp-aa-qwl"/>
+                                    <constraint firstItem="ceo-sW-cf2" firstAttribute="top" secondItem="KrZ-BV-j3T" secondAttribute="top" id="BsI-wY-hh9"/>
+                                    <constraint firstItem="GPQ-zk-KDF" firstAttribute="leading" secondItem="ceo-sW-cf2" secondAttribute="trailing" id="Hmg-d8-fnC"/>
+                                    <constraint firstAttribute="bottom" secondItem="ceo-sW-cf2" secondAttribute="bottom" id="JPO-Tu-X9z"/>
                                     <constraint firstAttribute="bottom" secondItem="8ZR-GB-Fi5" secondAttribute="bottom" id="Lww-YH-oTo"/>
                                     <constraint firstItem="L6H-3c-KUN" firstAttribute="top" secondItem="KrZ-BV-j3T" secondAttribute="top" id="OMg-aQ-jqF"/>
                                     <constraint firstAttribute="trailing" secondItem="GPQ-zk-KDF" secondAttribute="trailing" id="OtX-ke-gwC"/>
@@ -62,6 +81,7 @@
                                     <constraint firstItem="xVS-T3-bTK" firstAttribute="top" secondItem="KrZ-BV-j3T" secondAttribute="top" constant="10" id="Wud-1E-hkI"/>
                                     <constraint firstItem="GPQ-zk-KDF" firstAttribute="width" secondItem="KrZ-BV-j3T" secondAttribute="width" multiplier="0.2" id="m2V-al-1O1"/>
                                     <constraint firstItem="L6H-3c-KUN" firstAttribute="width" secondItem="KrZ-BV-j3T" secondAttribute="width" multiplier="0.2" id="owG-MO-6Of"/>
+                                    <constraint firstItem="ceo-sW-cf2" firstAttribute="leading" secondItem="L6H-3c-KUN" secondAttribute="trailing" id="p2k-Dy-GYq"/>
                                     <constraint firstAttribute="bottom" secondItem="L6H-3c-KUN" secondAttribute="bottom" id="phj-PM-DOd"/>
                                     <constraint firstItem="8ZR-GB-Fi5" firstAttribute="top" secondItem="KrZ-BV-j3T" secondAttribute="top" id="pqD-Gi-k59"/>
                                     <constraint firstItem="GPQ-zk-KDF" firstAttribute="top" secondItem="KrZ-BV-j3T" secondAttribute="top" id="qjR-kZ-UIk"/>
@@ -70,17 +90,6 @@
                                     <constraint firstItem="L6H-3c-KUN" firstAttribute="leading" secondItem="KrZ-BV-j3T" secondAttribute="leading" id="wY0-Hd-tfi"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KQY-Iu-dfi">
-                                <rect key="frame" x="0.0" y="98" width="414" height="764"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3vX-wa-vpq">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W3L-lw-Be7" userLabel="가리개">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,16 +113,20 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn1" destination="8ZR-GB-Fi5" id="F1n-DK-lUw"/>
+                        <outlet property="backBtn2" destination="L6H-3c-KUN" id="Wch-8E-9tP"/>
                         <outlet property="homeBtn" destination="GPQ-zk-KDF" id="k8L-dv-YwZ"/>
                         <outlet property="homeImage" destination="xVS-T3-bTK" id="13G-n3-KX9"/>
+                        <outlet property="recipeTitle" destination="ceo-sW-cf2" id="0wH-xo-naY"/>
                         <outlet property="registCV" destination="KQY-Iu-dfi" id="Y2F-hv-fP2"/>
+                        <outlet property="registCVConstant" destination="rec-kD-6JM" id="AmY-Hf-NIO"/>
+                        <outlet property="registCVConstant2" destination="C4t-mI-2RW" id="dW5-RU-qOR"/>
                         <outlet property="topbar" destination="KrZ-BV-j3T" id="OC9-ex-9f8"/>
                         <outlet property="topbar2" destination="W3L-lw-Be7" id="9ES-hG-fel"/>
                         <segue destination="9QC-Zh-fht" kind="show" identifier="goToRegistRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="dh5-yv-D8O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Usa-c0-m8K" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="233" y="90"/>
         </scene>
@@ -144,7 +157,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="83" height="54"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
-                                            <segue destination="AKP-ag-GM9" kind="unwind" identifier="goToThumNailFromDetail" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToThumnail:" id="sqO-Hf-YqH"/>
+                                            <action selector="backPressed:" destination="9QC-Zh-fht" eventType="touchUpInside" id="sao-Y2-UNq"/>
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="l2N-So-x2O">
@@ -202,7 +215,7 @@
                                     <constraint firstItem="vsY-y7-xiw" firstAttribute="width" secondItem="F0O-Uf-UNk" secondAttribute="width" multiplier="0.2" id="wCC-US-Vhg"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sfF-sU-i6P">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sfF-sU-i6P">
                                 <rect key="frame" x="0.0" y="98" width="414" height="764"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3N8-pz-GH9">
@@ -267,6 +280,7 @@
                         <outlet property="minusBtn" destination="bEX-bY-PXm" id="MKc-L3-BHT"/>
                         <outlet property="minusImage" destination="bLG-uo-gG0" id="ofT-kn-Yh9"/>
                         <outlet property="registDetailCV" destination="sfF-sU-i6P" id="I5b-rM-JJD"/>
+                        <segue destination="AKP-ag-GM9" kind="unwind" identifier="goToThumbNailFromDetail" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToThumnail:" id="3ZW-L9-Jln"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHE-Bc-bLQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

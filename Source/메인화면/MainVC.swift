@@ -23,9 +23,6 @@ class MainVC: BaseViewController {
     var myMenuList = ["내 정보", "내 레시피", "주문내역", "장바구니", "설정"]
     
     @IBOutlet weak var menuV: UIView!
-    @IBOutlet weak var searchV: UIView!
-    @IBOutlet weak var editV: UIView!
-    @IBOutlet weak var heartV: UIView!
     @IBOutlet weak var registRecipeBtn: RoundButton1!
     
     @IBOutlet weak var commonRecipe: UILabel!
@@ -60,6 +57,9 @@ class MainVC: BaseViewController {
         myMenuConst.constant = -self.view.frame.width
         myMenuV.layoutIfNeeded()
         self.clearConstant()
+        DispatchQueue.global().async {
+            self.recipeDataManager.getPublicRecipe(delegate: self)
+        }
         DispatchQueue.global().async {
             self.recipeDataManager.getPeopleRecipe(delegate: self)
         }
@@ -104,27 +104,66 @@ extension MainVC{
             self.performSegue(withIdentifier: "goMyrecipeReview", sender: self)
         }
     }
+    //북마크 or 알림 터치
+    @IBAction func tabBookBell(_ sender: UIButton){
+        //북마크
+        if sender.tag == 0{
+            Constant.IS_BOOKMARK_PAGE = true
+            self.performSegue(withIdentifier: "goMyRegistedRecipe", sender: self)
+        }
+        //알림
+        else{
+            
+        }
+    }
+    
+    //더보기
+    @IBAction func moreView(_ sender: UIButton){
+        Constant.CURRENT_MORE_RECIPE_TYPE = sender.tag
+        self.performSegue(withIdentifier: "goToMoreRecipe", sender: self)
+    }
+
 }
 
 //MARK: 터치 시 함수
 extension MainVC{
     // 라벨 터치 시 호출함수
     @objc func changeView(_ sender: UITapGestureRecognizer){
+        //대중 레시피
         if sender.view?.tag == 0 && current_tab != 0{
             UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
             changeViewSubFunc(sender.view!.tag, labelEnabled: true, indicatorX: 0)
             shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.01)
             popularCVTopConstant.constant = -10
             shortRPCV.isHidden = true
-//            self.layoutIfNeeded()
+            Constant.CURRENT_RECIPE_TYPE = 0
+            if Constant.PUBLIC_RECIPE_LIST != nil{
+                let result = Constant.PUBLIC_RECIPE_LIST!
+                self.adBanner = result.result
+//                self.shortRecipe = result.shorts
+                self.hotRecipe = result.hots
+                self.recommendRecipe = result.recommend
+                self.reloadCV()
+            }
             
-        }else if sender.view?.tag == 1 && current_tab != 1{
+        }
+        //갓반인 레시피
+        else if sender.view?.tag == 1 && current_tab != 1{
             UserDefaults.standard.set(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
             changeViewSubFunc(sender.view!.tag, labelEnabled: false, indicatorX: recipeIndicator.frame.width)
             popularCVTopConstant.constant = 30
             shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.4)
             shortRPCV.isHidden = false
-//            self.layoutIfNeeded()
+            Constant.CURRENT_RECIPE_TYPE = 1
+            
+            if Constant.PUBLIC_RECIPE_LIST != nil{
+                let result = Constant.PEOPLE_RECIPE_LIST!
+                self.adBanner = result.result
+                self.shortRecipe = result.shorts
+                self.hotRecipe = result.hots
+                self.recommendRecipe = result.recommend
+                self.reloadCV()
+            }
         }
     }
     
@@ -139,6 +178,7 @@ extension MainVC{
             self.recipeIndicator.frame.origin.x = indicatorX
         }.startAnimation()
     }
+    
 }
 
 // MARK: 컴포넌트 설정
@@ -156,6 +196,7 @@ extension MainVC{
         shortRPCV.clipsToBounds = false
         popularCV.dataSource = self
         popularCV.delegate = self
+        popularCV.clipsToBounds = false
         recommandCV.dataSource = self
         recommandCV.delegate = self
         popularCVTopConstant.constant = -10
@@ -177,9 +218,6 @@ extension MainVC{
         self.registRecipeBtn.setGradient(color1: .gradient1, color2: .gradient2)
         self.registRecipeBtn.clipsToBounds = true
         self.menuV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
-        self.searchV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
-        self.editV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
-        self.heartV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
         self.myMenuBackV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideSideBar)))
         self.blurV.isHidden = true
     }
@@ -199,6 +237,11 @@ extension MainVC{
         Constant.RECIPE_STAR = 4
         Constant.CURRENT_RECIPE = 0
         Constant.CURRENT_RECIPE_DETAIL = nil
+        Constant.IS_BOOKMARK_PAGE = false
+        Constant.PEOPLE_RECIPE_LIST = nil
+        Constant.PUBLIC_RECIPE_LIST = nil
+        Constant.CURRENT_MORE_RECIPE_TYPE = 0
+        Constant.CURRENT_RECIPE_TYPE = 0
     }
 }
 
@@ -262,7 +305,7 @@ extension MainVC{
             if self.adBanner != nil{
                 return self.adBanner!.count
             }else{
-                return 1
+                return 0
             }
         }
         // 레시피 카테고리
@@ -271,11 +314,22 @@ extension MainVC{
         }
         // 숏 레시피
         else if tag == 2{
-            return 8
+            if self.shortRecipe != nil{
+                return self.shortRecipe!.count
+            }
+            return 0
         }
         // 인기 레시피
-        else{
-            return 8
+        else if tag == 3{
+            if self.hotRecipe != nil{
+                return self.hotRecipe!.count
+            }
+            return 0
+        }else{
+            if self.recommendRecipe != nil{
+                return self.recommendRecipe!.count
+            }
+            return 0
         }
     }
     
@@ -306,9 +360,36 @@ extension MainVC{
 
             cell.rpImage.kf.indicatorType = .activity
             if let getShort = self.shortRecipe{
-                
                 let item = getShort[indexPath.item]
                 
+                cell.recipeIdx = item.recipeIdx
+                
+                cell.rpImage.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                if let userUrl = item.userProfileImage{
+                    cell.rpProfile.kf.setImage(with: URL(string:userUrl), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                }
+                if item.bookmarked{
+                    cell.rpBookmark.image = UIImage(systemName: "bookmark.fill")
+                    cell.rpBookmark1.image = UIImage(systemName: "bookmark.fill")
+                }else{
+                    cell.rpBookmark.image = UIImage(systemName: "bookmark")
+                    cell.rpBookmark1.image = UIImage(systemName: "bookmark")
+                }
+                cell.rpNickName.text = item.userNickName
+                cell.rpTitle.text = item.title
+                cell.rpHeartCount.text = "\(item.bookmarkCount)"
+                cell.rpViewCount.text = "\(item.hits)"
+            }
+            return cell
+        }
+        //핫
+        else if collectionView.tag == 3{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeProfile", for: indexPath) as! RecipeProfileCell
+            cell.smallMode()
+            cell.layoutIfNeeded()
+            cell.rpImage.kf.indicatorType = .activity
+            if let getPeople = self.hotRecipe{
+                let item = getPeople[indexPath.item]
                 cell.recipeIdx = item.recipeIdx
                 cell.rpImage.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
                 if let userUrl = item.userProfileImage{
@@ -324,19 +405,20 @@ extension MainVC{
                 cell.rpNickName.text = item.userNickName
                 cell.rpTitle.text = item.title
                 cell.rpHeartCount.text = "\(item.hits)"
+                cell.rpHeartCount.text = "\(item.bookmarkCount)"
+                cell.rpViewCount.text = "\(item.hits)"
             }
             return cell
         }
-        //일반
+        
+        //추천
         else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeProfile", for: indexPath) as! RecipeProfileCell
             cell.smallMode()
             cell.layoutIfNeeded()
             cell.rpImage.kf.indicatorType = .activity
-            if let getPeople = self.shortRecipe{
-                
+            if let getPeople = self.recommendRecipe{
                 let item = getPeople[indexPath.item]
-
                 cell.recipeIdx = item.recipeIdx
                 cell.rpImage.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
                 if let userUrl = item.userProfileImage{
@@ -352,6 +434,8 @@ extension MainVC{
                 cell.rpNickName.text = item.userNickName
                 cell.rpTitle.text = item.title
                 cell.rpHeartCount.text = "\(item.hits)"
+                cell.rpHeartCount.text = "\(item.bookmarkCount)"
+                cell.rpViewCount.text = "\(item.hits)"
             }
             return cell
         }
@@ -407,18 +491,27 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource{
         cell.menuLabel.textColor = .white
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.maneTV.frame.height/5.5
+        return self.maneTV.frame.height/5.9
     }
 }
 
 //MARK: API 요청 관련
 extension MainVC{
-    func didSuccessRequestPeopleRecipe(result: GetPeopleRecipeResponse){
+    func didSuccessRequestPublicRecipe(result: GetPeopleRecipeResponse){
         self.adBanner = result.result
         self.shortRecipe = result.shorts
         self.hotRecipe = result.hots
         self.recommendRecipe = result.recommend
+        Constant.PUBLIC_RECIPE_LIST = result
         self.reloadCV()
+    }
+    func didSuccessRequestPeopleRecipe(result: GetPeopleRecipeResponse){
+//        self.adBanner = result.result
+//        self.shortRecipe = result.shorts
+//        self.hotRecipe = result.hots
+//        self.recommendRecipe = result.recommend
+        Constant.PEOPLE_RECIPE_LIST = result
+//        self.reloadCV()
     }
     func failedToRequest(message: String){
         self.presentBottomAlert(message: message)

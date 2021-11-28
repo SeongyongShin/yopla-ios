@@ -12,6 +12,8 @@ protocol CellDelegate{
     func setimageInfo(image: UIImage)
     func getImageInfo()->UIImage
     func goToDetail()
+    func setThumbNail(category: String, tag: String, time: String)
+    func makeAlert(message: String)
 }
 
 protocol RegistRecipeDetailCellDelegate{
@@ -23,4 +25,12 @@ protocol RegistRecipeDetailCellDelegate{
     func getDetail()
 //    func endEdit()
     func presentAlert(msg: String)
+}
+
+protocol BookMarkCellDelegate{
+    func exitClicked(recipeId: Int, type: Int)
+}
+
+protocol RegistCellDelegate{
+    func didSelectedImage()
 }

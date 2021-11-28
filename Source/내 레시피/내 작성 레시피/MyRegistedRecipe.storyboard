@@ -26,18 +26,18 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KY-xo-KBV">
-                                        <rect key="frame" x="20" y="0.0" width="14.5" height="54"/>
+                                        <rect key="frame" x="20" y="0.0" width="29.5" height="54"/>
                                         <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
-                                            <imageReference key="image" image="chevron.left" catalog="system" symbolScale="large"/>
+                                            <imageReference key="image" image="house.fill" catalog="system" symbolScale="large"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjA-3z-MdE">
-                                        <rect key="frame" x="0.0" y="0.0" width="54.5" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="54"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
-                                            <segue destination="BTW-Vz-f9W" kind="unwind" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToMain:" id="WGj-D3-nuj"/>
+                                            <action selector="homePressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dGq-9c-CEz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyu-Yy-OYp">
@@ -64,7 +64,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sWz-Ba-YEo">
-                                <rect key="frame" x="0.0" y="99" width="414" height="763"/>
+                                <rect key="frame" x="0.0" y="99" width="414" height="714"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -96,18 +96,137 @@
                             <constraint firstItem="sWz-Ba-YEo" firstAttribute="top" secondItem="K0z-gr-970" secondAttribute="bottom" id="sJG-Bp-Bsf"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="doc.fill" catalog="system" selectedImage="doc.fill" id="4Bc-CS-z3h"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="VCTitleLabel" destination="dyu-Yy-OYp" id="wN5-wo-z54"/>
+                        <outlet property="home1" destination="8KY-xo-KBV" id="JNl-P6-wcw"/>
+                        <outlet property="home2" destination="XjA-3z-MdE" id="wcA-9y-hw8"/>
                         <outlet property="recipeTV" destination="sWz-Ba-YEo" id="Yep-qs-0tD"/>
+                        <outlet property="tabBarItems" destination="4Bc-CS-z3h" id="bPE-1Y-gzD"/>
+                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="TI4-zI-pi5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="BTW-Vz-f9W" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-26.086956521739133" y="65.625"/>
+            <point key="canvasLocation" x="-620" y="120"/>
+        </scene>
+        <!--RecipeDetail-->
+        <scene sceneID="bSj-iB-saM">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="RecipeDetail" storyboardName="RecipeDetail" referencedIdentifier="RecipeDetail" id="Lji-9g-3he" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="rTp-SY-WEK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tFS-sj-0AZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1476" y="-47"/>
+        </scene>
+        <!--My Registed RecipeVC-->
+        <scene sceneID="VQJ-BQ-sGp">
+            <objects>
+                <viewController storyboardIdentifier="MyRegistedBookMark" modalPresentationStyle="fullScreen" id="bao-It-FM2" customClass="MyRegistedRecipeVC" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iN8-EM-Lpx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8C-9X-8iP" userLabel="상단가리개">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXm-as-iAv" userLabel="상단탭">
+                                <rect key="frame" x="0.0" y="44" width="414" height="54"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5L-LJ-M9H">
+                                        <rect key="frame" x="20" y="0.0" width="29.5" height="54"/>
+                                        <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <imageReference key="image" image="house.fill" catalog="system" symbolScale="large"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="red-o4-Acq">
+                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="54"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="homePressed:" destination="bao-It-FM2" eventType="touchUpInside" id="H5H-nB-8nz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wn5-cq-XXt">
+                                        <rect key="frame" x="184.5" y="0.0" width="45" height="54"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="북마크">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Wn5-cq-XXt" firstAttribute="centerX" secondItem="wXm-as-iAv" secondAttribute="centerX" id="1cL-Kt-Fsf"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wn5-cq-XXt" secondAttribute="bottom" id="2P1-z9-emh"/>
+                                    <constraint firstItem="Wn5-cq-XXt" firstAttribute="top" secondItem="wXm-as-iAv" secondAttribute="top" id="F8i-YE-egf"/>
+                                    <constraint firstAttribute="bottom" secondItem="red-o4-Acq" secondAttribute="bottom" id="JAd-b3-1YW"/>
+                                    <constraint firstItem="y5L-LJ-M9H" firstAttribute="leading" secondItem="wXm-as-iAv" secondAttribute="leading" constant="20" id="Tl5-JH-Yln"/>
+                                    <constraint firstItem="red-o4-Acq" firstAttribute="leading" secondItem="wXm-as-iAv" secondAttribute="leading" id="m0C-oh-wGF"/>
+                                    <constraint firstItem="red-o4-Acq" firstAttribute="trailing" secondItem="y5L-LJ-M9H" secondAttribute="trailing" constant="20" id="qp4-kE-4Nd"/>
+                                    <constraint firstAttribute="bottom" secondItem="y5L-LJ-M9H" secondAttribute="bottom" id="tEt-J3-tjy"/>
+                                    <constraint firstItem="red-o4-Acq" firstAttribute="top" secondItem="wXm-as-iAv" secondAttribute="top" id="ujS-QJ-2u5"/>
+                                    <constraint firstItem="y5L-LJ-M9H" firstAttribute="top" secondItem="wXm-as-iAv" secondAttribute="top" id="zAp-jf-XVH"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TgE-IS-psX">
+                                <rect key="frame" x="0.0" y="99" width="414" height="714"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IN9-Ba-Ffe">
+                                <rect key="frame" x="0.0" y="98" width="414" height="1"/>
+                                <color key="backgroundColor" red="0.8430330157" green="0.84311723709999997" blue="0.84711802010000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="cCE-Kr-ISN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jie-Bc-b8c"/>
+                        <color key="backgroundColor" red="1" green="0.94098907710000002" blue="0.94034159179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="r8C-9X-8iP" firstAttribute="top" secondItem="iN8-EM-Lpx" secondAttribute="top" id="1TT-6i-TXc"/>
+                            <constraint firstItem="wXm-as-iAv" firstAttribute="top" secondItem="jie-Bc-b8c" secondAttribute="top" id="6oK-GR-JI1"/>
+                            <constraint firstItem="TgE-IS-psX" firstAttribute="leading" secondItem="jie-Bc-b8c" secondAttribute="leading" id="7Gt-jC-ZE0"/>
+                            <constraint firstItem="IN9-Ba-Ffe" firstAttribute="trailing" secondItem="jie-Bc-b8c" secondAttribute="trailing" id="9x8-vB-NQe"/>
+                            <constraint firstItem="wXm-as-iAv" firstAttribute="leading" secondItem="jie-Bc-b8c" secondAttribute="leading" id="Cg5-xd-cPw"/>
+                            <constraint firstItem="r8C-9X-8iP" firstAttribute="bottom" secondItem="wXm-as-iAv" secondAttribute="top" id="Kzo-OH-VBb"/>
+                            <constraint firstItem="jie-Bc-b8c" firstAttribute="trailing" secondItem="TgE-IS-psX" secondAttribute="trailing" id="QBE-9O-RgD"/>
+                            <constraint firstItem="IN9-Ba-Ffe" firstAttribute="leading" secondItem="jie-Bc-b8c" secondAttribute="leading" id="R68-Xo-oDr"/>
+                            <constraint firstItem="jie-Bc-b8c" firstAttribute="trailing" secondItem="wXm-as-iAv" secondAttribute="trailing" id="a4C-8p-YMY"/>
+                            <constraint firstAttribute="trailing" secondItem="r8C-9X-8iP" secondAttribute="trailing" id="adG-2A-Vrl"/>
+                            <constraint firstItem="IN9-Ba-Ffe" firstAttribute="top" secondItem="wXm-as-iAv" secondAttribute="bottom" id="eCc-zM-SK6"/>
+                            <constraint firstItem="TgE-IS-psX" firstAttribute="top" secondItem="IN9-Ba-Ffe" secondAttribute="bottom" id="iaN-NV-hAe"/>
+                            <constraint firstItem="r8C-9X-8iP" firstAttribute="leading" secondItem="iN8-EM-Lpx" secondAttribute="leading" id="n2o-6f-apI"/>
+                            <constraint firstItem="jie-Bc-b8c" firstAttribute="bottom" secondItem="TgE-IS-psX" secondAttribute="bottom" id="no6-kx-FgI"/>
+                            <constraint firstItem="wXm-as-iAv" firstAttribute="height" secondItem="iN8-EM-Lpx" secondAttribute="height" multiplier="0.06" id="q6t-Dy-VIU"/>
+                        </constraints>
+                    </view>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="VCTitleLabel" destination="Wn5-cq-XXt" id="dwn-ih-gc1"/>
+                        <outlet property="home1" destination="y5L-LJ-M9H" id="O7V-ca-Hr2"/>
+                        <outlet property="home2" destination="red-o4-Acq" id="t7E-wC-Ylh"/>
+                        <outlet property="recipeTV" destination="TgE-IS-psX" id="3Jk-RX-o7S"/>
+                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedBookMark" id="YIG-mE-Tyo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BnU-6a-Ca4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-596" y="802"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YIG-mE-Tyo"/>
+    </inferredMetricsTieBreakers>
     <resources>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="doc.fill" catalog="system" width="115" height="128"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

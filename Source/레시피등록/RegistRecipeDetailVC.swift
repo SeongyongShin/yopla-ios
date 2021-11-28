@@ -30,6 +30,13 @@ class RegistRecipeDetailVC: BaseViewController {
         super.viewDidLoad()
         setComponent()
     }
+    @IBAction func backPressed(_ sender: Any) {
+        if currentCellState == 0{
+            self.performSegue(withIdentifier: "goToThumbNailFromDetail", sender: self)
+        }else{
+            self.registDetailCV.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
 }
 //MARK: 컴포넌트 설정
 extension RegistRecipeDetailVC{
@@ -54,6 +61,7 @@ extension RegistRecipeDetailVC: UICollectionViewDelegate, UICollectionViewDataSo
         if indexPath.item % 2 == 0{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegistDetailCell1", for: indexPath) as! RegistDetailCell1
             cell.delegate = self
+            cell.delegate2 = self
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegistDetailCell2", for: indexPath) as! RegistDetailCell2
@@ -239,7 +247,8 @@ extension RegistRecipeDetailVC{
     @IBAction func btnPressed(_ sender: UIButton){
         if self.currentCellState == 0 {
             if sender.tag == 2{
-                makeRootVC("Main")
+                makeTabBarRootVC("MainTabBar")
+//                makeRootVC("Main")
             }
         }else{
             if sender.tag == 1{
@@ -309,8 +318,8 @@ extension RegistRecipeDetailVC{
         let req = awsDataManager.uploadImage(image: (Constant.tempThumbNails?.image)!)
         req.done{
             url in
-            Constant.registThumbNail = PostThumbNailRequest(userId: 2, recipeName: Constant.tempThumbNails!.title!, category: Constant.tempThumbNails!.category!, frontImageUrl: "\(url)", tags: [Constant.tempThumbNails!.tag!])
-            print(Constant.registThumbNail)
+            Constant.registThumbNail = PostThumbNailRequest(userId: Constant.USER_IDX, recipeName: Constant.tempThumbNails!.title!, category: Constant.tempThumbNails!.category!, frontImageUrl: "\(url)", tags: Constant.tempThumbNails!.tag!)
+            
             DispatchQueue.main.async {
                 self.loadingLabel.text = "썸네일 등록 완료. 내용을 등록하는 중입니다."
             }
@@ -394,7 +403,7 @@ extension RegistRecipeDetailVC{
         for i in dataList{
             Constant.registDetail.append(i.detail)
         }
-        print(Constant.registDetail)
+//        print(Constant.registDetail)
         self.postThumbNailDataManager.postThumbNail(Constant.registThumbNail!, delegate: self)
     }
 }
@@ -415,7 +424,7 @@ extension RegistRecipeDetailVC{
         DispatchQueue.main.async {
             Thread.sleep(forTimeInterval: 2)
             self.loadingView.isHidden = true
-            self.makeRootVC("Main")
+            self.makeTabBarRootVC("MainTabBar")
             Constant.viewFromDetail = true
         }
     }
@@ -425,5 +434,13 @@ extension RegistRecipeDetailVC{
             self.activityView.stopAnimating()
         }
         self.presentBottomAlert(message: message)
+    }
+}
+
+extension RegistRecipeDetailVC: RegistCellDelegate{
+    func didSelectedImage() {
+        DispatchQueue.main.async {
+            self.registDetailCV.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: true)
+        }
     }
 }

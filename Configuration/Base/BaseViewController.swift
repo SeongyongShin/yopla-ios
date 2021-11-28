@@ -8,7 +8,7 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-
+    var dst: String?
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -29,9 +29,31 @@ class BaseViewController: UIViewController {
             self.present(viewControllerToPresent, animated: true, completion: nil)
         }
     }
-    
+    func makeTabBarRootVC(_ storyboard: String){
+        let mainTabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "\(storyboard)")
+        changeRootViewController(mainTabBarController)
+    }
     func makeRootVC(_ storyboard: String){
         let mainTabBarController = UIStoryboard(name: "\(storyboard)", bundle: nil).instantiateViewController(identifier: "\(storyboard)")
         changeRootViewController(mainTabBarController)
+    }
+    
+    func swipeRecognizer(dst: String) {
+        self.dst = dst
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+    }
+    
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction{
+            case UISwipeGestureRecognizer.Direction.right:
+                // 스와이프 시, 원하는 기능 구현.
+                self.performSegue(withIdentifier: self.dst!, sender: self)
+            default: break
+            }
+        }
     }
 }

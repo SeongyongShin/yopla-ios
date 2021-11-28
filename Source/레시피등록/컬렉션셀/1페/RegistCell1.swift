@@ -15,6 +15,7 @@ class RegistCell1: UICollectionViewCell {
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     var fetchResult: PHFetchResult<PHAsset>?
     var delegate : CellDelegate?
+    var delegate2: RegistCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         myGalleryCV.register(UINib(nibName: "RegistCell1_1", bundle: nil), forCellWithReuseIdentifier: "RegistCell1_1")
@@ -56,7 +57,12 @@ extension RegistCell1: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             self.thumbNailIV.image = image
             self.thumbNailIV.alpha = 1
             self.delegate?.setimageInfo(image: image!)
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.3)
+                self.delegate2?.didSelectedImage()
+            }
         }
+        
     }
     
 }

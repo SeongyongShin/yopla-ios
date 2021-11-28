@@ -13,3 +13,20 @@ struct BookMarkResponse: Decodable {
     var message: String
     var result: String?
 }
+
+struct GetBookMarkResponse: Decodable {
+    var isSuccess: Bool
+    var code: Int
+    var message: String
+    var result: [GetBookMarkResult]?
+}
+struct GetBookMarkResult: Decodable{
+    var bookmarksIdx: Int
+    var recipeId: Int
+    var recipeImage: String
+    var recipeName: String
+    var userNickName: String
+    var category: String
+    var bookmarkCount: Int
+    var averageScore: Float
+}

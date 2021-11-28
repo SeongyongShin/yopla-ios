@@ -1,28 +1,27 @@
 //
-//  PostThumbNailDataManager.swift
+//  PostDeleteRecipeDataManager.swift
 //  yopla
 //
-//  Created by 신성용 on 2021/11/15.
+//  Created by 신성용 on 2021/11/28.
 //
 
 import Foundation
 import Alamofire
 
-class PostThumbNailDataManager{
+class PostDeleteRecipeDataManager{
     
     // 썸네일 등록
-    func postThumbNail(_ parameters: PostThumbNailRequest, delegate: RegistRecipeDetailVC) {
-//        parameters.userId = Constant.USER_IDX
-//        print(parameters)
-        AF.request("\(Constant.BASE_URL)/app/users/recipes", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
+    func postDeleteRecipe(_ parameters: PostDeleteRecipeRequest, delegate: MyRegistedRecipeVC) {
+        print(parameters)
+        AF.request("\(Constant.BASE_URL)/app/users/recipes/status", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
-            .responseDecodable(of: PostThumbNailResponse.self) { response in
+            .responseDecodable(of: PostDeleteRecipeResponse.self) { response in
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
                     print(response)
                     if response.isSuccess{
-                        delegate.didSuccessRegistthumbNail(result: response.result ?? 00)
+                        delegate.didSuccessDeleteRecipe(result: response.result ?? "nil")
                     }
                     // 실패했을 때
                     else {

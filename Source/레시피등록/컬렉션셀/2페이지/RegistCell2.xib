@@ -29,10 +29,10 @@
                             <constraint firstAttribute="height" constant="1" id="Bt9-fO-UEN"/>
                         </constraints>
                     </view>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#레시피 태그 설정" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HHg-8F-4Pc">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#레시피 태그 설정 (띄어쓰기로 구분해주세요)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HHg-8F-4Pc">
                         <rect key="frame" x="0.0" y="372.5" width="367" height="52"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bh2-iX-Hii">
                         <rect key="frame" x="0.0" y="424.5" width="367" height="1"/>
@@ -137,6 +137,7 @@
                 <outlet property="categoryBtn2" destination="99k-zU-rBA" id="dQp-ql-8hc"/>
                 <outlet property="imageView" destination="tTX-sh-6eR" id="r2a-gy-M1x"/>
                 <outlet property="nextBtn" destination="q7W-sd-hXS" id="Ifr-pq-CIU"/>
+                <outlet property="recipeTags" destination="HHg-8F-4Pc" id="Enh-EJ-jCl"/>
             </connections>
             <point key="canvasLocation" x="364.49275362318843" y="311.71875"/>
         </collectionViewCell>

@@ -11,6 +11,7 @@ class MyRegistedRecipeTableCell: UITableViewCell {
     // 0: 내 작성 레시피
     // 1: 북마크 페이지
     var current_type = 0
+    var delegate: BookMarkCellDelegate?
     @IBOutlet weak var recipeIV: UIImageView!
     @IBOutlet weak var recipeTitle: UILabel!
     @IBOutlet weak var recipeCategory: UILabel!
@@ -32,5 +33,7 @@ class MyRegistedRecipeTableCell: UITableViewCell {
     }
     
     @IBAction func xPressed(_ sender: Any) {
+        print(self.tag, self.current_type)
+        delegate?.exitClicked(recipeId: self.tag, type: self.current_type)
     }
 }

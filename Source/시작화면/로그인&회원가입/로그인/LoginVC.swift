@@ -89,7 +89,8 @@ extension LoginVC{
 //            logInDataManager.postSignIn(PostSignInRequest(loginId: emailTF.text!, password: passwordTF.text!), delegate: self)
 //        }
         
-            makeRootVC("Main")
+//            makeRootVC("MainTabBar")
+        makeTabBarRootVC("MainTabBar")
     }
 
 }
@@ -160,7 +161,7 @@ extension LoginVC{
     // 로그인 성공
     func didSuccessSignIn(result: PostSignInResult){
 //        self.presentBottomAlert(message: "로그인 성공")
-        makeRootVC("Main")
+        makeTabBarRootVC("MainTabBar")
     }
     // 로그인 실패
     func failedToRequest(message: String){

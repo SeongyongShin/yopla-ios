@@ -17,6 +17,7 @@ class RecipeDetailStarVC: BaseViewController {
     @IBOutlet weak var starScore: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.swipeRecognizer(dst: "goToDetailPageFromStar")
         setComponent()
         setStarTapGesture()
     }
@@ -76,6 +77,6 @@ extension RecipeDetailStarVC{
         
     }
     @IBAction func goToMainFromReview(_ sender: UIButton){
-        makeRootVC("Main")
+        makeTabBarRootVC("MainTabBar")
     }
 }

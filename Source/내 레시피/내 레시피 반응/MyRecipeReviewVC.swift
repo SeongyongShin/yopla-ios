@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class MyRecipeReviewVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataSource {
     
     lazy var dataManager: GetRecipeReviewDataManager = GetRecipeReviewDataManager()
     @IBOutlet weak var reviewTv: UITableView!
@@ -36,9 +36,11 @@ class MyRecipeReviewVC: UIViewController,UITableViewDelegate, UITableViewDataSou
         cell.selectedBackgroundView = UIView()
         if let review = reviewList{
             let item = review[indexPath.row]
+            
             if item.userPI != nil{
                 cell.profileImage.kf.setImage(with: URL(string:item.userPI!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
             }
+            
             cell.nickName.text = item.userNickName
             cell.content.text = item.content
             cell.created_at.text = "From. " + "\(item.recipeName!)"
@@ -46,9 +48,18 @@ class MyRecipeReviewVC: UIViewController,UITableViewDelegate, UITableViewDataSou
             for i in 0 ... 4{
                 cell.stars[i].image = UIImage(systemName: "star")
             }
-            for i in 0 ... (item.reviewScore - 1){
-                cell.stars[i].image = UIImage(systemName: "star.fill")
+            
+            if item.reviewScore != 5{
+                for i in 0 ... item.reviewScore{
+                    cell.stars[i].image = UIImage(systemName: "star.fill")
+                }
+            }else{
+                for i in 0 ... 4{
+                    cell.stars[i].image = UIImage(systemName: "star.fill")
+                }
             }
+            
+            
         }
         return cell
     }

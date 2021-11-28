@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct PostThumbNailRequest: Encodable{
-    var userId: Int = 0
+    var userId: Int = Constant.USER_IDX
     var recipeName: String = "\(Int.random(in: 0...99999))test\(Int.random(in: 0...99999))"
     var category: String = "한식"
     var time: String = "20분 내외"

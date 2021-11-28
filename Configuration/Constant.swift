@@ -18,10 +18,15 @@ struct Constant{
     static var registDetail: [PostNewRecipe] = []
     static var registId: Int?
     static var viewFromDetail = false
-    static var JWT_TOKEN: String? =  "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyLCJpYXQiOjE2MzY5NjA0OTQsImV4cCI6MTYzODQzMTcyMn0.zJ5EvBTWV_RTsfb1o39JUzQwg0tcWRj3a85WBPQbz_A"
+    static var JWT_TOKEN: String? = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyOSwiaWF0IjoxNjM4MTIyMTkwLCJleHAiOjE2Mzk1OTM0MTl9.vCpkA-0po2QwPAIlqeGenBqe1zUipEdrlNxNzzxjkao"
     static var DID_SUCCESS_SIGN_UP = false
-    static var USER_IDX = 2
+    static var USER_IDX = 29
     static var CURRENT_RECIPE = 0
     static var RECIPE_STAR = 4
     static var CURRENT_RECIPE_DETAIL: GetRecipeDetailResponse?
+    static var IS_BOOKMARK_PAGE = false
+    static var PEOPLE_RECIPE_LIST: GetPeopleRecipeResponse?
+    static var PUBLIC_RECIPE_LIST: GetPeopleRecipeResponse?
+    static var CURRENT_MORE_RECIPE_TYPE = 0
+    static var CURRENT_RECIPE_TYPE = 0
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipeDetailReviewVC: BaseViewController{
     lazy var getReviewDataManager: GetRecipeReviewDataManager = GetRecipeReviewDataManager()
@@ -30,6 +31,7 @@ class RecipeDetailReviewVC: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.swipeRecognizer(dst: "goToStarFromRecipeReview")
         setComponent()
         getReviewDataManager.getRecipeReview(recipeId: Constant.CURRENT_RECIPE, delegate: self)
     }
@@ -108,6 +110,7 @@ extension RecipeDetailReviewVC: UITableViewDelegate,UITableViewDataSource{
             let item = review[indexPath.row]
             if item.userPI != nil{
                 cell.profileImage.kf.setImage(with: URL(string:item.userPI!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                
             }
             cell.nickName.text = item.userNickName
             cell.content.text = item.content
@@ -116,9 +119,17 @@ extension RecipeDetailReviewVC: UITableViewDelegate,UITableViewDataSource{
             for i in 0 ... 4{
                 cell.stars[i].image = UIImage(systemName: "star")
             }
-            for i in 0 ... (item.reviewScore - 1){
-                cell.stars[i].image = UIImage(systemName: "star.fill")
+            if item.reviewScore != 5{
+                for i in 0 ... item.reviewScore{
+                    cell.stars[i].image = UIImage(systemName: "star.fill")
+                }
             }
+            else{
+                for i in 0 ... 4{
+                    cell.stars[i].image = UIImage(systemName: "star.fill")
+                }
+            }
+            
         }
         return cell
     }
@@ -196,6 +207,6 @@ extension RecipeDetailReviewVC{
 
 extension RecipeDetailReviewVC{
     @IBAction func goToMainFromReview(_ sender: UIButton){
-        makeRootVC("Main")
+        makeTabBarRootVC("MainTabBar")
     }
 }

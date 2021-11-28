@@ -20,54 +20,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6Q-LZ-IVJ">
-                                <rect key="frame" x="20" y="74" width="15" height="22"/>
+                                <rect key="frame" x="20" y="74" width="25" height="23"/>
                                 <color key="tintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal">
-                                    <imageReference key="image" image="chevron.left" catalog="system" symbolScale="large"/>
+                                    <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbK-1J-B9v">
-                                <rect key="frame" x="0.0" y="44" width="83" height="52"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <connections>
-                                    <segue destination="jrI-EO-J4a" kind="unwind" customClass="SegueFromRight" customModule="yopla" customModuleProvider="target" unwindAction="unwindToMain:" id="CfM-bc-tJm"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="검색" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEz-cF-nut">
-                                <rect key="frame" x="55" y="74.5" width="30" height="21"/>
+                                <rect key="frame" x="50" y="75" width="30" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UD6-Hd-eat" customClass="SearchLineView" customModule="yopla" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="126" width="414" height="2"/>
+                                <rect key="frame" x="0.0" y="127" width="414" height="2"/>
                                 <color key="backgroundColor" red="1" green="0.94098907710000002" blue="0.94034159179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="XKp-gQ-Uoe"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="찾는 것을 입력하세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t6E-fA-hXi">
-                                <rect key="frame" x="20" y="158" width="374" height="36"/>
+                                <rect key="frame" x="20" y="159" width="374" height="36"/>
                                 <color key="textColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4t-N8-Zmt" customClass="BackGroundShadowLineView" customModule="yopla" customModuleProvider="target">
-                                <rect key="frame" x="20" y="194" width="374" height="2"/>
+                                <rect key="frame" x="20" y="195" width="374" height="2"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="0cL-67-TPH"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="검색 결과" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVG-nS-7sE">
-                                <rect key="frame" x="20" y="226" width="63" height="20.5"/>
+                                <rect key="frame" x="20" y="227" width="63" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PLo-XV-FeA">
-                                <rect key="frame" x="10" y="276.5" width="394" height="619.5"/>
+                                <rect key="frame" x="10" y="277.5" width="394" height="618.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ddl-sY-Kag">
                                     <size key="itemSize" width="128" height="128"/>
@@ -78,7 +71,7 @@
                                 <cells/>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odn-m0-UEn">
-                                <rect key="frame" x="319" y="161" width="75" height="30"/>
+                                <rect key="frame" x="319" y="162" width="75" height="30"/>
                                 <color key="backgroundColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <menu key="menu" id="s0d-m9-gVZ">
@@ -97,12 +90,9 @@
                         <constraints>
                             <constraint firstItem="V6Q-LZ-IVJ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="05i-vE-ViO"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="PLo-XV-FeA" secondAttribute="trailing" constant="10" id="2fP-BD-LKh"/>
-                            <constraint firstItem="vbK-1J-B9v" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="7rt-jt-1Y3"/>
                             <constraint firstItem="PLo-XV-FeA" firstAttribute="top" secondItem="zVG-nS-7sE" secondAttribute="bottom" constant="30" id="9Fc-9c-lo4"/>
                             <constraint firstItem="Odn-m0-UEn" firstAttribute="top" secondItem="UD6-Hd-eat" secondAttribute="bottom" constant="33" id="B8h-RZ-kJa"/>
-                            <constraint firstItem="vbK-1J-B9v" firstAttribute="bottom" secondItem="V6Q-LZ-IVJ" secondAttribute="bottom" id="CpZ-NL-1p5"/>
                             <constraint firstItem="fEz-cF-nut" firstAttribute="centerY" secondItem="V6Q-LZ-IVJ" secondAttribute="centerY" id="ECx-Lq-jbj"/>
-                            <constraint firstItem="vbK-1J-B9v" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.2" id="Hbu-bq-Xzy"/>
                             <constraint firstAttribute="bottom" secondItem="PLo-XV-FeA" secondAttribute="bottom" id="Iaf-XF-8c6"/>
                             <constraint firstItem="a4t-N8-Zmt" firstAttribute="leading" secondItem="t6E-fA-hXi" secondAttribute="leading" id="KMs-n0-EnG"/>
                             <constraint firstItem="PLo-XV-FeA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="Mos-oV-Ywz"/>
@@ -110,7 +100,7 @@
                             <constraint firstItem="a4t-N8-Zmt" firstAttribute="top" secondItem="t6E-fA-hXi" secondAttribute="bottom" id="QQH-j3-Gas"/>
                             <constraint firstItem="a4t-N8-Zmt" firstAttribute="trailing" secondItem="t6E-fA-hXi" secondAttribute="trailing" id="T80-bg-WfB"/>
                             <constraint firstItem="Odn-m0-UEn" firstAttribute="width" secondItem="t6E-fA-hXi" secondAttribute="width" multiplier="0.2" id="UC7-Ob-kTx"/>
-                            <constraint firstItem="fEz-cF-nut" firstAttribute="leading" secondItem="V6Q-LZ-IVJ" secondAttribute="trailing" constant="20" id="WL7-jk-dbl"/>
+                            <constraint firstItem="fEz-cF-nut" firstAttribute="leading" secondItem="V6Q-LZ-IVJ" secondAttribute="trailing" constant="5" id="WL7-jk-dbl"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="UD6-Hd-eat" secondAttribute="trailing" id="XAG-wu-w2J"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="t6E-fA-hXi" secondAttribute="trailing" constant="20" id="ZE7-yM-gL6"/>
                             <constraint firstItem="UD6-Hd-eat" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="ZPh-2T-fqf"/>
@@ -120,11 +110,15 @@
                             <constraint firstItem="UD6-Hd-eat" firstAttribute="top" secondItem="V6Q-LZ-IVJ" secondAttribute="bottom" constant="30" id="hIA-cx-wD6"/>
                             <constraint firstItem="t6E-fA-hXi" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.04" id="jLx-eD-Y4j"/>
                             <constraint firstItem="zVG-nS-7sE" firstAttribute="top" secondItem="a4t-N8-Zmt" secondAttribute="bottom" constant="30" id="jYk-Y8-E6V"/>
-                            <constraint firstItem="vbK-1J-B9v" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="oEM-xu-qYh"/>
                             <constraint firstItem="V6Q-LZ-IVJ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="sYu-CC-aKY"/>
                             <constraint firstItem="t6E-fA-hXi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="uM5-Vs-5l5"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" id="BXP-B5-fGB">
+                        <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large"/>
+                        <imageReference key="selectedImage" image="magnifyingglass" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="filterBtn" destination="Odn-m0-UEn" id="yGB-1r-BeC"/>
                         <outlet property="searchResultCV" destination="PLo-XV-FeA" id="rZY-AP-itX"/>
@@ -133,7 +127,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="jrI-EO-J4a" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-335" y="117"/>
         </scene>
@@ -149,7 +142,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

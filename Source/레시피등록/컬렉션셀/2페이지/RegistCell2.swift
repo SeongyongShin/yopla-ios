@@ -7,9 +7,10 @@
 
 import UIKit
 
-class RegistCell2: UICollectionViewCell{
+class RegistCell2: UICollectionViewCell, UITextFieldDelegate{
     var keyboardShowed = false
     let test_category = ["한식","중식","양식","기타"]
+    @IBOutlet weak var recipeTags: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nextBtn: BaseButton!
     @IBOutlet weak var categoryBtn1: BaseButton!
@@ -18,6 +19,7 @@ class RegistCell2: UICollectionViewCell{
     var delegate: CellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.recipeTags.delegate = self
         self.imageView?.image = self.delegate?.getImageInfo()
         nextBtn.layer.borderColor = UIColor.white.cgColor
         nextBtn.layer.borderWidth = 2
@@ -44,7 +46,18 @@ class RegistCell2: UICollectionViewCell{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.contentView.endEditing(true)
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.contentView.endEditing(true)
+        return true
+    }
+    
     @IBAction func goToDetail(_ sender: Any) {
+        if recipeTags.text != nil || recipeTags.text != ""{
+            self.delegate?.setThumbNail(category: self.categoryBtn1.titleLabel!.text!, tag: recipeTags.text!, time: self.categoryBtn2.titleLabel!.text!)
+        }else{
+            self.delegate!.makeAlert(message: "빈 칸을 채워주세요")
+            return
+        }
         self.delegate?.goToDetail()
     }
 }

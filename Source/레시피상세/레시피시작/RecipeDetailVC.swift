@@ -23,10 +23,20 @@ class RecipeDetailVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getRecipeDetail.getRecipeDetail(delegate: self)
+        //대중
+        if Constant.CURRENT_RECIPE_TYPE == 0{
+            getRecipeDetail.getPublicRecipeDetail(delegate: self)
+        }
+        //갓반인
+        else{
+            getRecipeDetail.getRecipeDetail(delegate: self)
+        }
     }
     
-
+    @IBAction func backPressed(_ sender: Any) {
+        self.makeTabBarRootVC("MainTabBar")
+    }
+    
 }
 
 //MARK: API

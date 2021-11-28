@@ -21,6 +21,12 @@ struct GetPeopleRecipeResult: Decodable{
     var adverIdx: Int
     var imagePath: String
 }
+struct GetMorePeopleRecipeResponse: Decodable {
+    var isSuccess: Bool
+    var code: Int
+    var message: String
+    var result: [GetPeopleRecipeThumnails]?
+}
 struct GetPeopleRecipeThumnails: Decodable{
     var recipeIdx: Int
     var title: String
@@ -30,4 +36,5 @@ struct GetPeopleRecipeThumnails: Decodable{
     var hits: Int
     var bookmarkCount: Int
     var bookmarked: Bool
+    var averageScore: Float?
 }

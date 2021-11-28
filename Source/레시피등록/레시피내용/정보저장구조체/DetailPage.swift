@@ -17,10 +17,11 @@ struct DetailPage{
 }
 struct ThumbPage{
     var title: String?
-    var tag: String?
+    var tag: [String]?
     var image: UIImage?
     var category: String?
     var fileType: String?
+    var time: String?
 }
 struct TempDetailPage {
     var index: Int?
