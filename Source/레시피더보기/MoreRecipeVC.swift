@@ -93,7 +93,7 @@ extension MoreRecipeVC{
             self.title1.text = "HOT!"
             self.title2.text = "인기 레시피"
         }else{
-            self.title1.text = "###님께"
+            self.title1.text = "\(Constant.MY_PROFILE?.userNickName ?? "###")님께"
             self.title2.text = "추천 레시피"
         }
     }

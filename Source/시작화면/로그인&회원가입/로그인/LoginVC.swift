@@ -8,7 +8,13 @@
 import UIKit
 
 class LoginVC: BaseViewController{
+    lazy var findPWManager: PostFindPWDataManager = PostFindPWDataManager()
     lazy var logInDataManager: PostSignInDataManager = PostSignInDataManager()
+    
+    @IBOutlet weak var findEmailTF: UITextField!
+    @IBOutlet weak var findEmailPhone: UITextField!
+    @IBOutlet weak var findPwV: UIView!
+    
     
     @IBOutlet weak var backSV: UIStackView!
     @IBOutlet weak var leftImage: UIImageView!
@@ -69,14 +75,32 @@ extension LoginVC{
     func setComponent(){
         loginBtn.backgroundColor = .mainHotPink
         findLabel.textColor = .mainHotPink
+        self.findEmailTF.delegate = self
+        self.findEmailPhone.delegate = self
         self.emailTF.delegate = self
         self.passwordTF.delegate = self
+        findPwV.isHidden = true
+        findPwV.layer.cornerRadius = 5
+        findPwV.layer.borderColor = UIColor.shadowGray.cgColor
+        findPwV.layer.borderWidth = 1
+        findPwV.clipsToBounds = true
+        findEmailTF.backgroundColor = .shadowGray
+        findEmailPhone.backgroundColor = .shadowGray
+        findEmailTF.layer.cornerRadius = 5
+        findEmailPhone.layer.cornerRadius = 5
+    
     }
     
+    //이메일이 형식에 맞는지
+    func isValidEmail(testStr:String) -> Bool {
+          let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+          let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+          return emailTest.evaluate(with: testStr)
+       }
     
     // 아이디비번찾기 눌렀을 때
     @objc func findIdPass(sender: Any){
-        
+        findPwV.isHidden = false
     }
     
     // 메인으로 돌아가기
@@ -87,12 +111,34 @@ extension LoginVC{
     @IBAction func logInPressed(_ sender: Any) {
         //메인화면 이동
         if emailTF.text != "" && passwordTF.text != ""{
+            if !isValidEmail(testStr: emailTF.text!){
+                self.presentBottomAlert(message: "이메일 형식을 확인해주세요.")
+                return
+            }
             logInDataManager.postSignIn(PostSignInRequest(loginId: emailTF.text!, password: passwordTF.text!), delegate: self)
         }else{
             self.presentBottomAlert(message: "아이디와 비밀번호를 확인해주세요")
             return
         }
         
+    }
+    @IBAction func findPW(_sender: Any){
+        if self.findEmailTF.text != "" && self.findEmailPhone.text != ""{
+            if isValidEmail(testStr: self.findEmailTF.text!){
+                findPWManager.postFindPW(PostFindPWRequest(email: self.findEmailTF.text!, phoneNumber: self.findEmailPhone.text!.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")), delegate: self)
+                
+                    self.presentAlert(title: "이메일로 임시 비밀번호를 발송하였습니다.\n 임시 비밀번호로 로그인 해 주세요.")
+            }else{
+                self.presentAlert(title: "이메일 형식을 확인해주세요.")
+            }
+        }else{
+            self.presentAlert(title: "빈 칸을 채워주세요.")
+        }
+    }
+    @IBAction func exitFindPW(_ sender: Any){
+        findPwV.isHidden = true
+        findEmailTF.text = ""
+        findEmailPhone.text = ""
     }
 
 }
@@ -178,6 +224,9 @@ extension LoginVC{
     // 로그인 실패
     func failedToRequest(message: String){
         self.presentAlert(title: message)
+    }
+    func didSuccessSendEmail(){
+        print("이메일 전송 완료")
     }
 }
 
