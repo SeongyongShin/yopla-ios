@@ -70,7 +70,7 @@
                             <constraint firstItem="QVN-h3-bGv" firstAttribute="top" secondItem="T3e-CM-xBR" secondAttribute="bottom" id="yGO-W6-fiV"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="heart.fill" catalog="system" selectedImage="heart.fill" id="k12-Tg-dcT"/>
+                    <tabBarItem key="tabBarItem" title="" image="hearts" selectedImage="hearts" id="k12-Tg-dcT"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="reviewTv" destination="3gm-ac-9ph" id="Kqd-ib-SNy"/>
@@ -82,7 +82,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="hearts" width="47" height="47"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

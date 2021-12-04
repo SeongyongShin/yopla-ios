@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import AVFoundation
 
 class RecipeDetailVC: BaseViewController {
 
@@ -43,6 +44,10 @@ class RecipeDetailVC: BaseViewController {
 extension RecipeDetailVC{
     func didSuccessDetail(result: GetRecipeDetailResponse){
         Constant.CURRENT_RECIPE_DETAIL = result
+        if result.result2 != nil{
+            self.setStaticThumbNail(result: result.result2!)
+        }
+        
         self.recipeTitleL.text = result.result?.title ?? "제목이 없습니다."
         self.recipeTitleL2.text = result.result?.title ?? "제목이 없습니다."
         self.recipeIV.kf.setImage(with: URL(string:result.result!.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
@@ -73,3 +78,38 @@ extension RecipeDetailVC{
         
     }
 }
+extension RecipeDetailVC{
+    func setStaticThumbNail(result: [GetRecipeDetail]){
+        DispatchQueue.global().async {
+            for item in result{
+                if item.fileType == "video"{
+                    
+                    Constant.TEMPORARY_DETAIL_VIDEO_THUMB.append(self.createVideoThumbnail(from: URL(string: item.detailFileUrl)!)!)
+                }else{
+                    Constant.TEMPORARY_DETAIL_VIDEO_THUMB.append(UIImage())
+                }
+            }
+        }
+    }
+    
+    private func createVideoThumbnail(from url: URL) -> UIImage? {
+
+        let asset = AVAsset(url: url)
+        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+        assetImgGenerate.appliesPreferredTrackTransform = true
+//        assetImgGenerate.maximumSize = CGSize(width: frame.width, height: frame.height)
+
+        let time = CMTimeMakeWithSeconds(0.0, preferredTimescale: 600)
+        do {
+            let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: img)
+            return thumbnail
+        }
+        catch {
+          print(error.localizedDescription)
+          return nil
+        }
+
+    }
+}
+

@@ -45,7 +45,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         actions.forEach { alert.addAction($0) }
         if isCancelActionIncluded {
-            let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            let actionCancel = UIAlertAction(title: "확인", style: .cancel, handler: nil)
             alert.addAction(actionCancel)
         }
         self.present(alert, animated: true, completion: nil)

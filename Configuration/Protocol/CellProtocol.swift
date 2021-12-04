@@ -29,8 +29,10 @@ protocol RegistRecipeDetailCellDelegate{
 
 protocol BookMarkCellDelegate{
     func exitClicked(recipeId: Int, type: Int)
+    func modifyPressed(recipeId: Int)
 }
 
 protocol RegistCellDelegate{
     func didSelectedImage()
+    func presentAlertMessage(msg: String)
 }

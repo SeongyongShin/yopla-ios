@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 class MyRegistedRecipeVC: BaseViewController {
+    var myRegistedDelegate: performSegues?
     lazy var dataManager: GetRegistedRecipeDataManager = GetRegistedRecipeDataManager()
     lazy var dataManager2: BookmarkDataManager = BookmarkDataManager()
     lazy var dataManager3: PostDeleteRecipeDataManager = PostDeleteRecipeDataManager()
@@ -63,32 +64,7 @@ extension MyRegistedRecipeVC: UITableViewDelegate, UITableViewDataSource{
             cell.recipeCategory.text = item.category
             cell.heartCount.text = "\(item.bookmarkCount)"
             cell.nameL.text = "수정하기"
-            let star:Int = Int(item.averageScore)
-            let floatScore = Float(star) - item.averageScore
-            if star != 0{
-                for i in 0...(star - 1){
-                    cell.stars[i].image = UIImage(systemName: "star.fill")
-                }
-                if floatScore >= 0.5 && star != 5{
-                    cell.stars[star-1].image = UIImage(systemName: "star.leadinghalf.filled")
-                }
-            }else{
-                if floatScore > 0.5{
-                    cell.stars[0].image = UIImage(systemName: "star.leadinghalf.filled")
-                }
-            }
-        }else if bookMarkList != nil{
-            let item = bookMarkList![indexPath.row]
-            cell.current_type = 1
-            
-            cell.delegate = self
-            cell.tag = item.recipeId
-            cell.recipeIV.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
-            cell.recipeTitle.text = item.recipeName
-            cell.recipeCategory.text = item.category
-            cell.heartCount.text = "\(item.bookmarkCount)"
-            cell.nameL.text = item.userNickName
-            cell.underLine.backgroundColor = .white
+            cell.is_people = true
             let star:Int = Int(item.averageScore)
             let floatScore = Float(star) - item.averageScore
             if star == 5{
@@ -108,16 +84,52 @@ extension MyRegistedRecipeVC: UITableViewDelegate, UITableViewDataSource{
                     cell.stars[0].image = UIImage(systemName: "star.leadinghalf.filled")
                 }
             }
+        }else if bookMarkList != nil{
+            let item = bookMarkList![indexPath.row]
+            
+            if item.type == "people"{
+                cell.is_people = true
+            }
+            
+            cell.current_type = 1
+            
+            cell.delegate = self
+            cell.tag = item.recipeId
+            cell.recipeIV.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+            cell.recipeTitle.text = item.recipeName
+            cell.recipeCategory.text = item.category
+            cell.heartCount.text = "\(item.bookmarkCount)"
+            cell.nameL.text = item.userNickName
+            cell.underLine.backgroundColor = .white
+            let star:Int = Int(item.averageScore)
+//            let floatScore = Float(star) - item.averageScore
+            if star == 5{
+                for i in 0...(star - 1){
+                    cell.stars[i].image = UIImage(systemName: "star.fill")
+                }
+            }
+            else if star != 0{
+                for i in 0...star{
+                    cell.stars[i].image = UIImage(systemName: "star.fill")
+                }
+                
+            }
         }
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! MyRegistedRecipeTableCell
         Constant.CURRENT_RECIPE = cell.tag
+        if cell.is_people{
+            Constant.CURRENT_RECIPE_TYPE = 1
+        }else{
+            Constant.CURRENT_RECIPE_TYPE = 0
+        }
         if Constant.IS_BOOKMARK_PAGE{
             self.performSegue(withIdentifier: "goToDetailFromMyRegistedBookMark", sender: self)
         }else{
-            self.performSegue(withIdentifier: "goToDetailFromMyRegistedRecipe", sender: self)
+            myRegistedDelegate?.goToVC("goToDetail")
+//            self.performSegue(withIdentifier: "goToDetailFromMyRegistedRecipe", sender: self)
         }
     }
 }
@@ -173,8 +185,14 @@ extension MyRegistedRecipeVC: BookMarkCellDelegate{
         if type == 1{
             dataManager2.patchBookMark(recipeId: recipeId, delegate: nil, delegate2: self)
         }else{
-            dataManager3.postDeleteRecipe(PostDeleteRecipeRequest(userId: Constant.USER_IDX, recipeId: recipeId), delegate: self)
+            dataManager3.postDeleteRecipe(PostDeleteRecipeRequest(userId: Constant.USER_IDX!, recipeId: recipeId), delegate: self)
         }
+    }
+    func modifyPressed(recipeId: Int){
+        Constant.IS_MODIFY_PAGE = true
+        Constant.CURRENT_RECIPE = recipeId
+        myRegistedDelegate?.goToVC("goToRegistRecipe")
+//        self.performSegue(withIdentifier: "goToRegistRecipeFromMyRegistedRecipe", sender: self)
     }
     
 }

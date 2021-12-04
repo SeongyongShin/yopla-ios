@@ -33,9 +33,10 @@ class BaseViewController: UIViewController {
         let mainTabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "\(storyboard)")
         changeRootViewController(mainTabBarController)
     }
-    func makeRootVC(_ storyboard: String){
-        let mainTabBarController = UIStoryboard(name: "\(storyboard)", bundle: nil).instantiateViewController(identifier: "\(storyboard)")
-        changeRootViewController(mainTabBarController)
+    func makeRootVC(_ storyboard: String, _ storyboard2: String){
+        let mainViewController = UIStoryboard(name: "\(storyboard)", bundle: nil).instantiateViewController(identifier: "\(storyboard2)")
+        print(mainViewController)
+        changeRootViewController(mainViewController)
     }
     
     func swipeRecognizer(dst: String) {

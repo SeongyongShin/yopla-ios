@@ -13,4 +13,5 @@ struct PostReviewRequest: Encodable {
     var recipeId: Int
     var content: String
     var point : Int
+    var type: String
 }

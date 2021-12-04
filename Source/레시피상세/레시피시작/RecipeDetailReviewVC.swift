@@ -48,7 +48,11 @@ class RecipeDetailReviewVC: BaseViewController{
     }
     @IBAction func reviewBtn(_ sender: UIButton){
         if self.reviewTV.text != nil && self.reviewTV.text.count > 4{
-            let postRequest = PostReviewRequest(userId: Constant.USER_IDX, recipeId: Constant.CURRENT_RECIPE, content: self.reviewTV.text!, point: Constant.RECIPE_STAR)
+            var type = "people"
+            if Constant.CURRENT_RECIPE_TYPE == 0{
+                type = "public"
+            }
+            let postRequest = PostReviewRequest(userId: Constant.USER_IDX!, recipeId: Constant.CURRENT_RECIPE, content: self.reviewTV.text!, point: Constant.RECIPE_STAR, type: type)
             postReviewDataManager.postREview(postRequest, delegate: self)
         }else{
             self.presentBottomAlert(message: "리뷰를 5자 이상 입력해주세요")
@@ -110,7 +114,8 @@ extension RecipeDetailReviewVC: UITableViewDelegate,UITableViewDataSource{
             let item = review[indexPath.row]
             if item.userPI != nil{
                 cell.profileImage.kf.setImage(with: URL(string:item.userPI!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
-                
+            }else{
+                cell.profileImage.image = UIImage(named: "profile")
             }
             cell.nickName.text = item.userNickName
             cell.content.text = item.content

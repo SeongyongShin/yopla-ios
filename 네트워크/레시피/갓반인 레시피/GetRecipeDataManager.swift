@@ -11,7 +11,7 @@ import Alamofire
 class GetRecipeDataManager{
     //갓반인 레시피 가져오기
     func getPeopleRecipe(delegate: MainVC) {
-        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX)/pplsRecipes"
+        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/pplsRecipes"
 
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
@@ -28,7 +28,7 @@ class GetRecipeDataManager{
     }
     // 대중 레시피 가져오기
     func getPublicRecipe(delegate: MainVC) {
-        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX)/publicRecipes"
+        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/publicRecipes"
 
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()

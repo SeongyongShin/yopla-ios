@@ -96,7 +96,7 @@
                             <constraint firstItem="sWz-Ba-YEo" firstAttribute="top" secondItem="K0z-gr-970" secondAttribute="bottom" id="sJG-Bp-Bsf"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="doc.fill" catalog="system" selectedImage="doc.fill" id="4Bc-CS-z3h"/>
+                    <tabBarItem key="tabBarItem" title="" image="edits" selectedImage="edits" id="4Bc-CS-z3h"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="VCTitleLabel" destination="dyu-Yy-OYp" id="wN5-wo-z54"/>
@@ -104,7 +104,6 @@
                         <outlet property="home2" destination="XjA-3z-MdE" id="wcA-9y-hw8"/>
                         <outlet property="recipeTV" destination="sWz-Ba-YEo" id="Yep-qs-0tD"/>
                         <outlet property="tabBarItems" destination="4Bc-CS-z3h" id="bPE-1Y-gzD"/>
-                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="TI4-zI-pi5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -213,7 +212,7 @@
                         <outlet property="home1" destination="y5L-LJ-M9H" id="O7V-ca-Hr2"/>
                         <outlet property="home2" destination="red-o4-Acq" id="t7E-wC-Ylh"/>
                         <outlet property="recipeTV" destination="TgE-IS-psX" id="3Jk-RX-o7S"/>
-                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedBookMark" id="YIG-mE-Tyo"/>
+                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedBookMark" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="YIG-mE-Tyo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BnU-6a-Ca4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -221,11 +220,8 @@
             <point key="canvasLocation" x="-596" y="802"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="YIG-mE-Tyo"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="doc.fill" catalog="system" width="115" height="128"/>
+        <image name="edits" width="47" height="47"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

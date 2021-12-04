@@ -7,13 +7,34 @@
 
 import UIKit
 
-class MainTC: UITabBarController {
+class MainTC: UITabBarController, performSegues {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let VCList = self.viewControllers!
+        for i in 0...3{
+            if i == 0{
+                let VC = VCList[i] as! MainVC
+                VC.mainDelegate = self
+            }else if i == 1{
+                let VC = VCList[i] as! SearchRecipeVC
+                VC.searchDelegate = self
+            }else if i == 2{
+                let VC = VCList[i] as! MyRegistedRecipeVC
+                VC.myRegistedDelegate = self
+            }
+        }
     }
+    
+    
+    func goToVC(_ identifier: String) {
+        self.performSegue(withIdentifier: identifier, sender: self)
+    }
+    
+    
 }
-@IBDesignable class TabBarWithCorners: UITabBar {
+
+class TabBarWithCorners: UITabBar {
     @IBInspectable var color: UIColor?
     @IBInspectable var radii: CGFloat = 25.0
 

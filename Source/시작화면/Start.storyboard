@@ -129,7 +129,7 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호를 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sa7-gh-s4g">
                                                                 <rect key="frame" x="109.5" y="214" width="284.5" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCj-vX-V4p" userLabel="이메일밑줄" customClass="UnderlineShadowView" customModule="yopla" customModuleProvider="target">
                                                                 <rect key="frame" x="99.5" y="176.5" width="314.5" height="1"/>
@@ -154,7 +154,7 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="다시한번 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0re-Kx-jZD">
                                                                 <rect key="frame" x="109.5" y="274" width="284.5" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VBN-YA-fge" userLabel="비밀번호밑줄" customClass="UnderlineShadowView" customModule="yopla" customModuleProvider="target">
                                                                 <rect key="frame" x="99.5" y="307" width="314.5" height="1"/>
@@ -179,7 +179,7 @@
                                                                 <rect key="frame" x="109.5" y="143.5" width="195" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="email"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -246,7 +246,7 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="인증번호를 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cvb-c0-ovx">
                                                                 <rect key="frame" x="116.5" y="182.5" width="190.5" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="one-time-code"/>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JSv-Wm-7rZ" userLabel="이메일밑줄" customClass="UnderlineShadowView" customModule="yopla" customModuleProvider="target">
                                                                 <rect key="frame" x="106.5" y="145" width="307.5" height="1"/>
@@ -278,7 +278,7 @@
                                                                 <rect key="frame" x="116.5" y="112" width="190.5" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="tel"/>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTP-aT-Cnv" customClass="RoundButton1" customModule="yopla" customModuleProvider="target">
                                                                 <rect key="frame" x="307" y="182.5" width="92" height="27"/>
@@ -365,7 +365,7 @@
                                                                 <rect key="frame" x="109.5" y="300" width="195" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="username"/>
                                                             </textField>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="dCP-Ki-Dds" customClass="RoundImageView1" customModule="yopla" customModuleProvider="target">
                                                                 <rect key="frame" x="157" y="170" width="100" height="100"/>
@@ -613,12 +613,12 @@
                                 <rect key="frame" x="130" y="170.5" width="264" height="21"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호를 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I2r-kw-aah">
                                 <rect key="frame" x="130" y="241" width="264" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKx-fa-gPm" userLabel="이메일밑줄" customClass="UnderlineShadowView" customModule="yopla" customModuleProvider="target">
                                 <rect key="frame" x="120" y="193.5" width="294" height="1"/>
@@ -726,7 +726,7 @@
         <!--Swipe Nav Vc-->
         <scene sceneID="wPE-yh-kFj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6vF-uw-vPP" customClass="SwipeNavVc" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SwipeNav" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6vF-uw-vPP" customClass="SwipeNavVc" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="6Pp-YL-Vcf">
                         <autoresizingMask key="autoresizingMask"/>

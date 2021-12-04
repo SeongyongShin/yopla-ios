@@ -28,7 +28,7 @@
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="소제목을 입력해주세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eK0-j0-awS">
                         <rect key="frame" x="100" y="0.0" width="310" height="70"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hdq-wV-PSI">
                         <rect key="frame" x="0.0" y="70" width="430" height="1"/>
@@ -40,7 +40,7 @@
                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="재료를 입력해주세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZt-lk-92H">
                         <rect key="frame" x="20" y="71" width="390" height="70"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bz5-pQ-YPd">
                         <rect key="frame" x="0.0" y="141" width="430" height="1"/>
@@ -60,7 +60,7 @@
                         <rect key="frame" x="229.5" y="589.5" width="180.5" height="39.5"/>
                         <color key="backgroundColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" title="다음 단계로"/>
+                        <state key="normal" title="페이지 추가"/>
                         <connections>
                             <action selector="goToNext:" destination="gTV-IL-0wX" eventType="touchUpInside" id="jHp-rK-ngX"/>
                         </connections>
@@ -87,7 +87,7 @@
                         <rect key="frame" x="20" y="589.5" width="180.5" height="39.5"/>
                         <color key="backgroundColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" title="이전 단계로"/>
+                        <state key="normal" title="이전 페이지"/>
                         <connections>
                             <action selector="goToPrev:" destination="gTV-IL-0wX" eventType="touchUpInside" id="PI8-Qh-KzF"/>
                         </connections>

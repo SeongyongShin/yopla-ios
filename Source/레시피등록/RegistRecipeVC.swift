@@ -7,10 +7,13 @@
 
 import UIKit
 import AVFoundation
+import Kingfisher
 
 class RegistRecipeVC: BaseViewController {
+    lazy var getModifyRecipeDetailDataManager: GetModifyRecipeDetailDataManager = GetModifyRecipeDetailDataManager()
     var current_page = 0
-    @IBOutlet weak var backBtn1: UIButton!
+    var ready = false
+    @IBOutlet weak var backBtn1: UIImageView!
     @IBOutlet weak var backBtn2: UIButton!
     @IBOutlet weak var recipeTitle: UITextField!
     @IBOutlet weak var homeBtn: UIButton!
@@ -29,6 +32,9 @@ class RegistRecipeVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setComponent()
+        if Constant.IS_MODIFY_PAGE{
+            self.getModifyRecipeDetailDataManager.getRecipeDetail(delegate: self)
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
 
@@ -42,7 +48,13 @@ class RegistRecipeVC: BaseViewController {
         
     }
     @IBAction func homePressed(_ sender: Any) {
-        self.makeTabBarRootVC("MainTabBar")
+        if current_page == 0{
+            DispatchQueue.main.async {
+                self.registCV.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: true)
+            }
+        }else{
+            self.makeTabBarRootVC("MainTabBar")
+        }
     }
     @IBAction func backPressed(_ sender: Any) {
         if current_page == 0{
@@ -61,8 +73,10 @@ extension RegistRecipeVC{
     func setComponent(){
         self.topbar.backgroundColor = .white
         self.topbar2.backgroundColor = .white
-        self.homeBtn.isHidden = true
-        self.homeImage.isHidden = true
+        if !Constant.IS_MODIFY_PAGE{
+            self.homeBtn.isHidden = true
+            self.homeImage.isHidden = true
+        }
         for i in 1...2{
             registCV.register(UINib(nibName: "RegistCell\(i)", bundle: nil), forCellWithReuseIdentifier: "RegistCell\(i)")
         }
@@ -84,10 +98,29 @@ extension RegistRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         if indexPath.item == 0{
             let cell = cell as! RegistCell1
             cell.delegate = self
+            //수정중일때
+            if Constant.IS_MODIFY_PAGE && ready{
+                let result = Constant.CURRENT_RECIPE_DETAIL
+                cell.thumbNailIV.alpha = 1
+                cell.thumbNailIV.kf.setImage(with: URL(string:result!.result!.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                
+            }
             return cell
         }else if indexPath.item == 1{
             let cell = cell as! RegistCell2
             cell.delegate = self
+            if Constant.IS_MODIFY_PAGE && ready{
+                cell.nextBtn.setTitle("레시피 세부 수정하기", for: .normal)
+                let result = Constant.CURRENT_RECIPE_DETAIL
+                cell.categoryBtn1.setTitle(result!.result!.category, for: .normal)
+                cell.categoryBtn2.setTitle(result!.result!.times, for: .normal)
+                if self.thumbImage == UIImage(){
+                    cell.imageView.kf.setImage(with: URL(string:result!.result!.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                }else{
+                    cell.imageView.image = self.thumbImage
+                }
+                cell.recipeTags.text = result!.result?.tags?.replacingOccurrences(of: ",", with: " ") ?? ""
+            }
             return cell
         }
         
@@ -95,40 +128,55 @@ extension RegistRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         return cell as! RegistCell1
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print(current_page)
+        self.view.endEditing(true)
         if indexPath.item == 1{
             current_page = 1
-            backBtn1.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+            backBtn1.image = UIImage(systemName: "chevron.left")
             let cell = cell as! RegistCell2
-            cell.imageView.image = self.thumbImage
             self.topbar.backgroundColor = .mainBackground
             self.topbar2.backgroundColor = .mainBackground
-            self.homeBtn.isHidden = false
-            self.homeImage.isHidden = false
+            if Constant.IS_MODIFY_PAGE{
+                self.homeImage.image = UIImage(systemName: "house.fill")
+                self.setimageInfo(image: cell.imageView.image!)
+            }else{
+                self.homeBtn.isHidden = false
+                self.homeImage.isHidden = false
+                cell.imageView.image = self.thumbImage
+            }
         }else{
             current_page = 0
-            backBtn1.setImage(UIImage(systemName: "house.fill"), for: .normal)
+            backBtn1.image = UIImage(systemName: "house.fill")
             let cell = cell as! RegistCell1
             cell.delegate2 = self
             self.topbar.backgroundColor = .white
             self.topbar2.backgroundColor = .white
-            self.homeBtn.isHidden = true
-            self.homeImage.isHidden = true
+            if Constant.IS_MODIFY_PAGE{
+                self.homeImage.image = UIImage(systemName: "chevron.right")
+            }else{
+                self.homeBtn.isHidden = true
+                self.homeImage.isHidden = true
+            }
+
         }
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         if indexPath.item == 0{
             current_page = 1
             self.topbar.backgroundColor = .mainBackground
             self.topbar2.backgroundColor = .mainBackground
-            self.homeBtn.isHidden = false
-            self.homeImage.isHidden = false
+            if !Constant.IS_MODIFY_PAGE{
+                self.homeBtn.isHidden = false
+                self.homeImage.isHidden = false
+            }
         }else{
             current_page = 0
             self.topbar.backgroundColor = .white
             self.topbar2.backgroundColor = .white
-            self.homeBtn.isHidden = true
-            self.homeImage.isHidden = true
+            if !Constant.IS_MODIFY_PAGE{
+                self.homeBtn.isHidden = true
+                self.homeImage.isHidden = true
+            }
         }
     }
     // 셀 크기 화면 꽉차게
@@ -240,6 +288,7 @@ extension RegistRecipeVC: CellDelegate{
         tempThumbNail.category = category
         tempThumbNail.tag = tag.components(separatedBy: " ")
         tempThumbNail.image = self.thumbImage
+        tempThumbNail.time = time
     }
     
     func makeAlert(message: String){
@@ -261,8 +310,23 @@ extension RegistRecipeVC: RegistCellDelegate{
         self.registCV.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: true)
         }
     }
+    func presentAlertMessage(msg: String){
+        self.presentAlert(title: msg)
+    }
     
-    
+}
+
+extension RegistRecipeVC{
+    func didSuccessDetail(result: GetRecipeDetailResponse){
+        Constant.CURRENT_RECIPE_DETAIL = result
+        
+        self.recipeTitle.text = result.result?.title
+        self.ready = true
+        self.registCV.reloadData()
+    }
+    func failedToRequest(message: String){
+        self.presentBottomAlert(message: message)
+    }
 }
 
 extension RegistRecipeVC{

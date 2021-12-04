@@ -44,7 +44,7 @@
                                 <rect key="frame" x="20" y="159" width="374" height="36"/>
                                 <color key="textColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4t-N8-Zmt" customClass="BackGroundShadowLineView" customModule="yopla" customModuleProvider="target">
                                 <rect key="frame" x="20" y="195" width="374" height="2"/>
@@ -115,34 +115,24 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="BXP-B5-fGB">
-                        <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large"/>
-                        <imageReference key="selectedImage" image="magnifyingglass" catalog="system" symbolScale="large"/>
+                        <imageReference key="image" image="searches" symbolScale="large"/>
+                        <imageReference key="selectedImage" image="searches" symbolScale="large"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="filterBtn" destination="Odn-m0-UEn" id="yGB-1r-BeC"/>
                         <outlet property="searchResultCV" destination="PLo-XV-FeA" id="rZY-AP-itX"/>
                         <outlet property="searchTF" destination="t6E-fA-hXi" id="d5b-ZX-mNT"/>
-                        <segue destination="iRz-RC-Aug" kind="show" identifier="goToDetailFromSearch" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="wg0-S7-Bbq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-335" y="117"/>
         </scene>
-        <!--RecipeDetail-->
-        <scene sceneID="A44-8X-HZm">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="RecipeDetail" storyboardName="RecipeDetail" referencedIdentifier="RecipeDetail" id="iRz-RC-Aug" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="vc2-ZX-buF"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SdR-XP-j5N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="889" y="75"/>
-        </scene>
     </scenes>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="searches" width="47" height="47"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

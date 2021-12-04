@@ -21,5 +21,8 @@ extension UIColor {
     class var mainHotPink: UIColor{UIColor(red:240, green: 117, blue: 114)}
     class var mainBackground: UIColor{UIColor(red:255, green: 242, blue: 239)}
     class var shadowGray: UIColor{UIColor(red:214, green: 214, blue: 214)}
+    class var bronze: UIColor{UIColor(red:147, green: 93, blue: 64)}
+    class var silver: UIColor{UIColor(red:179, green: 179, blue: 179)}
+    class var gold: UIColor{UIColor(red:250, green: 173, blue: 49)}
     
 }

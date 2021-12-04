@@ -15,8 +15,19 @@ class MoreRecipeVC: BaseViewController {
     var itemList: [GetPeopleRecipeThumnails]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setComponent()
-        self.getAPI()
+        moreCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
+        moreCV.delegate = self
+        moreCV.dataSource = self
+        moreCV.clipsToBounds = true
+        
+        if !Constant.IS_CATEGORY{
+            self.setComponent()
+            self.getAPI()
+        }else{
+            self.title1.text = Constant.CURRENT_CATEGORY!
+            self.title2.text = "더보기!"
+            self.itemList = Constant.CATEGORY_RESULT ?? []
+        }
     }
     
     @IBAction func homePressed(_ sender: Any) {
@@ -52,7 +63,8 @@ extension MoreRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource,UIC
         }
         cell.rpNickName.text = item.userNickName
         cell.rpTitle.text = item.title
-        cell.rpHeartCount.text = "\(item.hits)"
+        cell.rpHeartCount.text = "\(item.bookmarkCount)"
+        cell.rpViewCount.text = "\(item.hits)"
         return cell
     }
     
@@ -73,10 +85,7 @@ extension MoreRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource,UIC
 //MARK: 컴포넌트 설정
 extension MoreRecipeVC{
     func setComponent(){
-        moreCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
-        moreCV.delegate = self
-        moreCV.dataSource = self
-        moreCV.clipsToBounds = true
+
         if Constant.CURRENT_MORE_RECIPE_TYPE == 0{
             self.title1.text = "숏(SHORT!)"
             self.title2.text = "레시피"

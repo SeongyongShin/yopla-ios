@@ -111,6 +111,12 @@ extension RegistVC{
 
     
     func setComponent(){
+        self.emailTF.delegate = self
+        self.passwordTF.delegate = self
+        self.passwordConfirmTF.delegate = self
+        self.phoneCodeTF.delegate = self
+        self.phoneNumberTF.delegate = self
+        self.nickNameTF.delegate = self
         nextBtn.backgroundColor = .mainHotPink
 //        self.pass.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 //        emailValidBtn.backgroundColor = .white
@@ -491,3 +497,11 @@ extension RegistVC{
         self.validNickName(check: true)
     }
 }
+
+extension RegistVC: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+}
+

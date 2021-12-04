@@ -7,6 +7,9 @@
 
 import UIKit
 import Kingfisher
+import AVFoundation
+import AVKit
+import VideoToolbox
 
 class RecipeDetailPageVC: BaseViewController {
 
@@ -25,6 +28,7 @@ class RecipeDetailPageVC: BaseViewController {
         self.setComponent()
         max_page = Constant.CURRENT_RECIPE_DETAIL!.result2!.count
         pageControl.numberOfPages = max_page
+        
     }
 
 }
@@ -84,11 +88,35 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
         cell.tonext.isUserInteractionEnabled = true
         cell.toprev.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(moveDirection)))
         cell.toprev.isUserInteractionEnabled = true
+        cell.loadingV.isHidden = true
         if let item = self.detailItem?.result2![indexPath.item]{
             if item.fileType == "video"{
-                
+                DispatchQueue.main.async {
+                    if Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count != 0{
+                        cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
+                    }else{
+                        var tempCount = 0
+                        while Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count == 0{
+                            Thread.sleep(forTimeInterval: 1)
+                            // 10초까지 기다려준다.
+                            if tempCount == 10{
+                                break
+                            }
+                            tempCount += 1
+                        }
+                        if Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count == 0{
+                            self.presentBottomAlert(message: "동영상 썸네일을 불러오는 데 실패했습니다.")
+                            cell.recipeImage.image = UIImage()
+                        }else{
+                            cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
+                        }
+                    }
+                }
+
             }else{
+                cell.fileType = "image"
                 cell.recipeImage.kf.setImage(with: URL(string:item.detailFileUrl), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                cell.playImage.isHidden = true
             }
         }
         return cell
@@ -107,6 +135,39 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
         }
         return UIEdgeInsets()
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! RecipeDetailCell
+        if cell.fileType == "video"{
+            DispatchQueue.main.async {
+                cell.loadingV.isHidden = false
+                cell.indicatorV.startAnimating()
+            }
+            CacheManager.shared.getFileWith(stringUrl: self.detailItem!.result2![indexPath.item].detailFileUrl) { result in
+                    switch result {
+                    case .success(let url):
+                        let player = AVPlayer(url: url)
+
+                        // Create a new AVPlayerViewController and pass it a reference to the player.
+                        let controller = AVPlayerViewController()
+                        controller.player = player
+                        
+                        // Modally present the player and call the player's play() method when complete.
+                        self.present(controller, animated: true) {
+                            player.play()
+                        }
+                        DispatchQueue.main.async {
+                            cell.loadingV.isHidden = true
+                            cell.indicatorV.stopAnimating()
+                        }
+                    case .failure(let error):
+                        // handle errror
+                        print(error)
+                        
+                    }
+                }
+        }
+
+    }
 
 }
 
@@ -117,5 +178,27 @@ extension RecipeDetailPageVC{
     
     @IBAction func goToMainFromDetail(_ sender: UIButton) {
         makeTabBarRootVC("MainTabBar")
+    }
+}
+
+extension RecipeDetailPageVC{
+    private func createVideoThumbnail(from url: URL) -> UIImage? {
+
+        let asset = AVAsset(url: url)
+        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+        assetImgGenerate.appliesPreferredTrackTransform = true
+//        assetImgGenerate.maximumSize = CGSize(width: frame.width, height: frame.height)
+
+        let time = CMTimeMakeWithSeconds(0.0, preferredTimescale: 600)
+        do {
+            let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: img)
+            return thumbnail
+        }
+        catch {
+          print(error.localizedDescription)
+          return nil
+        }
+
     }
 }

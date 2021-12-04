@@ -9,6 +9,9 @@ import UIKit
 import CoreData
 import AWSS3
 import AWSCore
+import AVFAudio
+import AVFoundation
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -27,6 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let configuration = AWSServiceConfiguration(region:.APNortheast2, credentialsProvider:credentialsProvider)
 
         AWSServiceManager.default().defaultServiceConfiguration = configuration
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playback, mode: .moviePlayback)
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         return true
     }
 
@@ -43,7 +53,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        self.clearCache()
+    }
+
+    func clearCache(){
+        let cacheURL =  FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        let fileManager = FileManager.default
+        do {
+            // Get the directory contents urls (including subfolders urls)
+            let directoryContents = try FileManager.default.contentsOfDirectory( at: cacheURL, includingPropertiesForKeys: nil, options: [])
+            for file in directoryContents {
+                do {
+                    try fileManager.removeItem(at: file)
+                }
+                catch let error as NSError {
+                    debugPrint("Ooops! Something went wrong with delete cache: \(error)")
+                }
+
+            }
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
 }
 

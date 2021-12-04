@@ -12,9 +12,14 @@ class GetRecipeReviewDataManager{
     
     // 후기 가져오기
     func getRecipeReview(recipeId:Int, delegate: RecipeDetailReviewVC) {
-        let urlString = "\(Constant.BASE_URL)/app/users/recipes/\(recipeId)/reviews"
+        
+        var urlString = "\(Constant.BASE_URL)/app/users/recipes/\(recipeId)/reviews"
+        
+        if Constant.CURRENT_RECIPE_TYPE == 0{
+            urlString = "\(Constant.BASE_URL)/app/users/publicRecipes/\(recipeId)/reviews"
+        }
         if let encoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),let url = URL(string: encoded){
-            print(url)
+            
             AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
                 .validate()
                 .responseDecodable(of: GetRecipeReviewResponse.self) { response in
@@ -32,9 +37,9 @@ class GetRecipeReviewDataManager{
     
     // 내 레시피 후기 가져오기
     func getMyRecipeReview(delegate: MyRecipeReviewVC) {
-        let urlString = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX)/myRecipeReviews"
+        let urlString = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/myRecipeReviews"
         if let encoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),let url = URL(string: encoded){
-            print(url)
+            
             AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
                 .validate()
                 .responseDecodable(of: GetRecipeReviewResponse.self) { response in

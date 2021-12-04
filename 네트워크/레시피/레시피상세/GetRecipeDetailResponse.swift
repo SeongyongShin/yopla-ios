@@ -24,7 +24,8 @@ struct GetRecipeDetailThumnails: Decodable{
     var hits: Int
     var bookmarkCount: Int
     var bookmarked: Bool
-    var time: String?
+    var times: String?
+    var category: String?
     var tags: String?
 }
 

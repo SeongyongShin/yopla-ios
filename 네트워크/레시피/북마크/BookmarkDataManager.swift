@@ -11,7 +11,7 @@ import Alamofire
 class BookmarkDataManager{
     //북마크 리스트
     func getBookMark(delegate: MyRegistedRecipeVC){
-        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX)/bookmarks"
+        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/bookmarks"
 
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
@@ -27,12 +27,13 @@ class BookmarkDataManager{
     }
     // 북마크 등록
     func postBookMark(recipeId: Int, delegate: RecipeDetailStarVC) {
-        
-        AF.request("\(Constant.BASE_URL)/app/users/recipes/bookmark", method: .post, parameters: BookMarkRequest(recipeId: recipeId), encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
+        var recipeType: String = "people"
+        if Constant.CURRENT_RECIPE_TYPE == 0{
+            recipeType = "public"
+        }
+        AF.request("\(Constant.BASE_URL)/app/users/recipes/bookmark", method: .post, parameters: BookMarkRequest(recipeId: recipeId, type: recipeType), encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: BookMarkResponse.self) { response in
-                
-                print(BookMarkRequest(recipeId: recipeId))
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
@@ -60,7 +61,12 @@ class BookmarkDataManager{
     // 북마크 해제
     func patchBookMark(recipeId: Int, delegate: RecipeDetailStarVC?, delegate2: MyRegistedRecipeVC?) {
         
-        AF.request("\(Constant.BASE_URL)/app/users/recipes/bookmark/status", method: .patch, parameters: BookMarkRequest(recipeId: recipeId), encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
+        var recipeType: String = "people"
+        if Constant.CURRENT_RECIPE_TYPE == 0{
+            recipeType = "public"
+        }
+        
+        AF.request("\(Constant.BASE_URL)/app/users/recipes/bookmark/status", method: .patch, parameters: BookMarkRequest(recipeId: recipeId, type: recipeType), encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: BookMarkResponse.self) { response in
                 

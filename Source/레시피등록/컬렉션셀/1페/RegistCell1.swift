@@ -22,14 +22,14 @@ class RegistCell1: UICollectionViewCell {
         myGalleryCV.dataSource = self
         myGalleryCV.delegate = self
         requestPhotosPermission()
-        checkCameraPermission()
+//        checkCameraPermission()
     }
 
 }
 
 extension RegistCell1: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 40
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

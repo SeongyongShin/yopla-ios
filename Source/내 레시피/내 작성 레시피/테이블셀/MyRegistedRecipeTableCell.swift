@@ -10,6 +10,7 @@ import UIKit
 class MyRegistedRecipeTableCell: UITableViewCell {
     // 0: 내 작성 레시피
     // 1: 북마크 페이지
+    var is_people = false
     var current_type = 0
     var delegate: BookMarkCellDelegate?
     @IBOutlet weak var recipeIV: UIImageView!
@@ -30,6 +31,11 @@ class MyRegistedRecipeTableCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func modifyPressed(_ sender: Any) {
+        if current_type == 0{
+            delegate?.modifyPressed(recipeId: self.tag)
+        }
     }
     
     @IBAction func xPressed(_ sender: Any) {

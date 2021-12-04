@@ -12,7 +12,7 @@ class PostDeleteRecipeDataManager{
     
     // 썸네일 등록
     func postDeleteRecipe(_ parameters: PostDeleteRecipeRequest, delegate: MyRegistedRecipeVC) {
-        print(parameters)
+        
         AF.request("\(Constant.BASE_URL)/app/users/recipes/status", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: PostDeleteRecipeResponse.self) { response in

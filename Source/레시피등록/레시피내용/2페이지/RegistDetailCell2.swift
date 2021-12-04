@@ -32,6 +32,7 @@ class RegistDetailCell2: UICollectionViewCell {
         }
     }
     @IBAction func goToPrev(_ sender: Any) {
+        self.delegate?.setTempDetail(title: self.titleTF.text, content: self.contentTV.text, fileType: nil, ingredient: self.ingredientTF.text, image: nil, videoURL: nil)
         self.delegate?.getDetail()
     }
     
@@ -40,12 +41,17 @@ class RegistDetailCell2: UICollectionViewCell {
 //MARK: 텍스트 관련
 extension RegistDetailCell2: UITextViewDelegate{
     func setComponent(){
+        self.titleTF.delegate = self
+        self.ingredientTF.delegate = self
+        
         contentTV.delegate = self
         self.nextBtn.layer.borderWidth = 2
         self.nextBtn.layer.borderColor = UIColor.white.cgColor
 
         self.prevBtn.layer.borderWidth = 2
         self.prevBtn.layer.borderColor = UIColor.white.cgColor
+        
+//        self.titleTF
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -74,4 +80,11 @@ extension RegistDetailCell2{
         self.prevBtn.isEnabled = true
     }
     
+}
+
+extension RegistDetailCell2: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.contentView.endEditing(true)
+        return true
+    }
 }

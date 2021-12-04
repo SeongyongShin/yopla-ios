@@ -33,6 +33,7 @@ class PostSignInDataManager {
                         }
                     }
                 case .failure(let error):
+                    delegate.failedToRequest(message: "로그인 실패, 아이디또는 비밀번호를 확인하세요.")
                     print(error.localizedDescription)
                 }
             }

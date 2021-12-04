@@ -9,9 +9,9 @@ import Foundation
 import Alamofire
 
 class PostReviewDataManager{
-    // 썸네일 등록
+    // 후기 등록
     func postREview(_ parameters: PostReviewRequest, delegate: RecipeDetailReviewVC) {
-        
+//        let 
         AF.request("\(Constant.BASE_URL)/app/users/recipes/reviews", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: PostReviewResponse.self) { response in

@@ -31,7 +31,6 @@ class GetVerifyPhoneNumberDataManager{
     // 인증번호 확인
     func ConfirmPhoneCode(_ vnIdx: String, _ verifyNum: String, delegate: RegistVC) {
         let url = "\(Constant.BASE_URL)/app/users/sign-up/phoneVerify/checkNum?vnIdx=\(vnIdx)&verifyNum=\(verifyNum)"
-        print(url)
 
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()

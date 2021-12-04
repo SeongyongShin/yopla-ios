@@ -9,7 +9,8 @@ import UIKit
 
 class RegistCell2: UICollectionViewCell, UITextFieldDelegate{
     var keyboardShowed = false
-    let test_category = ["한식","중식","양식","기타"]
+    let test_category = ["한식", "양식", "일-중식", "아시안", "후식", "베이커리", "카페", "주류", "비건", "다이어트"]
+    let test_times = ["정성을 들인 요리", "누구보다 빠른 요리", "20분 내외 요리", "40분 내외 요리", "1시간 내외 요리"]
     @IBOutlet weak var recipeTags: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nextBtn: BaseButton!
@@ -27,17 +28,28 @@ class RegistCell2: UICollectionViewCell, UITextFieldDelegate{
         categoryBtn2.clipsToBounds = true
         categoryBtn1.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         categoryBtn2.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-//        let favorite = UIAction(title: "api적용되면 바꿀것", image: UIImage(), handler: {_ in print("test") })
-        var favorite: [UIAction] = []
+        
+        var item1: [UIAction] = []
         for i in test_category{
-            favorite.append(UIAction(title: "\(i)", image: UIImage(), handler: {_ in self.categoryBtn1.setTitle("\(i)", for: .normal) }))
+            item1.append(UIAction(title: "\(i)", image: UIImage(), handler: {_ in self.categoryBtn1.setTitle("\(i)", for: .normal) }))
         }
+        
+        var item2: [UIAction] = []
+        for i in test_times{
+            item2.append(UIAction(title: "\(i)", image: UIImage(), handler: {_ in self.categoryBtn2.setTitle("\(i)", for: .normal) }))
+        }
+        
         if #available(iOS 14.0, *) {
             categoryBtn1.menu = UIMenu(title: "",
                                        image: UIImage(systemName: "heart"),
                                        identifier: nil,
                                        options: .displayInline,
-                                       children: favorite)
+                                       children: item1)
+            categoryBtn2.menu = UIMenu(title: "",
+                                       image: UIImage(systemName: "heart"),
+                                       identifier: nil,
+                                       options: .displayInline,
+                                       children: item2)
         } else {
             return
         }

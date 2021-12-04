@@ -9,18 +9,28 @@ import UIKit
 import Kingfisher
 
 class MainVC: BaseViewController {
+    
+    var mainDelegate: performSegues?
+    
+    @IBOutlet weak var recommendRecipeLabel: UILabel!
     lazy var recipeDataManager: GetRecipeDataManager = GetRecipeDataManager()
+    lazy var userInfoManager: UserDataManager = UserDataManager()
+    lazy var categoryDataManager: GetSearchRecipeDataManager = GetSearchRecipeDataManager()
     var adBanner: [GetPeopleRecipeResult]?
     var shortRecipe: [GetPeopleRecipeThumnails]?
     var hotRecipe: [GetPeopleRecipeThumnails]?
     var recommendRecipe: [GetPeopleRecipeThumnails]?
     
+    @IBOutlet weak var myMenuNickName: UILabel!
+    @IBOutlet weak var myMenuId: UILabel!
+    @IBOutlet weak var myMenuProfile: RoundImageView!
+    @IBOutlet weak var myMenuMedal: UIImageView!
     @IBOutlet weak var myMenuV: UIView!
     @IBOutlet weak var myMenuConst: NSLayoutConstraint!
     @IBOutlet weak var myMenuBackV: UIView!
     @IBOutlet weak var blurV: UIVisualEffectView!
     @IBOutlet weak var maneTV: UITableView!
-    var myMenuList = ["내 정보", "내 레시피", "주문내역", "장바구니", "설정"]
+    var myMenuList = ["내 정보",  "설정"]
     
     @IBOutlet weak var menuV: UIView!
     @IBOutlet weak var registRecipeBtn: RoundButton1!
@@ -56,19 +66,35 @@ class MainVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         myMenuConst.constant = -self.view.frame.width
         myMenuV.layoutIfNeeded()
-        self.clearConstant()
-        DispatchQueue.global().async {
-            self.recipeDataManager.getPublicRecipe(delegate: self)
+//        print(Constant.CURRENT_RECIPE_TYPE)
+        self.clearConstant(current: Constant.CURRENT_RECIPE_TYPE)
+        if Constant.CURRENT_RECIPE_TYPE == 1{
+            UserDefaults.standard.set(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+            changeViewSubFunc(1, labelEnabled: false, indicatorX: recipeIndicator.frame.width)
+            popularCVTopConstant.constant = 30
+            shortViewConstant = shortViewConstant.setMultiplier(multiplier: 0.4)
+            shortRPCV.isHidden = false
+            Constant.CURRENT_RECIPE_TYPE = 1
+            
+            if Constant.PUBLIC_RECIPE_LIST != nil{
+                let result = Constant.PEOPLE_RECIPE_LIST!
+                self.adBanner = result.result
+                self.shortRecipe = result.shorts
+                self.hotRecipe = result.hots
+                self.recommendRecipe = result.recommend
+                self.reloadCV()
+            }
         }
-        DispatchQueue.global().async {
-            self.recipeDataManager.getPeopleRecipe(delegate: self)
-        }
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         if Constant.viewFromDetail{
             self.presentBottomAlert(message: "레시피를 등록했습니다.")
             Constant.viewFromDetail = false
         }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        self.hideSideBar()
     }
 }
 
@@ -109,7 +135,8 @@ extension MainVC{
         //북마크
         if sender.tag == 0{
             Constant.IS_BOOKMARK_PAGE = true
-            self.performSegue(withIdentifier: "goMyRegistedRecipe", sender: self)
+            mainDelegate?.goToVC("goMyRegistedRecipe")
+//            self.performSegue(withIdentifier: "goMyRegistedRecipe", sender: self)
         }
         //알림
         else{
@@ -120,7 +147,8 @@ extension MainVC{
     //더보기
     @IBAction func moreView(_ sender: UIButton){
         Constant.CURRENT_MORE_RECIPE_TYPE = sender.tag
-        self.performSegue(withIdentifier: "goToMoreRecipe", sender: self)
+        mainDelegate?.goToVC("goToMoreRecipe")
+//        self.performSegue(withIdentifier: "goToMoreRecipe", sender: self)
     }
 
 }
@@ -179,6 +207,11 @@ extension MainVC{
         }.startAnimation()
     }
     
+    @IBAction func goToRegist(_ sender: Any){
+        
+            mainDelegate?.goToVC("goToRegistRecipe")
+    }
+    
 }
 
 // MARK: 컴포넌트 설정
@@ -214,12 +247,22 @@ extension MainVC{
     }
     
     func setComponent(){
+        DispatchQueue.global().async {
+            self.recipeDataManager.getPublicRecipe(delegate: self)
+        }
+        DispatchQueue.global().async {
+            self.recipeDataManager.getPeopleRecipe(delegate: self)
+        }
+        DispatchQueue.global().async {
+            self.userInfoManager.getMyProfile(delegate: self)
+        }
         self.myMenuBackV.backgroundColor = .clear
         self.registRecipeBtn.setGradient(color1: .gradient1, color2: .gradient2)
         self.registRecipeBtn.clipsToBounds = true
         self.menuV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabMenu(_ :))))
         self.myMenuBackV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideSideBar)))
         self.blurV.isHidden = true
+        self.myMenuProfile.layer.cornerRadius = self.myMenuProfile.layer.cornerRadius - 2
     }
     
     func reloadCV(){
@@ -229,7 +272,7 @@ extension MainVC{
         self.adBannerCV.reloadData()
     }
     
-    func clearConstant(){
+    func clearConstant(current: Int){
         Constant.videoUrls.removeAll()
         Constant.registThumbNail = nil
         Constant.registDetail.removeAll()
@@ -241,7 +284,12 @@ extension MainVC{
         Constant.PEOPLE_RECIPE_LIST = nil
         Constant.PUBLIC_RECIPE_LIST = nil
         Constant.CURRENT_MORE_RECIPE_TYPE = 0
-        Constant.CURRENT_RECIPE_TYPE = 0
+        Constant.CURRENT_RECIPE_TYPE = current
+        Constant.IS_MODIFY_PAGE = false
+        Constant.TEMPORARY_DETAIL_VIDEO_THUMB.removeAll()
+        Constant.IS_CATEGORY = false
+        Constant.CATEGORY_RESULT = nil
+        Constant.CURRENT_CATEGORY = nil
     }
 }
 
@@ -266,20 +314,35 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tags = collectionView.tag
         
-        
+        //광고
         if tags == 0{
             let cell = collectionView.cellForItem(at: indexPath) as! AdCell
             Constant.CURRENT_RECIPE = cell.adIdx
-        }else if tags == 1{
+        }
+        //카테고리
+        else if tags == 1{
+            let cell = collectionView.cellForItem(at: indexPath) as! CategoryCell
+            Constant.CURRENT_CATEGORY = cell.categoryLabel.text
+            Constant.IS_CATEGORY = true
             
-        }else if tags == 2{
+            Constant.CURRENT_RECIPE_TYPE = 1
+            self.categoryDataManager.getCategoryRecipe(category: Constant.CURRENT_CATEGORY!, delegate: self)
+            
+        }
+        //더보기들
+        else if tags == 2{
             let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
             Constant.CURRENT_RECIPE = cell.recipeIdx
+            
+            mainDelegate?.goToVC("goToDetail")
+//            self.performSegue(withIdentifier: "goToDetail", sender: self)
         }else{
             let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
             Constant.CURRENT_RECIPE = cell.recipeIdx
+            
+            mainDelegate?.goToVC("goToDetail")
+//            self.performSegue(withIdentifier: "goToDetail", sender: self)
         }
-        self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
     //광고뷰 셀 중앙정렬
@@ -472,6 +535,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource{
         let backView = UIView()
         backView.backgroundColor = .buttonPink
         cell.selectedBackgroundView = backView
+        cell.menuLabel.textColor = .buttonPink
         return cell
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -489,6 +553,14 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! menuCell
         cell.menuLabel.textColor = .white
+        if indexPath.row == 0{
+            
+            mainDelegate?.goToVC("goToMyPageFromMain")
+//            self.performSegue(withIdentifier: "goToMyPageFromMain", sender: self)
+        }else{
+            mainDelegate?.goToVC("goToMySettingFromMain")
+//            self.performSegue(withIdentifier: "goToMySettingFromMain", sender: self)
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.maneTV.frame.height/5.9
@@ -498,29 +570,68 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource{
 //MARK: API 요청 관련
 extension MainVC{
     func didSuccessRequestPublicRecipe(result: GetPeopleRecipeResponse){
-        self.adBanner = result.result
-        self.shortRecipe = result.shorts
-        self.hotRecipe = result.hots
-        self.recommendRecipe = result.recommend
+
         Constant.PUBLIC_RECIPE_LIST = result
-        self.reloadCV()
+        if current_tab == 0{
+            self.adBanner = result.result
+            self.shortRecipe = result.shorts
+            self.hotRecipe = result.hots
+            self.recommendRecipe = result.recommend
+            self.reloadCV()
+        }
     }
     func didSuccessRequestPeopleRecipe(result: GetPeopleRecipeResponse){
-//        self.adBanner = result.result
-//        self.shortRecipe = result.shorts
-//        self.hotRecipe = result.hots
-//        self.recommendRecipe = result.recommend
+        
         Constant.PEOPLE_RECIPE_LIST = result
-//        self.reloadCV()
+        if current_tab == 1{
+            self.adBanner = result.result
+            self.shortRecipe = result.shorts
+            self.hotRecipe = result.hots
+            self.recommendRecipe = result.recommend
+            self.reloadCV()
+        }
     }
     func failedToRequest(message: String){
         self.presentBottomAlert(message: message)
+    }
+    //내정보
+    func didSuccessUserInfo(result: GetUserInfoResponse){
+        DispatchQueue.main.async {
+            if result.result != nil{
+                let item = result.result!
+                Constant.MY_PROFILE = GetUserInfoResult(userId: Constant.USER_IDX!, profileImage: item.profileImage, userNickName: item.userNickName, loginId: item.loginId, rankPoints: item.rankPoints, email: item.email, phoneNumber: item.phoneNumber, address: item.address)
+                self.recommendRecipeLabel.text = "\(item.userNickName) 님께!"
+                self.myMenuId.text = Constant.MY_PROFILE?.loginId ?? "No_Info"
+                self.myMenuNickName.text = Constant.MY_PROFILE?.userNickName ?? "No_Info"
+                if item.rankPoints < 1500{
+                    self.myMenuMedal.image = UIImage(named: "bronze")
+                }else if item.rankPoints < 5000{
+                    self.myMenuMedal.image = UIImage(named: "silver")
+                }else{
+                    self.myMenuMedal.image = UIImage(named: "gold")
+                }
+                    if Constant.MY_PROFILE?.profileImage != nil{
+                        self.myMenuProfile.kf.setImage(with: URL(string:Constant.MY_PROFILE!.profileImage!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+                    }
+            }
+        }
+    }
+    
+    // 카테고리 눌렀을 때
+    func didSuccessCategory(result: GetSearchRecipeResponse){
+        if result.result != nil{
+            Constant.CATEGORY_RESULT = result.result!
+            
+                mainDelegate?.goToVC("goToMoreRecipe")
+//            self.performSegue(withIdentifier: "goToMoreRecipe", sender: self)
+        }
     }
 }
 
 //MARK: 사이드바 설정(애니메이션포함)
 extension MainVC{
     func showSideBar(){
+        self.maneTV.reloadData()
         self.blurV.isHidden = false
         UIView.animate(withDuration: 0.3, animations: {
             self.myMenuV.frame = CGRect(x: 0, y: 0, width: self.myMenuV.frame.width, height: self.myMenuV.frame.height)
@@ -532,7 +643,14 @@ extension MainVC{
         }
         UIView.animate(withDuration: 0.3, animations: {
             self.myMenuV.frame = CGRect(x: -self.myMenuV.frame.width, y: 0, width: self.myMenuV.frame.width, height: self.myMenuV.frame.height)
-        },completion: nil)
+        },completion: {_ in
+            self.myMenuId.text = Constant.MY_PROFILE?.loginId ?? "No_Info"
+            self.myMenuNickName.text = Constant.MY_PROFILE?.userNickName ?? "No_Info"
+            
+            if Constant.MY_PROFILE?.profileImage != nil{
+                self.myMenuProfile.kf.setImage(with: URL(string:Constant.MY_PROFILE!.profileImage!), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
+            }
+        })
     }
 }
 

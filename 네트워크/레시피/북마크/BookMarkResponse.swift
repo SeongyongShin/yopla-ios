@@ -21,6 +21,7 @@ struct GetBookMarkResponse: Decodable {
     var result: [GetBookMarkResult]?
 }
 struct GetBookMarkResult: Decodable{
+    var type: String
     var bookmarksIdx: Int
     var recipeId: Int
     var recipeImage: String

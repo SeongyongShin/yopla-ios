@@ -15,8 +15,8 @@ class GetMorePeopleRecipeDataManager{
         if more_type != 0{
             str1 = "hots"
         }
-        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX)/pplsRecipes/\(str1)"
-        print(url)
+        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/pplsRecipes/\(str1)"
+        
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: GetMorePeopleRecipeResponse.self) { response in
@@ -36,8 +36,8 @@ class GetMorePeopleRecipeDataManager{
         if more_type != 99{
             str1 = "hots"
         }
-        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX)/publicRecipes/\(str1)"
-        print(url)
+        let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/publicRecipes/\(str1)"
+        
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: GetMorePeopleRecipeResponse.self) { response in

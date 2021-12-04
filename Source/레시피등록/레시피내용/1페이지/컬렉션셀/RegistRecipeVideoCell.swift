@@ -8,7 +8,7 @@
 import UIKit
 
 class RegistRecipeVideoCell: UICollectionViewCell {
-
+    var fileSize: Float?
     @IBOutlet weak var myImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -37,4 +37,5 @@ struct GetPeopleRecipeThumnails: Decodable{
     var bookmarkCount: Int
     var bookmarked: Bool
     var averageScore: Float?
+    var type: String?
 }

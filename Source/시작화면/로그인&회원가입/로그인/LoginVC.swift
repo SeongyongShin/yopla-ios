@@ -69,12 +69,13 @@ extension LoginVC{
     func setComponent(){
         loginBtn.backgroundColor = .mainHotPink
         findLabel.textColor = .mainHotPink
+        self.emailTF.delegate = self
+        self.passwordTF.delegate = self
     }
     
     
     // 아이디비번찾기 눌렀을 때
     @objc func findIdPass(sender: Any){
-        print("findIdPass")
         
     }
     
@@ -85,12 +86,13 @@ extension LoginVC{
     
     @IBAction func logInPressed(_ sender: Any) {
         //메인화면 이동
-//        if emailTF.text != "" && passwordTF.text != ""{
-//            logInDataManager.postSignIn(PostSignInRequest(loginId: emailTF.text!, password: passwordTF.text!), delegate: self)
-//        }
+        if emailTF.text != "" && passwordTF.text != ""{
+            logInDataManager.postSignIn(PostSignInRequest(loginId: emailTF.text!, password: passwordTF.text!), delegate: self)
+        }else{
+            self.presentBottomAlert(message: "아이디와 비밀번호를 확인해주세요")
+            return
+        }
         
-//            makeRootVC("MainTabBar")
-        makeTabBarRootVC("MainTabBar")
     }
 
 }
@@ -160,11 +162,29 @@ extension LoginVC{
 extension LoginVC{
     // 로그인 성공
     func didSuccessSignIn(result: PostSignInResult){
-//        self.presentBottomAlert(message: "로그인 성공")
-        makeTabBarRootVC("MainTabBar")
+        print(result)
+        if let jwt = result.jwt{
+            print("회원입니다.")
+            Constant.JWT_TOKEN = jwt
+            Constant.USER_IDX = result.userIdx
+//            UserDefaults.standard.set(jwt, forKey: "jwt")
+//            UserDefaults.standard.set(result.userIdx, forKey: "userIdx")
+            makeTabBarRootVC("MainTabBar")
+        }else{
+            self.presentAlert(title: "서버로부터 토큰을 받지 못했습니다.")
+        }
+        
     }
     // 로그인 실패
     func failedToRequest(message: String){
         self.presentAlert(title: message)
     }
 }
+
+extension LoginVC: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+}
+

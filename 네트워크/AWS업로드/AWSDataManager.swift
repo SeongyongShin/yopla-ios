@@ -66,7 +66,7 @@ class AWSDataManager{
                     resolver.reject(error)
                 }
                 if task.result != nil {
-                    print("Uploaded \(key)")
+                    
                     let contentUrl = self.s3Url.appendingPathComponent(self.bucketName).appendingPathComponent(key)
                     self.contentUrl = contentUrl
                     resolver.fulfill(contentUrl)

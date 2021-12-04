@@ -8,6 +8,7 @@
 import Foundation
 
 struct BookMarkRequest: Encodable{
-    var userId: Int = Constant.USER_IDX
+    var userId: Int = Constant.USER_IDX!
     var recipeId: Int
+    var type: String
 }

@@ -7,7 +7,10 @@
 
 import UIKit
 
-class SearchRecipeVC: BaseViewController {
+class SearchRecipeVC: BaseViewController{
+    
+    var searchDelegate: performSegues?
+    
     lazy var searchDataManager:GetSearchRecipeDataManager = GetSearchRecipeDataManager()
     
     var searchData: [GetPeopleRecipeThumnails]?
@@ -23,6 +26,7 @@ class SearchRecipeVC: BaseViewController {
         filterBtn.layer.cornerRadius = 5
         
         self.searchTF.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.searchTF.delegate = self
         
         var searchType: [UIAction] = []
         for i in ["제목", "태그"]{
@@ -49,7 +53,7 @@ class SearchRecipeVC: BaseViewController {
     }
 }
 
-extension SearchRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension SearchRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if searchData != nil{
             return searchData!.count
@@ -63,7 +67,11 @@ extension SearchRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.layoutIfNeeded()
         if searchData != nil{
             let item = searchData![indexPath.item]
-            
+            if item.type != nil{
+                cell.recipeType = item.type!
+            }else{
+                cell.recipeType = "people"
+            }
             cell.recipeIdx = item.recipeIdx
             cell.rpImage.kf.setImage(with: URL(string:item.recipeImage), placeholder: nil, options: [.transition(.fade(0.3))], progressBlock: nil)
             if let userUrl = item.userProfileImage{
@@ -86,14 +94,25 @@ extension SearchRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
         Constant.CURRENT_RECIPE = cell.recipeIdx
-        print(cell.recipeIdx, Constant.CURRENT_RECIPE)
-        self.performSegue(withIdentifier: "goToDetailFromSearch", sender: self)
+        
+        if cell.recipeType != nil{
+            if cell.recipeType! == "people"{
+                Constant.CURRENT_RECIPE_TYPE = 1
+            }else{
+                Constant.CURRENT_RECIPE_TYPE = 0
+            }
+        }
+        searchDelegate?.goToVC("goToDetail")
+//        self.performSegue(withIdentifier: "goToDetailFromSearch", sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width/2) - 5, height: collectionView.frame.width/2)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+    }
 }
 
 
