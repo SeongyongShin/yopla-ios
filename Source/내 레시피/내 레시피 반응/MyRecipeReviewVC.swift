@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataSource {
-    
+    lazy var reportDataManager: ReportDataManager = ReportDataManager()
     lazy var dataManager: GetRecipeReviewDataManager = GetRecipeReviewDataManager()
     @IBOutlet weak var reviewTv: UITableView!
     
@@ -44,7 +44,8 @@ class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataS
             cell.nickName.text = item.userNickName
             cell.content.text = item.content
             cell.created_at.text = "From. " + "\(item.recipeName!)"
-            
+            cell.tag = item.reviewsIdx
+            cell.delagete = self
             for i in 0 ... 4{
                 cell.stars[i].image = UIImage(systemName: "star")
             }
@@ -71,6 +72,17 @@ class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataS
         }
     }
     func failedToRequest(message: String){
-        self.presentBottomAlert(message: message)
+        self.presentAlert(title: message)
     }
+    func didSuccessReportRecipe(){
+        self.presentAlert(title: "신고하였습니다!.")
+    }
+}
+
+extension MyRecipeReviewVC: ReportCellDelegate{
+    func report(id: Int) {
+        self.reportDataManager.postReportReview2(ReportRequest(targetId: id, type: "review"), delegate: self)
+    }
+    
+    
 }

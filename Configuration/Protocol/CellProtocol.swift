@@ -36,3 +36,7 @@ protocol RegistCellDelegate{
     func didSelectedImage()
     func presentAlertMessage(msg: String)
 }
+
+protocol ReportCellDelegate{
+    func report(id: Int)
+}

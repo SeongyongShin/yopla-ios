@@ -453,7 +453,7 @@ extension RegistRecipeDetailVC{
                 self.loadingView.isHidden = true
                 self.activityView.stopAnimating()
             }
-            self.presentBottomAlert(message: "문제가 발생했습니다.")
+            self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
         print("error: ", error.localizedDescription)
     }
     }
@@ -485,7 +485,7 @@ extension RegistRecipeDetailVC{
                         self.loadingView.isHidden = true
                         self.activityView.stopAnimating()
                     }
-                    self.presentBottomAlert(message: "문제가 발생했습니다.")
+                    self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
                 print("error: ", error.localizedDescription)
             }
             }else{
@@ -511,7 +511,7 @@ extension RegistRecipeDetailVC{
                         self.activityView.stopAnimating()
                     }
                     
-                    self.presentBottomAlert(message: "문제가 발생했습니다.")
+                    self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
                 print("error: ", error.localizedDescription)
             }
             }

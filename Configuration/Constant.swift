@@ -36,6 +36,7 @@ struct Constant{
     static var CURRENT_CATEGORY: String?
     static var CATEGORY_RESULT: [GetPeopleRecipeThumnails]?
     static var DID_LOG_OUT = false
+    static var THUMBNAIL_PROGRESS = false
     
 //    static var USER_IDX = 29
     static var USER_IDX: Int? = UserDefaults.standard.integer(forKey: "userIdx"){

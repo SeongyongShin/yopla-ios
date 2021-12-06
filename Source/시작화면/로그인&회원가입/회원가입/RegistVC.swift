@@ -365,7 +365,7 @@ extension RegistVC{
     // 인증코드 검증
     func didSuccessConfirmPhoneCode(){
         self.resultL.text = "인증성공"
-        self.signUpRequest.phoneNumber = phoneNumberTF.text
+        self.signUpRequest.phoneNumber = phoneNumberTF.text?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "").replacingOccurrences(of: ",", with: "").replacingOccurrences(of: "_", with: "")
         phone_valid = true
         self.validPhoneCode(check: true)
     }

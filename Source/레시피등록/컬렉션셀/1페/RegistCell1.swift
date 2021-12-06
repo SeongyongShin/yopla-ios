@@ -18,10 +18,11 @@ class RegistCell1: UICollectionViewCell {
     var delegate2: RegistCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        requestPhotosPermission()
         myGalleryCV.register(UINib(nibName: "RegistCell1_1", bundle: nil), forCellWithReuseIdentifier: "RegistCell1_1")
         myGalleryCV.dataSource = self
         myGalleryCV.delegate = self
-        requestPhotosPermission()
 //        checkCameraPermission()
     }
 
@@ -29,7 +30,12 @@ class RegistCell1: UICollectionViewCell {
 
 extension RegistCell1: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        let counts = self.fetchResult?.count ?? 0
+        if counts >= 100{
+            return 100
+        }else{
+            return counts
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

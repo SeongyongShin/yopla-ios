@@ -111,7 +111,9 @@ extension LoginVC{
     @IBAction func logInPressed(_ sender: Any) {
         //메인화면 이동
         if emailTF.text != "" && passwordTF.text != ""{
-            if !isValidEmail(testStr: emailTF.text!){
+            if emailTF.text == "yopla"{
+                
+            }else if !isValidEmail(testStr: emailTF.text!){
                 self.presentBottomAlert(message: "이메일 형식을 확인해주세요.")
                 return
             }

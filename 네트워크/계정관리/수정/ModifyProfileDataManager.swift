@@ -78,7 +78,7 @@ class ModifyProfileDataManager {
                     // 성공했을 때
                     print(response)
                     if response.isSuccess{
-                        delegate.didSuccessPatchPW()
+                        delegate.didSuccessDelete()
                     }
                     // 실패했을 때
                     else {

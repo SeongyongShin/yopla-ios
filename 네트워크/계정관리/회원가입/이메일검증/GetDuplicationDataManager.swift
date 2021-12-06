@@ -32,7 +32,9 @@ class GetDuplicationDataManager{
     }
     
     func duplicatedNickName(_ parameters: String, delegate: RegistVC) {
-        let url = "\(Constant.BASE_URL)/app/users/sign-up/nickname?nickname=\(parameters)"
+        let urlString = "\(Constant.BASE_URL)/app/users/sign-up/nickname?nickname=\(parameters)"
+        
+           if let encoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),let url = URL(string: encoded){
 
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
@@ -51,5 +53,6 @@ class GetDuplicationDataManager{
                     delegate.failedToRequest(message: "요청에 실패하였습니다.")
                 }
             }
+    }
     }
 }

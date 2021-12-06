@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class RecipeDetailStarVC: BaseViewController {
-    
+    lazy var reportDataManager: ReportDataManager = ReportDataManager()
     @IBOutlet weak var recipeTitle: UILabel!
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var recipeBookMarkBtn: BaseButton!
@@ -40,6 +40,14 @@ extension RecipeDetailStarVC{
     @IBAction func bookMarking(_ sender: Any){
         BookmarkDataManager().postBookMark(recipeId: Constant.CURRENT_RECIPE, delegate: self)
     }
+    
+    @IBAction func reportRecipe(_ sender: Any){
+        if Constant.CURRENT_RECIPE_DETAIL?.result?.userNickName == Constant.MY_PROFILE?.userNickName{
+            self.presentAlert(title: "자신의 게시물은 신고할 수 없습니다.")
+            return
+        }
+        reportDataManager.postReport(ReportRequest(targetId: Constant.CURRENT_RECIPE, type: "recipe"), delegate: self)
+    }
 }
 
 //MARK: 컴포넌트들 설정
@@ -65,11 +73,14 @@ extension RecipeDetailStarVC{
 }
 //통신
 extension RecipeDetailStarVC{
+    func didSuccessReportRecipe(){
+        self.presentAlert(title: "신고하였습니다!")
+    }
     func didSuccessBookMark(message: String){
         self.presentBottomAlert(message: message)
     }
     func failedToRequest(message: String){
-        self.presentBottomAlert(message: message)
+        self.presentAlert(title: message)
     }
 }
 extension RecipeDetailStarVC{

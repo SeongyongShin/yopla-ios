@@ -8,11 +8,14 @@
 import UIKit
 import Kingfisher
 import AVFoundation
+import Photos
 
 class RecipeDetailVC: BaseViewController {
-
+    
     lazy var getRecipeDetail: GetRecipeDetailDataManager = GetRecipeDetailDataManager()
     
+    @IBOutlet weak var backGroundV: UIView!
+    @IBOutlet weak var recipeTimerL: UILabel!
     @IBOutlet weak var recipeTitleL: UILabel!
     @IBOutlet weak var recipeTitleL2: UILabel!
     @IBOutlet weak var recipeHeartL: UILabel!
@@ -24,6 +27,8 @@ class RecipeDetailVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        backGroundV.layer.cornerRadius = 5
+
         //대중
         if Constant.CURRENT_RECIPE_TYPE == 0{
             getRecipeDetail.getPublicRecipeDetail(delegate: self)
@@ -57,7 +62,7 @@ extension RecipeDetailVC{
         self.nickNameL.text = result.result?.userNickName ?? "정보가 없습니다."
         self.recipeHeartL.text = "\(result.result?.bookmarkCount ?? 0)"
         self.recipeViewedL.text = "\(result.result?.hits ?? 0)"
-       
+        self.recipeTimerL.text = "\(result.result?.times ?? "")"
         if let tags = result.result?.tags{
             let tagList = tags.split(separator: ",")
             for i in tagList{
@@ -80,14 +85,28 @@ extension RecipeDetailVC{
 }
 extension RecipeDetailVC{
     func setStaticThumbNail(result: [GetRecipeDetail]){
+        for _ in result{
+            Constant.TEMPORARY_DETAIL_VIDEO_THUMB.append(UIImage())
+        }
         DispatchQueue.global().async {
+            Constant.THUMBNAIL_PROGRESS = true
+            var index = 0
             for item in result{
-                if item.fileType == "video"{
-                    
-                    Constant.TEMPORARY_DETAIL_VIDEO_THUMB.append(self.createVideoThumbnail(from: URL(string: item.detailFileUrl)!)!)
-                }else{
-                    Constant.TEMPORARY_DETAIL_VIDEO_THUMB.append(UIImage())
+                if Constant.THUMBNAIL_PROGRESS == false{
+                    break
                 }
+                if item.fileType == "video"{
+                    let img = self.createVideoThumbnail(from: URL(string: item.detailFileUrl)!) ?? UIImage()
+                    if Constant.THUMBNAIL_PROGRESS &&  Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count != 0{
+                        Constant.TEMPORARY_DETAIL_VIDEO_THUMB[index] = img
+                    }else{
+                        return
+                    }
+//                    Constant.TEMPORARY_DETAIL_VIDEO_THUMB.append(self.createVideoThumbnail(from: URL(string: item.detailFileUrl)!) ?? UIImage())
+                }else{
+                    Constant.TEMPORARY_DETAIL_VIDEO_THUMB[index] = UIImage()
+                }
+                index += 1
             }
         }
     }
@@ -112,4 +131,3 @@ extension RecipeDetailVC{
 
     }
 }
-

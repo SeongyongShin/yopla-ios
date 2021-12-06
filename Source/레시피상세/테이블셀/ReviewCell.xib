@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -92,7 +93,24 @@
                             <constraint firstAttribute="width" constant="15" id="9kr-wZ-qQb"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exclamationmark.triangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mMo-aF-0ST">
+                        <rect key="frame" x="533.5" y="11" width="20.5" height="18"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="신고하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfc-Eb-jtN">
+                        <rect key="frame" x="557" y="12" width="45" height="16"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <color key="textColor" systemColor="systemRedColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBw-Sv-FzZ">
+                        <rect key="frame" x="513.5" y="0.0" width="98.5" height="50"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="reportPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1jz-Kq-qUh"/>
+                        </connections>
+                    </button>
                 </subviews>
+                <color key="tintColor" systemColor="systemRedColor"/>
                 <constraints>
                     <constraint firstItem="LnS-UY-OcM" firstAttribute="leading" secondItem="DNG-kH-Kg5" secondAttribute="trailing" id="41F-Y4-9yN"/>
                     <constraint firstItem="6Tg-Fj-uD2" firstAttribute="top" secondItem="LnS-UY-OcM" secondAttribute="top" id="4M5-xY-nHv"/>
@@ -102,6 +120,7 @@
                     <constraint firstItem="GRn-ub-Dqn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="97I-vx-fsq"/>
                     <constraint firstAttribute="bottom" secondItem="tuT-tL-o6t" secondAttribute="bottom" id="B7m-pY-fsE"/>
                     <constraint firstItem="tuT-tL-o6t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BsC-vS-B5x"/>
+                    <constraint firstItem="Jfc-Eb-jtN" firstAttribute="centerY" secondItem="mMo-aF-0ST" secondAttribute="centerY" id="C0h-XP-Enu"/>
                     <constraint firstItem="SSx-xf-IaY" firstAttribute="width" secondItem="SSx-xf-IaY" secondAttribute="height" id="C4E-Qa-s6u"/>
                     <constraint firstItem="SSx-xf-IaY" firstAttribute="leading" secondItem="dig-4k-z3X" secondAttribute="trailing" id="CJl-ek-d5n"/>
                     <constraint firstItem="dig-4k-z3X" firstAttribute="width" secondItem="dig-4k-z3X" secondAttribute="height" id="Emb-Ld-Aak"/>
@@ -117,6 +136,9 @@
                     <constraint firstItem="dig-4k-z3X" firstAttribute="width" secondItem="dig-4k-z3X" secondAttribute="height" id="Tqc-vN-cEm"/>
                     <constraint firstItem="NE6-He-let" firstAttribute="leading" secondItem="nl7-JI-tq3" secondAttribute="leading" id="VWD-93-4MC"/>
                     <constraint firstItem="LnS-UY-OcM" firstAttribute="leading" secondItem="DNG-kH-Kg5" secondAttribute="trailing" id="a9K-Bz-Lm2"/>
+                    <constraint firstAttribute="trailing" secondItem="Jfc-Eb-jtN" secondAttribute="trailing" constant="10" id="cyX-A3-3Cl"/>
+                    <constraint firstItem="kBw-Sv-FzZ" firstAttribute="leading" secondItem="mMo-aF-0ST" secondAttribute="leading" constant="-20" id="dIU-8B-DDq"/>
+                    <constraint firstItem="mMo-aF-0ST" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="dZP-qO-b3Y"/>
                     <constraint firstItem="nl7-JI-tq3" firstAttribute="top" secondItem="GRn-ub-Dqn" secondAttribute="top" id="fR8-0T-Iq5"/>
                     <constraint firstItem="NE6-He-let" firstAttribute="top" secondItem="nl7-JI-tq3" secondAttribute="bottom" constant="5" id="hJD-Zn-LK9"/>
                     <constraint firstItem="6Tg-Fj-uD2" firstAttribute="width" secondItem="6Tg-Fj-uD2" secondAttribute="height" id="jbw-yH-N3r"/>
@@ -125,10 +147,14 @@
                     <constraint firstItem="SSx-xf-IaY" firstAttribute="leading" secondItem="dig-4k-z3X" secondAttribute="trailing" id="nsp-8K-GMl"/>
                     <constraint firstItem="LnS-UY-OcM" firstAttribute="top" secondItem="DNG-kH-Kg5" secondAttribute="top" id="p7Q-25-VrR"/>
                     <constraint firstItem="GRn-ub-Dqn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="qfX-f9-tWk"/>
+                    <constraint firstItem="Jfc-Eb-jtN" firstAttribute="leading" secondItem="mMo-aF-0ST" secondAttribute="trailing" constant="3" id="tU2-ag-rdn"/>
+                    <constraint firstAttribute="trailing" secondItem="kBw-Sv-FzZ" secondAttribute="trailing" id="tUb-T4-rrE"/>
                     <constraint firstAttribute="trailing" secondItem="tuT-tL-o6t" secondAttribute="trailing" id="tUy-dB-9uT"/>
                     <constraint firstItem="6Tg-Fj-uD2" firstAttribute="leading" secondItem="LnS-UY-OcM" secondAttribute="trailing" id="u2I-ys-ixS"/>
+                    <constraint firstItem="kBw-Sv-FzZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="uR7-ED-w5f"/>
                     <constraint firstItem="DNG-kH-Kg5" firstAttribute="leading" secondItem="nl7-JI-tq3" secondAttribute="trailing" constant="20" id="ue9-9U-WFN"/>
                     <constraint firstItem="LnS-UY-OcM" firstAttribute="width" secondItem="LnS-UY-OcM" secondAttribute="height" id="uxB-dZ-xdA"/>
+                    <constraint firstItem="kBw-Sv-FzZ" firstAttribute="bottom" secondItem="mMo-aF-0ST" secondAttribute="bottom" constant="20" id="vgr-JX-Azi"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -147,7 +173,11 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="exclamationmark.triangle.fill" catalog="system" width="128" height="112"/>
         <image name="profile" width="160" height="162"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

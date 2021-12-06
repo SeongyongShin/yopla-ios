@@ -31,12 +31,14 @@ class RegistDetailCell1: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         Constant.videoUrls.removeAll()
+        
+        requestPhotosPermission()
         myGalleryCV.register(UINib(nibName: "RegistRecipeImageCell", bundle: nil), forCellWithReuseIdentifier: "RegistRecipeImageCell")
         myGalleryCV.register(UINib(nibName: "RegistRecipeVideoCell", bundle: nil), forCellWithReuseIdentifier: "RegistRecipeVideoCell")
         myGalleryCV.dataSource = self
         myGalleryCV.delegate = self
         requestPhotosPermission()
-        checkCameraPermission()
+//        checkCameraPermission()
         documentDirectory = NSSearchPathForDirectoriesInDomains(.picturesDirectory, .userDomainMask, true).first
     }
 
@@ -44,7 +46,12 @@ class RegistDetailCell1: UICollectionViewCell {
 
 extension RegistDetailCell1: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        let counts = self.fetchResult?.count ?? 0
+        if counts >= 100{
+            return 100
+        }else{
+            return counts
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

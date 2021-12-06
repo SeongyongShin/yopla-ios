@@ -8,8 +8,10 @@
 import UIKit
 import AVFoundation
 import Kingfisher
+import Photos
 
 class RegistRecipeVC: BaseViewController {
+    var granted = false
     lazy var getModifyRecipeDetailDataManager: GetModifyRecipeDetailDataManager = GetModifyRecipeDetailDataManager()
     var current_page = 0
     var ready = false
@@ -31,8 +33,10 @@ class RegistRecipeVC: BaseViewController {
     @IBOutlet weak var registCVConstant2: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         setComponent()
-        if Constant.IS_MODIFY_PAGE{
+        if Constant.IS_MODIFY_PAGE && granted{
             self.getModifyRecipeDetailDataManager.getRecipeDetail(delegate: self)
         }
     }
@@ -77,6 +81,11 @@ extension RegistRecipeVC{
             self.homeBtn.isHidden = true
             self.homeImage.isHidden = true
         }
+//        granted = self.requestPhotosPermission()
+//        if !granted{
+//            self.presentAlert(title: "사진을 가져올 수 없어 레시피를 등록할 수 없습니다.")
+//            return
+//        }
         for i in 1...2{
             registCV.register(UINib(nibName: "RegistCell\(i)", bundle: nil), forCellWithReuseIdentifier: "RegistCell\(i)")
         }
@@ -334,4 +343,43 @@ extension RegistRecipeVC{
     @IBAction func unwindToThumnail(_ sender: UIStoryboardSegue) {
 
     }
+}
+extension RegistRecipeVC{
+    private func requestPhotosPermission() -> Bool{
+        var result = false
+            let photoAuthorizationStatusStatus = PHPhotoLibrary.authorizationStatus()
+
+            switch photoAuthorizationStatusStatus {
+            case .authorized:
+                print("Photo Authorization status is authorized.")
+                result = true
+//                self.requestCollection()
+
+            case .denied:
+                print("Photo Authorization status is denied.")
+
+            case .notDetermined:
+                print("Photo Authorization status is not determined.")
+                PHPhotoLibrary.requestAuthorization() {
+                    (status) in
+                    switch status {
+                    case .authorized:
+                        print("User permiited.")
+//                        self.requestCollection()
+                    case .denied:
+                        print("User denied.")
+                        
+                    default:
+                        
+                        break
+                    }
+                }
+
+            case .restricted:
+                print("Photo Authorization status is restricted.")
+            default:
+                break
+            }
+        return result
+        }
 }

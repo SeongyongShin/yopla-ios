@@ -8,14 +8,17 @@
 import UIKit
 
 class ReviewCell: UITableViewCell {
-
+    var recipeId: Int?
     @IBOutlet weak var profileImage: RoundImageView!
     @IBOutlet weak var nickName: UILabel!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var created_at: UILabel!
     @IBOutlet var stars: [UIImageView]!
+    var delagete: ReportCellDelegate?
     
-    
+    @IBAction func reportPressed(_ sender: Any) {
+        delagete?.report(id: self.tag)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         

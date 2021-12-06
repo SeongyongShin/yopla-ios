@@ -9,6 +9,7 @@ import UIKit
 
 class MainTC: UITabBarController, performSegues {
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let VCList = self.viewControllers!
@@ -26,7 +27,7 @@ class MainTC: UITabBarController, performSegues {
         }
     }
     
-    
+
     func goToVC(_ identifier: String) {
         self.performSegue(withIdentifier: identifier, sender: self)
     }

@@ -58,6 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.clearCache()
     }
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return  [.portrait]
+    }
     func clearCache(){
         let cacheURL =  FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
         let fileManager = FileManager.default

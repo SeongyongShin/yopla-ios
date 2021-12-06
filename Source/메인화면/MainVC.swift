@@ -63,7 +63,19 @@ class MainVC: BaseViewController {
         
 
     }
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { context in
+            if UIApplication.shared.statusBarOrientation.isLandscape {
+                print("1")
+            } else {
+                print("2")
+            }
+        })
+    }
     override func viewWillAppear(_ animated: Bool) {
+        if !Constant.DID_LOG_OUT{
+            setComponent()
+        }
         myMenuConst.constant = -self.view.frame.width
         myMenuV.layoutIfNeeded()
 //        print(Constant.CURRENT_RECIPE_TYPE)
@@ -92,6 +104,7 @@ class MainVC: BaseViewController {
             self.presentBottomAlert(message: "레시피를 등록했습니다.")
             Constant.viewFromDetail = false
         }
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         self.hideSideBar()
@@ -290,6 +303,7 @@ extension MainVC{
         Constant.IS_CATEGORY = false
         Constant.CATEGORY_RESULT = nil
         Constant.CURRENT_CATEGORY = nil
+        Constant.THUMBNAIL_PROGRESS = false
     }
 }
 
@@ -316,8 +330,20 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         
         //광고
         if tags == 0{
-            let cell = collectionView.cellForItem(at: indexPath) as! AdCell
-            Constant.CURRENT_RECIPE = cell.adIdx
+//            Constant.CURRENT_RECIPE = cell.adIdx
+            Constant.CURRENT_RECIPE_TYPE = 1
+            if indexPath.item == 0{
+                Constant.CURRENT_RECIPE = 11
+            }else if indexPath.item == 1{
+                Constant.CURRENT_RECIPE = 12
+            }else if indexPath.item == 2{
+                Constant.CURRENT_RECIPE = 13
+            }else if indexPath.item == 3{
+                Constant.CURRENT_RECIPE = 15
+            }else{
+                Constant.CURRENT_RECIPE = 16
+            }
+            mainDelegate?.goToVC("goToDetail")
         }
         //카테고리
         else if tags == 1{
@@ -631,6 +657,9 @@ extension MainVC{
 //MARK: 사이드바 설정(애니메이션포함)
 extension MainVC{
     func showSideBar(){
+//        DispatchQueue.global().async {
+//            self.userInfoManager.getMyProfile(delegate: self)
+//        }
         self.maneTV.reloadData()
         self.blurV.isHidden = false
         UIView.animate(withDuration: 0.3, animations: {

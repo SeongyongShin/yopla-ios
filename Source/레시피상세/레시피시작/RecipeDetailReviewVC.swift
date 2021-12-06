@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 class RecipeDetailReviewVC: BaseViewController{
+    lazy var reportDataManager: ReportDataManager = ReportDataManager()
     lazy var getReviewDataManager: GetRecipeReviewDataManager = GetRecipeReviewDataManager()
     lazy var postReviewDataManager: PostReviewDataManager = PostReviewDataManager()
     
@@ -120,7 +121,8 @@ extension RecipeDetailReviewVC: UITableViewDelegate,UITableViewDataSource{
             cell.nickName.text = item.userNickName
             cell.content.text = item.content
             cell.created_at.text = item.createdAt
-            
+            cell.tag = item.reviewsIdx
+            cell.delagete = self
             for i in 0 ... 4{
                 cell.stars[i].image = UIImage(systemName: "star")
             }
@@ -198,6 +200,9 @@ extension RecipeDetailReviewVC{
 }
 
 extension RecipeDetailReviewVC{
+    func didSuccessReportRecipe(){
+        self.presentAlert(title: "신고하였습니다!")
+    }
     func didSuccessPostReview(result: Int?){
         getReviewDataManager.getRecipeReview(recipeId: Constant.CURRENT_RECIPE, delegate: self)
     }
@@ -206,12 +211,18 @@ extension RecipeDetailReviewVC{
         self.reviewTable.reloadData()
     }
     func failedToRequest(message: String){
-        self.presentBottomAlert(message: message)
+        self.presentAlert(title: message)
     }
 }
 
 extension RecipeDetailReviewVC{
     @IBAction func goToMainFromReview(_ sender: UIButton){
         makeTabBarRootVC("MainTabBar")
+    }
+}
+
+extension RecipeDetailReviewVC: ReportCellDelegate{
+    func report(id: Int) {
+        reportDataManager.postReportReview(ReportRequest(targetId: id, type: "review"), delegate: self)
     }
 }

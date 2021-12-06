@@ -82,6 +82,38 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
         return Constant.CURRENT_RECIPE_DETAIL!.result2!.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as! RecipeDetailCell
+        
+        if cell.fileType == "video"{
+            if cell.recipeImage.image == UIImage(){
+                if Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item] == UIImage(){
+                    var hasImage = false
+                    DispatchQueue.global().async {
+                        for _ in 0...4{
+                            Thread.sleep(forTimeInterval: 1)
+                            if Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item] != UIImage(){
+                                hasImage = true
+                                break
+                            }
+                        }
+                        if hasImage{
+                            DispatchQueue.main.async {
+                                
+                                cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
+                            }
+                        }
+                    }
+                    
+                    
+                }
+            }else{
+                
+            }
+        }
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImageCell", for: indexPath) as! RecipeDetailCell
         cell.tonext.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(moveDirection)))
@@ -91,6 +123,10 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
         cell.loadingV.isHidden = true
         if let item = self.detailItem?.result2![indexPath.item]{
             if item.fileType == "video"{
+//                DispatchQueue.main.async { [self] in
+//                    cell.recipeImage.image = createVideoThumbnail(from: URL(string: item.detailFileUrl)!)
+//                }
+//                print(item.detailFileUrl)
                 DispatchQueue.main.async {
                     if Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count != 0{
                         cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
@@ -146,11 +182,9 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
                     switch result {
                     case .success(let url):
                         let player = AVPlayer(url: url)
-
                         // Create a new AVPlayerViewController and pass it a reference to the player.
                         let controller = AVPlayerViewController()
                         controller.player = player
-                        
                         // Modally present the player and call the player's play() method when complete.
                         self.present(controller, animated: true) {
                             player.play()

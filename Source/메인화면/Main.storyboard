@@ -582,9 +582,10 @@
                                                     <constraint firstAttribute="bottom" secondItem="MF0-Gc-q4B" secondAttribute="bottom" constant="20" id="5Ce-7W-77w"/>
                                                     <constraint firstItem="MAc-xe-edm" firstAttribute="leading" secondItem="pwR-Go-Ppg" secondAttribute="leading" constant="20" id="8bA-vP-DAd"/>
                                                     <constraint firstItem="MF0-Gc-q4B" firstAttribute="top" secondItem="jmn-fW-6op" secondAttribute="bottom" constant="15" id="8lC-B2-eeV"/>
-                                                    <constraint firstItem="xE9-Bk-L4S" firstAttribute="width" secondItem="pwR-Go-Ppg" secondAttribute="width" multiplier="0.4" id="A0K-zz-kWg"/>
+                                                    <constraint firstItem="xE9-Bk-L4S" firstAttribute="width" relation="lessThanOrEqual" secondItem="pwR-Go-Ppg" secondAttribute="width" multiplier="0.4" id="A0K-zz-kWg"/>
                                                     <constraint firstItem="xE9-Bk-L4S" firstAttribute="leading" secondItem="jmn-fW-6op" secondAttribute="trailing" id="JXw-Tq-zQS"/>
                                                     <constraint firstItem="jmn-fW-6op" firstAttribute="leading" secondItem="MF0-Gc-q4B" secondAttribute="leading" id="XJv-xL-1RM"/>
+                                                    <constraint firstItem="xE9-Bk-L4S" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pwR-Go-Ppg" secondAttribute="top" constant="30" id="XxW-mj-twn"/>
                                                     <constraint firstItem="MF0-Gc-q4B" firstAttribute="leading" secondItem="pwR-Go-Ppg" secondAttribute="leading" constant="20" id="mYl-mL-kyv"/>
                                                     <constraint firstAttribute="trailing" secondItem="xE9-Bk-L4S" secondAttribute="trailing" constant="15" id="naA-w1-4Yd"/>
                                                 </constraints>
