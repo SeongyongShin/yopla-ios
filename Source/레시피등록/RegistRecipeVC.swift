@@ -11,7 +11,7 @@ import Kingfisher
 import Photos
 
 class RegistRecipeVC: BaseViewController {
-    var granted = false
+    var granted = true
     lazy var getModifyRecipeDetailDataManager: GetModifyRecipeDetailDataManager = GetModifyRecipeDetailDataManager()
     var current_page = 0
     var ready = false
@@ -33,8 +33,9 @@ class RegistRecipeVC: BaseViewController {
     @IBOutlet weak var registCVConstant2: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
+//
+//print(Constant.IS_MODIFY_PAGE)
+//        print(granted)
         setComponent()
         if Constant.IS_MODIFY_PAGE && granted{
             self.getModifyRecipeDetailDataManager.getRecipeDetail(delegate: self)
@@ -328,7 +329,7 @@ extension RegistRecipeVC: RegistCellDelegate{
 extension RegistRecipeVC{
     func didSuccessDetail(result: GetRecipeDetailResponse){
         Constant.CURRENT_RECIPE_DETAIL = result
-        
+//        print(result)
         self.recipeTitle.text = result.result?.title
         self.ready = true
         self.registCV.reloadData()

@@ -118,7 +118,7 @@ extension SearchRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 
 extension SearchRecipeVC{
     func goSearch(type: String){
-        searchDataManager.getSerchRecipe(word: self.searchTF.text ?? "", type: type, delegate: self)
+        searchDataManager.getSerchRecipe(word: self.searchTF.text?.replacingOccurrences(of: "#", with: "") ?? "", type: type, delegate: self)
     }
     @objc func textFieldDidChange(_ sender: Any?) {
         var types = self.filterBtn.titleLabel?.text ?? "제목"

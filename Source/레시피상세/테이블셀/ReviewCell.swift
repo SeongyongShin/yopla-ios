@@ -15,13 +15,22 @@ class ReviewCell: UITableViewCell {
     @IBOutlet weak var created_at: UILabel!
     @IBOutlet var stars: [UIImageView]!
     var delagete: ReportCellDelegate?
+    @IBOutlet weak var report1: UIButton!
+    @IBOutlet weak var report2: UIImageView!
+    @IBOutlet weak var report3: UILabel!
     
     @IBAction func reportPressed(_ sender: Any) {
-        delagete?.report(id: self.tag)
+        if !Constant.IS_GUEST{
+            delagete?.report(id: self.tag)
+        }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        if Constant.IS_GUEST{
+            report1.isHidden = true
+            report2.image = UIImage()
+            report3.text = ""
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

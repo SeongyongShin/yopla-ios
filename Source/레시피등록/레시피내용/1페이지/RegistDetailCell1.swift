@@ -87,16 +87,19 @@ extension RegistDetailCell1: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         var tempurl: URL? = nil
-        if let tags = collectionView.cellForItem(at: indexPath)?.tag{
+        if var tags = collectionView.cellForItem(at: indexPath)?.tag{
             if tags > 0{
                 
                 self.contentType = "video"
                 let cell = collectionView.cellForItem(at: indexPath) as! RegistRecipeVideoCell
-                if cell.fileSize! > 10.0{
-                    delegate2?.presentAlertMessage(msg: "10MB 이하만 등록 가능합니다.\n \(String(describing: cell.fileSize!))MB / 10MB")
+                if cell.fileSize! > 15.0{
+                    delegate2?.presentAlertMessage(msg: "15MB 이하만 등록 가능합니다.\n \(String(describing: cell.fileSize!))MB / 15MB")
                     return
                 }
-                tempurl = Constant.videoUrls[tags-1]
+                if tags >= Constant.videoUrls.count{
+                    tags -= 1
+                }
+                tempurl = Constant.videoUrls[tags]
                 videoDirectory = tempurl
             }else{
                 self.contentType = "image"

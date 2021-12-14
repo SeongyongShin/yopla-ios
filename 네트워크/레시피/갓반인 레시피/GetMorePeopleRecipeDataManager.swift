@@ -32,8 +32,8 @@ class GetMorePeopleRecipeDataManager{
     }
     // 대중 레시피 리스트 가져오기
     func getPublicRecipe(more_type: Int, delegate: MoreRecipeVC) {
-        var str1 = "shortsForm"
-        if more_type != 99{
+        var str1 = "recommends"
+        if more_type == 1{
             str1 = "hots"
         }
         let url = "\(Constant.BASE_URL)/app/users/\(Constant.USER_IDX!)/publicRecipes/\(str1)"

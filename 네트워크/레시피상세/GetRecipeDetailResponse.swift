@@ -36,4 +36,5 @@ struct GetRecipeDetail: Decodable{
     var contents: String
     var detailFileUrl: String
     var fileType: String
+    var modified: String?
 }

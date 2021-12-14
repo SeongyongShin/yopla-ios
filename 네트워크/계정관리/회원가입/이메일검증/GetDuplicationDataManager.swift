@@ -20,13 +20,13 @@ class GetDuplicationDataManager{
                 switch response.result {
                 case .success(let response):
                     if response.result == "Exist"{
-                        delegate.didfailedEmail()
+                        delegate.didfailedEmail("이미 사용중인 이메일입니다.")
                     }else{
                         delegate.didSuccessEmail()
                     }
                 case .failure(let error):
                     print(error)
-                    delegate.didfailedEmail()
+                    delegate.didfailedEmail("요청 실패")
                 }
             }
     }

@@ -10,6 +10,7 @@ import Kingfisher
 import AVFoundation
 
 class RegistRecipeDetailVC: BaseViewController {
+    var is_error = true
     @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
@@ -453,7 +454,8 @@ extension RegistRecipeDetailVC{
                 self.loadingView.isHidden = true
                 self.activityView.stopAnimating()
             }
-            self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
+            self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인 후 앱을 terminate 시키고 다시 실행해주세요. \n please restart app after terminate")
+//            self.presentAlert(title: "0", message: "\(error)")
         print("error: ", error.localizedDescription)
     }
     }
@@ -461,6 +463,7 @@ extension RegistRecipeDetailVC{
         var tempList:[TempDetailPage] = []
         var index = 0
         var uploadCount = 0
+        print(tempDetailList)
         for i in tempDetailList{
             if i.fileType == "image"{
                 let req = awsDataManager.uploadImage(image: i.image!)
@@ -485,7 +488,8 @@ extension RegistRecipeDetailVC{
                         self.loadingView.isHidden = true
                         self.activityView.stopAnimating()
                     }
-                    self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
+                    self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인 후 앱을 terminate 시키고 다시 실행해주세요. \n please restart app after terminate")
+//                    self.presentAlert(title: "1", message: "\(error)")
                 print("error: ", error.localizedDescription)
             }
             }else{
@@ -506,12 +510,27 @@ extension RegistRecipeDetailVC{
                     }
                 }.catch{
                     error in
-                    DispatchQueue.main.async {
+                    
+                    uploadCount += 1
+                    if uploadCount == self.tempDetailList.count{
+                        let beforeList = PostNewRecipe(title: i.title!, ingredients: i.ingredient!, contents: i.content!, detailFileUrl: "\(i.videoURL!)", fileType: "video")
+                        tempList.append(TempDetailPage(index: countIndex, detail: beforeList))
+
+                        let newDetail = tempList.sorted(by: {$0.index! < $1.index!})
+                        self.setPostDetailAPIAvailable(dataList: newDetail)
+                        self.is_error = false
+                    }else{
+                        
+                    }
+                    if self.is_error{
+                        DispatchQueue.main.async {
                         self.loadingView.isHidden = true
                         self.activityView.stopAnimating()
                     }
-                    
-                    self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
+                    }
+                   
+//                    self.presentAlert(title: "업로드에 실패하였습니다. ", message: "사진 권한이 모든 사진 선택이 아닐 경우 문제가 발생할 수 있습니다. 설정에서 사진 권한을 확인해주세요.")
+//                    self.presentAlert(title: "2", message: "\(error)")
                 print("error: ", error.localizedDescription)
             }
             }
@@ -528,6 +547,7 @@ extension RegistRecipeDetailVC{
             Constant.registThumbNail?.recipeId = Constant.CURRENT_RECIPE
             self.postThumbNailDataManager.patchThumbNail(Constant.registThumbNail!, delegate: self)
         }else{
+//            if
             self.postThumbNailDataManager.postThumbNail(Constant.registThumbNail!, delegate: self)
         }
     }

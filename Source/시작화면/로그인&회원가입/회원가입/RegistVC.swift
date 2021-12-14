@@ -17,12 +17,14 @@ class RegistVC: BaseViewController {
     var phoneCodeId: Int?
     var phoneCodeNum: Int?
     
+    var agree = false
+    
     @IBOutlet weak var resultL: UILabel!
     let imagePickerController = UIImagePickerController()
     @IBOutlet weak var profileImage: RoundImageView1!
     lazy var AWSNetworkManager: AWSDataManager = AWSDataManager()
     lazy var duplicationDataManager: GetDuplicationDataManager = GetDuplicationDataManager()
-    lazy var verifyPhoneNumberDataManager: GetVerifyPhoneNumberDataManager = GetVerifyPhoneNumberDataManager()
+//    lazy var verifyPhoneNumberDataManager: GetVerifyPhoneNumberDataManager = GetVerifyPhoneNumberDataManager()
     lazy var signUpDataManager: PostSignUpDataManager = PostSignUpDataManager()
     
     @IBOutlet weak var backSV: UIStackView!
@@ -49,6 +51,7 @@ class RegistVC: BaseViewController {
     @IBOutlet weak var nickNameBtn: RoundButton1!
     @IBOutlet weak var nickNameUnderLine: UnderlineShadowView!
     
+    @IBOutlet weak var agreeBtn: UIButton!
     
     var currentPage = 0
     var keyboardShow = false
@@ -111,11 +114,12 @@ extension RegistVC{
 
     
     func setComponent(){
+        self.agreeBtn.layer.cornerRadius = 3
         self.emailTF.delegate = self
         self.passwordTF.delegate = self
         self.passwordConfirmTF.delegate = self
-        self.phoneCodeTF.delegate = self
-        self.phoneNumberTF.delegate = self
+//        self.phoneCodeTF.delegate = self
+//        self.phoneNumberTF.delegate = self
         self.nickNameTF.delegate = self
         nextBtn.backgroundColor = .mainHotPink
 //        self.pass.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
@@ -204,41 +208,41 @@ extension RegistVC{
     }
     
     // 인증번호 발송 클릭
-    @IBAction func verifyPhoneNumber(_ sender: Any){
-        var phoneNum = self.phoneNumberTF.text ?? ""
-        if phoneNum != "" && phoneNum.count > 6{
-            phoneNum = phoneNum.replacingOccurrences(of: " ", with: "")
-            phoneNum = phoneNum.replacingOccurrences(of: "-", with: "")
-            self.resultL.text = ""
-        }else{
-            self.resultL.text = "휴대폰 번호가 유효하지 않습니다."
-            validPhone(check: false)
-            return
-        }
-        verifyPhoneNumberDataManager.verifyPhoneNumber(phoneNum, delegate: self)
-    }
-    // 인증번호 확인 클릭
-    @IBAction func confirmVerifyPhoneNumber(_ sender: Any){
-        
-        self.resultL.text = ""
-        
-        if !phone_number_valid{
-            self.resultL.text = "핸드폰번호가 유효하지 않습니다."
-            validPhone(check: false)
-            return
-        }
-        validPhone(check: true)
-        let codeResponse = phoneCodeTF.text ?? ""
-        
-        if codeResponse != "" && phoneCodeId != nil{
-            verifyPhoneNumberDataManager.ConfirmPhoneCode("\(phoneCodeId!)", "\(codeResponse)", delegate: self)
-            validPhone(check: true)
-        }else{
-            self.resultL.text = "인증번호를 검증해주세요"
-            
-            validPhoneCode(check: false)
-        }
-    }
+//    @IBAction func verifyPhoneNumber(_ sender: Any){
+//        var phoneNum = self.phoneNumberTF.text ?? ""
+//        if phoneNum != "" && phoneNum.count > 6{
+//            phoneNum = phoneNum.replacingOccurrences(of: " ", with: "")
+//            phoneNum = phoneNum.replacingOccurrences(of: "-", with: "")
+//            self.resultL.text = ""
+//        }else{
+//            self.resultL.text = "휴대폰 번호가 유효하지 않습니다."
+//            validPhone(check: false)
+//            return
+//        }
+//        verifyPhoneNumberDataManager.verifyPhoneNumber(phoneNum, delegate: self)
+//    }
+//    // 인증번호 확인 클릭
+//    @IBAction func confirmVerifyPhoneNumber(_ sender: Any){
+//
+//        self.resultL.text = ""
+//
+//        if !phone_number_valid{
+//            self.resultL.text = "핸드폰번호가 유효하지 않습니다."
+//            validPhone(check: false)
+//            return
+//        }
+//        validPhone(check: true)
+//        let codeResponse = phoneCodeTF.text ?? ""
+//
+//        if codeResponse != "" && phoneCodeId != nil{
+//            verifyPhoneNumberDataManager.ConfirmPhoneCode("\(phoneCodeId!)", "\(codeResponse)", delegate: self)
+//            validPhone(check: true)
+//        }else{
+//            self.resultL.text = "인증번호를 검증해주세요"
+//
+//            validPhoneCode(check: false)
+//        }
+//    }
     //닉네임중복 클릭
     @IBAction func nickNameClick(_ sender: Any){
         if nickNameTF.text != ""{
@@ -270,26 +274,32 @@ extension RegistVC{
                 self.validPW(check: false)
                 return
             }
+            if !agree{
+                self.resultL.text = "개인정보 취급에 동의해주세요"
+                return
+            }
             self.signUpRequest.password = self.passwordTF.text
-        }else if currentPage == 1{
-            if !phone_number_valid{
-                self.resultL.text = "휴대폰 번호가 유효하지 않습니다."
-                self.validPhone(check: false)
-                return
-            }
-            if !phone_valid{
-                self.resultL.text = "인증번호를 검증해주세요"
-                self.validPhoneCode(check: false)
-                return
-            }
-        }else if currentPage == 2{
+        }
+//        else if currentPage == 1{
+//            if !phone_number_valid{
+//                self.resultL.text = "휴대폰 번호가 유효하지 않습니다."
+//                self.validPhone(check: false)
+//                return
+//            }
+//            if !phone_valid{
+//                self.resultL.text = "인증번호를 검증해주세요"
+//                self.validPhoneCode(check: false)
+//                return
+//            }
+//        }
+        else if currentPage == 1{
             self.signUpRequest.nickname = self.nickNameTF.text ?? "tester\(Int.random(in: 0...99999))"
             if nickName_valid{
                     if hasProfileImage{
                     let req = AWSNetworkManager.uploadImage(image: profileImage.image!)
                     req.done{
                         url in
-                        print("succed: ", url)
+//                        print("succed: ", url)
                         self.signUpRequest.profileImageUrl = "\(url)"
                         self.goSignUp()
                     }.catch{
@@ -308,12 +318,12 @@ extension RegistVC{
 
         }
         
-        if currentPage < 2{
+        if currentPage == 0{
             scrollPages(CGFloat(currentPage + 1))
             currentPage += 1
             nextBtn.setTitle("다음", for: .normal)
             backLabel.text = "회원가입"
-            if currentPage == 2{
+            if currentPage == 1{
                 nextBtn.setTitle("완료", for: .normal)
             }
         }
@@ -346,34 +356,34 @@ extension RegistVC{
         self.signUpRequest.loginId = self.emailTF.text
         self.validEmail(check: true)
     }
-    func didfailedEmail(){
-        self.resultL.text = "이미 사용중인 이메일입니다."
+    func didfailedEmail(_ msg: String){
+        self.resultL.text = msg
         self.emailValidBtn.backgroundColor = .white
         email_valid = false
         self.signUpRequest.email = nil
         self.validEmail(check: false)
     }
     
-    // 핸드폰인증
-    func didSuccessRequestSMS(result: Int){
-        self.resultL.text = "인증번호 요청 성공"
-        phone_number_valid = true
-        self.signUpRequest.phoneNumber = phoneNumberTF.text
-        phoneCodeId = result
-        self.validPhone(check: true)
-    }
-    // 인증코드 검증
-    func didSuccessConfirmPhoneCode(){
-        self.resultL.text = "인증성공"
-        self.signUpRequest.phoneNumber = phoneNumberTF.text?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "").replacingOccurrences(of: ",", with: "").replacingOccurrences(of: "_", with: "")
-        phone_valid = true
-        self.validPhoneCode(check: true)
-    }
-    func didFailedConfirmPhoneCode(){
-        self.signUpRequest.phoneNumber = nil
-        self.resultL.text = "인증번호가 올바르지 않습니다."
-        self.validPhoneCode(check: false)
-    }
+//    // 핸드폰인증
+//    func didSuccessRequestSMS(result: Int){
+//        self.resultL.text = "인증번호 요청 성공"
+//        phone_number_valid = true
+//        self.signUpRequest.phoneNumber = phoneNumberTF.text
+//        phoneCodeId = result
+//        self.validPhone(check: true)
+//    }
+//    // 인증코드 검증
+//    func didSuccessConfirmPhoneCode(){
+//        self.resultL.text = "인증성공"
+//        self.signUpRequest.phoneNumber = phoneNumberTF.text?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "").replacingOccurrences(of: ",", with: "").replacingOccurrences(of: "_", with: "")
+//        phone_valid = true
+//        self.validPhoneCode(check: true)
+//    }
+//    func didFailedConfirmPhoneCode(){
+//        self.signUpRequest.phoneNumber = nil
+//        self.resultL.text = "인증번호가 올바르지 않습니다."
+//        self.validPhoneCode(check: false)
+//    }
     
     func didSuccessNickName(){
         nickName_valid = true
@@ -421,7 +431,8 @@ extension RegistVC: UIImagePickerControllerDelegate & UINavigationControllerDele
 extension RegistVC{
     func goSignUp(){
         signUpRequest.nickname = self.nickNameTF.text ?? "test\(Int.random(in: 0...9999))"
-        if self.signUpRequest.phoneNumber != nil && self.signUpRequest.email != nil && self.signUpRequest.nickname != nil && self.signUpRequest.loginId != nil{
+        signUpRequest.phoneNumber = "01012345678"
+        if self.signUpRequest.email != nil && self.signUpRequest.nickname != nil && self.signUpRequest.loginId != nil{
             self.signUpDataManager.postSignUp(signUpRequest, delegate: self)
         }
     }
@@ -452,30 +463,30 @@ extension RegistVC{
         }
     }
     
-    func validPhone(check: Bool){
-        if !check{
-            self.phoneValidBtn.backgroundColor = .invalidRed
-            self.phoneValidBtn.setTitleColor(.white, for: .normal)
-            self.phoneUnderLine.backgroundColor = .invalidRed
-        }else{
-            self.phoneValidBtn.backgroundColor = .white
-            self.phoneValidBtn.setTitleColor(.invalidRed, for: .normal)
-            self.phoneUnderLine.backgroundColor = .white
-        }
-    }
-    
-    func validPhoneCode(check: Bool){
-        if !check{
-            self.phoneCodeValidBtn.backgroundColor = .invalidRed
-            self.phoneCodeValidBtn.setTitleColor(.white, for: .normal)
-            self.phoneCodeUnderLine.backgroundColor = .invalidRed
-        }else{
-            self.phoneCodeValidBtn.backgroundColor = .white
-            self.phoneCodeValidBtn.setTitleColor(.invalidRed, for: .normal)
-            self.phoneCodeUnderLine.backgroundColor = .white
-        }
-    }
-    
+//    func validPhone(check: Bool){
+//        if !check{
+//            self.phoneValidBtn.backgroundColor = .invalidRed
+//            self.phoneValidBtn.setTitleColor(.white, for: .normal)
+//            self.phoneUnderLine.backgroundColor = .invalidRed
+//        }else{
+//            self.phoneValidBtn.backgroundColor = .white
+//            self.phoneValidBtn.setTitleColor(.invalidRed, for: .normal)
+//            self.phoneUnderLine.backgroundColor = .white
+//        }
+//    }
+//
+//    func validPhoneCode(check: Bool){
+//        if !check{
+//            self.phoneCodeValidBtn.backgroundColor = .invalidRed
+//            self.phoneCodeValidBtn.setTitleColor(.white, for: .normal)
+//            self.phoneCodeUnderLine.backgroundColor = .invalidRed
+//        }else{
+//            self.phoneCodeValidBtn.backgroundColor = .white
+//            self.phoneCodeValidBtn.setTitleColor(.invalidRed, for: .normal)
+//            self.phoneCodeUnderLine.backgroundColor = .white
+//        }
+//    }
+//
     func validNickName(check: Bool){
         if !check{
             self.nickNameUnderLine.backgroundColor = .invalidRed
@@ -491,9 +502,9 @@ extension RegistVC{
         self.validEmail(check: true)
         self.validPW(check: true)
         
-        self.validPhone(check: true)
-        self.validPhoneCode(check: true)
-  
+//        self.validPhone(check: true)
+//        self.validPhoneCode(check: true)
+//
         self.validNickName(check: true)
     }
 }
@@ -505,3 +516,21 @@ extension RegistVC: UITextFieldDelegate{
     }
 }
 
+
+extension RegistVC{
+    @IBAction func agreePressed(_ sender: Any?){
+        if !agree{
+            self.agreeBtn.backgroundColor = .green
+            self.agree = true
+        }else{
+            self.agreeBtn.backgroundColor = .white
+            self.agree = false
+        }
+    }
+    
+    @IBAction func openAgree(_ sender: Any?){
+        if let url = URL(string: "https://yopladatastorage.s3.ap-northeast-2.amazonaws.com/yopla.html") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+}

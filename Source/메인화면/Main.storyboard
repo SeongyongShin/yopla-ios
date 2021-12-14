@@ -33,6 +33,7 @@
                         <segue destination="Hvf-qB-uNx" kind="show" identifier="goToMoreRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="vSz-IS-jG1"/>
                         <segue destination="FWb-dA-1w7" kind="show" identifier="goToMyPageFromMain" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="d43-0H-BS9"/>
                         <segue destination="5mV-tq-cij" kind="show" identifier="goToMySettingFromMain" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="0M4-go-YYe"/>
+                        <segue destination="uPx-UL-Seh" kind="show" identifier="goToModify" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="rzT-Sd-Z4c"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2H3-w0-Bc5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -112,7 +113,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWC-SZ-g5c" userLabel="레시피선택뷰">
                                                         <rect key="frame" x="0.0" y="58.5" width="414" height="58"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대중 레시피" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJ9-ue-hu0">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="명예의 전당" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJ9-ue-hu0">
                                                                 <rect key="frame" x="0.0" y="10" width="207" height="48"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                 <color key="textColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -600,14 +601,14 @@
                                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuCell" id="wMn-7J-rSD" customClass="menuCell" customModule="yopla" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.5" width="207" height="43"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="207" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wMn-7J-rSD" id="cKu-En-hP9">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="43"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cS-pf-Ycg">
-                                                                            <rect key="frame" x="16" y="11" width="175" height="21"/>
+                                                                            <rect key="frame" x="16" y="11" width="175" height="21.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <color key="textColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -737,6 +738,8 @@
                         <outlet property="blurV" destination="PQT-Vx-xTo" id="v4a-Yj-Ot6"/>
                         <outlet property="categoryCV" destination="TO6-nz-97R" id="Ror-a8-A0a"/>
                         <outlet property="commonRecipe" destination="kJ9-ue-hu0" id="Qfy-nP-dnq"/>
+                        <outlet property="hotLabel" destination="hBE-Nq-hLk" id="nGe-BD-Iab"/>
+                        <outlet property="hotLabel2" destination="Twc-vm-RFd" id="vFZ-7k-nna"/>
                         <outlet property="maneTV" destination="rho-0N-cHX" id="1Tr-Q7-Uii"/>
                         <outlet property="menuV" destination="j3M-Az-KJ0" id="hrt-UB-WQD"/>
                         <outlet property="myMenuBackV" destination="aLA-7h-EsT" id="lct-7O-Ei8"/>
@@ -755,6 +758,7 @@
                         <outlet property="recommandCV" destination="Zmd-fK-qn8" id="d6E-OW-Tg5"/>
                         <outlet property="recommandCVConstant" destination="FSG-1q-Ga1" id="XD2-r8-kpm"/>
                         <outlet property="recommendRecipeLabel" destination="VLF-na-UU1" id="IbY-te-KTP"/>
+                        <outlet property="recommendRecipeLabel2" destination="dhd-RT-3sc" id="lrb-g5-TGX"/>
                         <outlet property="registRecipeBtn" destination="swB-is-7wk" id="8Ky-po-9ts"/>
                         <outlet property="shortRPCV" destination="xgj-2X-rd6" id="5G9-Is-L8c"/>
                         <outlet property="shortViewConstant" destination="mHm-To-fsr" id="wQc-Jx-PKC"/>
@@ -845,6 +849,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d39-Rv-92K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3018" y="-356"/>
+        </scene>
+        <!--RecipeModify-->
+        <scene sceneID="0Gb-ee-TXR">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="RecipeModify" storyboardName="RecipeModify" referencedIdentifier="RecipeModify" id="uPx-UL-Seh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="kQm-in-53s"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BsC-jc-eef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1505" y="-376"/>
         </scene>
         <!--SearchRecipe-->
         <scene sceneID="lMB-ya-f6y">

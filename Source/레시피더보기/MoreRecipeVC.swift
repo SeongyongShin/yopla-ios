@@ -71,7 +71,7 @@ extension MoreRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource,UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
         Constant.CURRENT_RECIPE = cell.recipeIdx
-        print(cell.recipeIdx, Constant.CURRENT_RECIPE)
+//        print(cell.recipeIdx, Constant.CURRENT_RECIPE)
         self.performSegue(withIdentifier: "goToDetailFromMore", sender: self)
     }
     
@@ -90,11 +90,21 @@ extension MoreRecipeVC{
             self.title1.text = "숏(SHORT!)"
             self.title2.text = "레시피"
         }else if Constant.CURRENT_MORE_RECIPE_TYPE == 1{
-            self.title1.text = "HOT!"
-            self.title2.text = "인기 레시피"
+            self.title1.text = "HOT! "
+            if Constant.CURRENT_RECIPE_TYPE == 0{
+                self.title2.text = "북마크 많은 순"
+            }else{
+                self.title2.text = "인기 레시피"
+            }
         }else{
-            self.title1.text = "\(Constant.MY_PROFILE?.userNickName ?? "###")님께"
-            self.title2.text = "추천 레시피"
+            if Constant.CURRENT_RECIPE_TYPE == 0{
+                self.title1.text = "HOT! "
+                self.title2.text = "별점 높은 순"
+                
+            }else{
+                self.title1.text = "\(Constant.MY_PROFILE?.userNickName ?? "###")님께"
+                self.title2.text = "추천 레시피"
+            }
         }
     }
     func getAPI(){

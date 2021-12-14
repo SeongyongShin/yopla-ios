@@ -8,7 +8,16 @@
 import UIKit
 
 class SwipeNavVc: UINavigationController {
-
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        return .portrait
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return .portrait
+    }
 }
 
 

@@ -10,6 +10,7 @@ import UIKit
 
 struct Constant{
     static let BASE_URL = "https://freeman-service.com"
+//    static let BASE_URL = "http://13.124.226.127:9000"
     static let BASE_CORNER_RADIUS = CGFloat(5.0)
     static var keyboardHeight: CGFloat?
     static var videoUrls: [URL] = []
@@ -37,13 +38,20 @@ struct Constant{
     static var CATEGORY_RESULT: [GetPeopleRecipeThumnails]?
     static var DID_LOG_OUT = false
     static var THUMBNAIL_PROGRESS = false
-    
+    static var IS_GUEST = false
 //    static var USER_IDX = 29
+    static var APP_INTRO: Bool? = UserDefaults.standard.bool(forKey: "intro"){
+        didSet {
+            // UserDefault에 저장
+            guard let intro = APP_INTRO else { return }
+            UserDefaults.standard.setValue(intro, forKey: "intro")
+        }
+    }
     static var USER_IDX: Int? = UserDefaults.standard.integer(forKey: "userIdx"){
         didSet {
             // UserDefault에 저장
             guard let user_id = USER_IDX else { return }
-            print("user_id: \(user_id)")
+//            print("user_id: \(user_id)")
             UserDefaults.standard.setValue(user_id, forKey: "userIdx")
         }
     }
@@ -51,7 +59,7 @@ struct Constant{
             didSet {
                 // UserDefault에 저장
                 guard let token = JWT_TOKEN else { return }
-                print("TOKEN: \(token)")
+//                print("TOKEN: \(token)")
                 UserDefaults.standard.setValue(token, forKey: "jwt")
             }
         }

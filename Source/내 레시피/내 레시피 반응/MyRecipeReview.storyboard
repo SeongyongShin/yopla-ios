@@ -49,21 +49,43 @@
                                 <rect key="frame" x="0.0" y="99" width="414" height="714"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rao-De-iH5">
+                                <rect key="frame" x="87" y="364.5" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로그인 후 사용가능합니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a4-Jv-1UM">
+                                        <rect key="frame" x="0.0" y="53.5" width="240" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="4a4-Jv-1UM" firstAttribute="leading" secondItem="rao-De-iH5" secondAttribute="leading" id="05J-F8-gnC"/>
+                                    <constraint firstItem="4a4-Jv-1UM" firstAttribute="centerY" secondItem="rao-De-iH5" secondAttribute="centerY" id="UAH-lL-Xyo"/>
+                                    <constraint firstItem="4a4-Jv-1UM" firstAttribute="centerX" secondItem="rao-De-iH5" secondAttribute="centerX" id="WaP-76-obn"/>
+                                    <constraint firstAttribute="trailing" secondItem="4a4-Jv-1UM" secondAttribute="trailing" id="Xwy-1S-oCy"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="rao-De-iH5" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="12l-rz-yMb"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="top" secondItem="T3e-CM-xBR" secondAttribute="bottom" id="23p-a6-IIL"/>
+                            <constraint firstItem="rao-De-iH5" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.16645" id="D4B-mv-No6"/>
                             <constraint firstItem="T3e-CM-xBR" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="H82-xt-LSV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="3gm-ac-9ph" secondAttribute="bottom" id="Pt8-Ji-sWL"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="3gm-ac-9ph" secondAttribute="trailing" id="Urm-Sm-zjk"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="T3e-CM-xBR" secondAttribute="trailing" id="VzE-ld-aoD"/>
+                            <constraint firstItem="rao-De-iH5" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.57971" id="bF1-rC-mPR"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="QVN-h3-bGv" secondAttribute="trailing" id="cVg-7H-95c"/>
                             <constraint firstItem="QVN-h3-bGv" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.06" id="djW-DW-PEn"/>
                             <constraint firstItem="3gm-ac-9ph" firstAttribute="top" secondItem="fvs-pY-tCc" secondAttribute="bottom" id="gxX-F8-dsa"/>
                             <constraint firstItem="3gm-ac-9ph" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="hIg-vp-JvF"/>
                             <constraint firstItem="QVN-h3-bGv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="iqx-ZK-XeE"/>
                             <constraint firstItem="T3e-CM-xBR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="lYb-tZ-SZH"/>
+                            <constraint firstItem="rao-De-iH5" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="m3Z-1Q-1ML"/>
                             <constraint firstItem="fvs-pY-tCc" firstAttribute="top" secondItem="QVN-h3-bGv" secondAttribute="bottom" id="r8J-Kr-pkc"/>
                             <constraint firstItem="fvs-pY-tCc" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="vxQ-zE-0uz"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="fvs-pY-tCc" secondAttribute="trailing" id="wz1-kv-mSm"/>
@@ -73,6 +95,7 @@
                     <tabBarItem key="tabBarItem" title="" image="hearts" selectedImage="hearts" id="k12-Tg-dcT"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="guestAlert" destination="rao-De-iH5" id="6bQ-Yl-IYF"/>
                         <outlet property="reviewTv" destination="3gm-ac-9ph" id="Kqd-ib-SNy"/>
                     </connections>
                 </viewController>

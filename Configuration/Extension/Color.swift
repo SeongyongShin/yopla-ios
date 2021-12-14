@@ -25,4 +25,11 @@ extension UIColor {
     class var silver: UIColor{UIColor(red:179, green: 179, blue: 179)}
     class var gold: UIColor{UIColor(red:250, green: 173, blue: 49)}
     
+    
+    class var s1: UIColor{UIColor(red:252, green: 92, blue: 108)}
+    class var s2: UIColor{UIColor(red:253, green: 165, blue: 173)}
+    class var s3: UIColor{UIColor(red:205, green: 211, blue: 239)}
+    class var s4: UIColor{UIColor(red:254, green: 224, blue: 140)}
+    class var s5: UIColor{UIColor(red:147, green: 229, blue: 221)}
+    
 }

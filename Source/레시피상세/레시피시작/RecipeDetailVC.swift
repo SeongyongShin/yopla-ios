@@ -28,15 +28,16 @@ class RecipeDetailVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         backGroundV.layer.cornerRadius = 5
-
-        //대중
-        if Constant.CURRENT_RECIPE_TYPE == 0{
-            getRecipeDetail.getPublicRecipeDetail(delegate: self)
-        }
-        //갓반인
-        else{
+        
             getRecipeDetail.getRecipeDetail(delegate: self)
-        }
+//        //대중
+//        if Constant.CURRENT_RECIPE_TYPE == 0{
+//            getRecipeDetail.getPublicRecipeDetail(delegate: self)
+//        }
+//        //갓반인
+//        else{
+//            getRecipeDetail.getRecipeDetail(delegate: self)
+//        }
     }
     
     @IBAction func backPressed(_ sender: Any) {
@@ -128,6 +129,5 @@ extension RecipeDetailVC{
           print(error.localizedDescription)
           return nil
         }
-
     }
 }

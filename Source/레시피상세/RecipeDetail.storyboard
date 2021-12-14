@@ -857,8 +857,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 작성하기 (10자 이상)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqN-nq-NCn">
-                                                <rect key="frame" x="20" y="48.666666666666742" width="158" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 작성하기 (5자 이상)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqN-nq-NCn">
+                                                <rect key="frame" x="20" y="48.666666666666742" width="150" height="18"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -948,6 +948,7 @@
                         <outlet property="reviewBottomConstant" destination="aKR-nr-RSt" id="UcI-ot-x08"/>
                         <outlet property="reviewContainerV" destination="PlF-Uj-Tnf" id="LvI-no-B5k"/>
                         <outlet property="reviewPlaceHolder" destination="TqN-nq-NCn" id="Kfr-Kc-XEP"/>
+                        <outlet property="reviewSendBtn" destination="gYU-u7-vbq" id="w9k-11-vCP"/>
                         <outlet property="reviewTV" destination="gyC-C9-a2w" id="PTQ-ud-7LY"/>
                         <outlet property="reviewTable" destination="1GA-FC-QOh" id="2ET-iw-yUo"/>
                         <outlet property="reviewTopConstant" destination="KIR-iW-Vjk" id="WTx-ql-4dx"/>

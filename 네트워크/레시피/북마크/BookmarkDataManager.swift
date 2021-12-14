@@ -27,10 +27,10 @@ class BookmarkDataManager{
     }
     // 북마크 등록
     func postBookMark(recipeId: Int, delegate: RecipeDetailStarVC) {
-        var recipeType: String = "people"
-        if Constant.CURRENT_RECIPE_TYPE == 0{
-            recipeType = "public"
-        }
+        let recipeType: String = "people"
+//        if Constant.CURRENT_RECIPE_TYPE == 0{
+//            recipeType = "public"
+//        }
         AF.request("\(Constant.BASE_URL)/app/users/recipes/bookmark", method: .post, parameters: BookMarkRequest(recipeId: recipeId, type: recipeType), encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()
             .responseDecodable(of: BookMarkResponse.self) { response in
@@ -61,10 +61,10 @@ class BookmarkDataManager{
     // 북마크 해제
     func patchBookMark(recipeId: Int, delegate: RecipeDetailStarVC?, delegate2: MyRegistedRecipeVC?) {
         
-        var recipeType: String = "people"
-        if Constant.CURRENT_RECIPE_TYPE == 0{
-            recipeType = "public"
-        }
+        let recipeType: String = "people"
+//        if Constant.CURRENT_RECIPE_TYPE == 0{
+//            recipeType = "public"
+//        }
         
         AF.request("\(Constant.BASE_URL)/app/users/recipes/bookmark/status", method: .patch, parameters: BookMarkRequest(recipeId: recipeId, type: recipeType), encoder: JSONParameterEncoder(), headers: ["x-access-token": Constant.JWT_TOKEN!])
             .validate()

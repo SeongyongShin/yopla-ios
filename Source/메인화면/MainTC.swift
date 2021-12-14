@@ -27,7 +27,11 @@ class MainTC: UITabBarController, performSegues {
         }
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        if Constant.USER_IDX == 12{
+            Constant.IS_GUEST = true
+        }
+    }
     func goToVC(_ identifier: String) {
         self.performSegue(withIdentifier: identifier, sender: self)
     }

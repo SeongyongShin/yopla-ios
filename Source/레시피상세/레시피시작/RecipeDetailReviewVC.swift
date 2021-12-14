@@ -26,8 +26,13 @@ class RecipeDetailReviewVC: BaseViewController{
     @IBOutlet weak var reviewTopConstant: NSLayoutConstraint!
     @IBOutlet weak var reviewBottomConstant: NSLayoutConstraint!
     
+    @IBOutlet weak var reviewSendBtn: UIButton!
     override func viewDidAppear(_ animated: Bool) {
-
+        if Constant.IS_GUEST{
+            reviewPlaceHolder.text = "로그인 후 이용가능합니다."
+            reviewTV.isEditable = false
+            reviewSendBtn.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
@@ -49,10 +54,10 @@ class RecipeDetailReviewVC: BaseViewController{
     }
     @IBAction func reviewBtn(_ sender: UIButton){
         if self.reviewTV.text != nil && self.reviewTV.text.count > 4{
-            var type = "people"
-            if Constant.CURRENT_RECIPE_TYPE == 0{
-                type = "public"
-            }
+            let type = "people"
+//            if Constant.CURRENT_RECIPE_TYPE == 0{
+//                type = "public"
+//            }
             let postRequest = PostReviewRequest(userId: Constant.USER_IDX!, recipeId: Constant.CURRENT_RECIPE, content: self.reviewTV.text!, point: Constant.RECIPE_STAR, type: type)
             postReviewDataManager.postREview(postRequest, delegate: self)
         }else{

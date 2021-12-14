@@ -17,7 +17,6 @@ class MyPageVC: BaseViewController {
     @IBOutlet weak var nickName: UILabel!
     @IBOutlet weak var gradeImage: UIImageView!
     @IBOutlet weak var email: UILabel!
-    @IBOutlet weak var phone: UILabel!
     @IBOutlet weak var gradeName: UILabel!
     @IBOutlet weak var progressV: UIProgressView!
     
@@ -95,7 +94,7 @@ extension MyPageVC{
         }
         self.nickName.text = Constant.MY_PROFILE?.userNickName
         self.email.text = Constant.MY_PROFILE?.email
-        self.phone.text = Constant.MY_PROFILE!.phoneNumber.replacingOccurrences(of: " ", with: ",").replacingOccurrences(of: "-", with: ",").replacingOccurrences(of: ",,", with: "-").replacingOccurrences(of: ",", with: "-")
+        
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(setProgress), userInfo: nil, repeats: true)
         self.perCent = Double(Constant.MY_PROFILE!.rankPoints) / Double(self.next_grade)
     }
@@ -122,7 +121,7 @@ extension MyPageVC: UIImagePickerControllerDelegate & UINavigationControllerDele
             let req = AWSNetworkManager.uploadImage(image: profileImage.image!)
             req.done{
                 url in
-                print("succed: ", url)
+//                print("succed: ", url)
                 self.modifyDataManager.patchPI(ModifyPI(userId: Constant.USER_IDX!, newProfileImage: "\(url)"), delegate: self)
             }.catch{
                     error in

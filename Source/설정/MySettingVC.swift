@@ -14,6 +14,14 @@ class MySettingVC: BaseViewController {
     @IBOutlet weak var confirmV: UIView!
     @IBOutlet weak var modifyBtn: BaseButton!
     @IBOutlet var passwordTF: [UITextField]!
+    @IBOutlet weak var guestV: UIView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if Constant.IS_GUEST{
+            guestV.isHidden = false
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmV.isHidden = true

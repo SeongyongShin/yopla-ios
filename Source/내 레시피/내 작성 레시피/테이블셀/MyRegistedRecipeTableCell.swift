@@ -39,7 +39,7 @@ class MyRegistedRecipeTableCell: UITableViewCell {
     }
     
     @IBAction func xPressed(_ sender: Any) {
-        print(self.tag, self.current_type)
+//        print(self.tag, self.current_type)
         delegate?.exitClicked(recipeId: self.tag, type: self.current_type)
     }
 }

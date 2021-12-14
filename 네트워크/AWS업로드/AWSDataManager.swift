@@ -59,6 +59,7 @@ class AWSDataManager{
             request.acl = .publicReadWrite
             
             let transferManager = AWSS3TransferManager.default()
+        
         return Promise{resolver in
             transferManager.upload(request).continueWith(executor: AWSExecutor.mainThread()) { (task) -> Any? in
                 if let error = task.error {
@@ -66,12 +67,10 @@ class AWSDataManager{
                     resolver.reject(error)
                 }
                 if task.result != nil {
-                    
                     let contentUrl = self.s3Url.appendingPathComponent(self.bucketName).appendingPathComponent(key)
                     self.contentUrl = contentUrl
                     resolver.fulfill(contentUrl)
                 }
-                
                 return nil
             }
         }

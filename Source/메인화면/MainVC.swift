@@ -12,7 +12,10 @@ class MainVC: BaseViewController {
     
     var mainDelegate: performSegues?
     
+    @IBOutlet weak var hotLabel: UILabel!
+    @IBOutlet weak var hotLabel2: UILabel!
     @IBOutlet weak var recommendRecipeLabel: UILabel!
+    @IBOutlet weak var recommendRecipeLabel2: UILabel!
     lazy var recipeDataManager: GetRecipeDataManager = GetRecipeDataManager()
     lazy var userInfoManager: UserDataManager = UserDataManager()
     lazy var categoryDataManager: GetSearchRecipeDataManager = GetSearchRecipeDataManager()
@@ -63,15 +66,6 @@ class MainVC: BaseViewController {
         
 
     }
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { context in
-            if UIApplication.shared.statusBarOrientation.isLandscape {
-                print("1")
-            } else {
-                print("2")
-            }
-        })
-    }
     override func viewWillAppear(_ animated: Bool) {
         if !Constant.DID_LOG_OUT{
             setComponent()
@@ -100,14 +94,28 @@ class MainVC: BaseViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
+        
+            NotificationCenter.default.addObserver(self, selector: #selector(self.detectOrientation), name: NSNotification.Name("UIDeviceOrientationDidChangeNotification"), object: nil)
+
         if Constant.viewFromDetail{
             self.presentBottomAlert(message: "레시피를 등록했습니다.")
             Constant.viewFromDetail = false
+        }
+        if Constant.CURRENT_RECIPE_TYPE == 0{
+            self.hotLabel2.text = "북마크 많은 순"
+            self.recommendRecipeLabel.text = "HOT!"
+            self.recommendRecipeLabel2.text = "별점 순"
+        }else{
+            self.hotLabel2.text = "인기 레시피"
+            self.recommendRecipeLabel.text = "\(Constant.MY_PROFILE?.userNickName ?? "###")님께"
+            self.recommendRecipeLabel2.text = "추천 레시피"
         }
         
     }
     override func viewDidDisappear(_ animated: Bool) {
         self.hideSideBar()
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("UIDeviceOrientationDidChangeNotification"), object: nil)
+
     }
 }
 
@@ -146,14 +154,14 @@ extension MainVC{
     //북마크 or 알림 터치
     @IBAction func tabBookBell(_ sender: UIButton){
         //북마크
+        if Constant.IS_GUEST{
+            self.presentAlert(title: "로그인 후 이용가능합니다.")
+            return
+        }
         if sender.tag == 0{
             Constant.IS_BOOKMARK_PAGE = true
             mainDelegate?.goToVC("goMyRegistedRecipe")
 //            self.performSegue(withIdentifier: "goMyRegistedRecipe", sender: self)
-        }
-        //알림
-        else{
-            
         }
     }
     
@@ -206,6 +214,15 @@ extension MainVC{
                 self.reloadCV()
             }
         }
+        if Constant.CURRENT_RECIPE_TYPE == 0{
+            self.hotLabel2.text = "북마크 많은 순"
+            self.recommendRecipeLabel.text = "HOT!"
+            self.recommendRecipeLabel2.text = "별점 순"
+        }else{
+            self.hotLabel2.text = "인기 레시피"
+            self.recommendRecipeLabel.text = "\(Constant.MY_PROFILE?.userNickName ?? "###")님께"
+            self.recommendRecipeLabel2.text = "추천 레시피"
+        }
     }
     
     // 인디케이터 이동, 색상변환 함수
@@ -221,10 +238,27 @@ extension MainVC{
     }
     
     @IBAction func goToRegist(_ sender: Any){
-        
+        if Constant.IS_GUEST{
+            self.presentAlert(title: "로그인 후 이용가능합니다.")
+            return
+        }
             mainDelegate?.goToVC("goToRegistRecipe")
     }
-    
+    @objc func detectOrientation() {
+
+            if (UIDevice.current.orientation == .landscapeLeft) || (UIDevice.current.orientation == .landscapeRight) {
+
+                self.hideSideBar()
+            }
+
+             else if (UIDevice.current.orientation == .portrait) || (UIDevice.current.orientation == .portraitUpsideDown){
+
+                 self.hideSideBar()
+
+            }
+
+    }
+
 }
 
 // MARK: 컴포넌트 설정
@@ -580,7 +614,11 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.cellForRow(at: indexPath) as! menuCell
         cell.menuLabel.textColor = .white
         if indexPath.row == 0{
-            
+            if Constant.IS_GUEST{
+                self.presentAlert(title: "로그인 후 이용가능합니다.")
+                self.hideSideBar()
+                return
+            }
             mainDelegate?.goToVC("goToMyPageFromMain")
 //            self.performSegue(withIdentifier: "goToMyPageFromMain", sender: self)
         }else{
@@ -626,7 +664,9 @@ extension MainVC{
             if result.result != nil{
                 let item = result.result!
                 Constant.MY_PROFILE = GetUserInfoResult(userId: Constant.USER_IDX!, profileImage: item.profileImage, userNickName: item.userNickName, loginId: item.loginId, rankPoints: item.rankPoints, email: item.email, phoneNumber: item.phoneNumber, address: item.address)
-                self.recommendRecipeLabel.text = "\(item.userNickName) 님께!"
+                if Constant.CURRENT_RECIPE_TYPE == 1{
+                    self.recommendRecipeLabel.text = "\(item.userNickName) 님께!"
+                }
                 self.myMenuId.text = Constant.MY_PROFILE?.loginId ?? "No_Info"
                 self.myMenuNickName.text = Constant.MY_PROFILE?.userNickName ?? "No_Info"
                 if item.rankPoints < 1500{

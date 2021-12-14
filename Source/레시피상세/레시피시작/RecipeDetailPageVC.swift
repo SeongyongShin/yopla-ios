@@ -101,6 +101,7 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
                             DispatchQueue.main.async {
                                 
                                 cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
+                                cell.playImage.isHidden = false
                             }
                         }
                     }
@@ -126,10 +127,30 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
 //                DispatchQueue.main.async { [self] in
 //                    cell.recipeImage.image = createVideoThumbnail(from: URL(string: item.detailFileUrl)!)
 //                }
-//                print(item.detailFileUrl)
+//                print(item.detailFileUrl
+                
                 DispatchQueue.main.async {
                     if Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count != 0{
                         cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
+                        if Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item] == UIImage(){
+                            DispatchQueue.global().async {
+                                var count = 0
+                                let img = UIImage()
+                                while true{
+                                    Thread.sleep(forTimeInterval: 0.1)
+                                    if count == 100{
+                                        break
+                                    }
+                                    if indexPath.item < Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count && Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item] != img{
+                                        DispatchQueue.main.async {
+                                            cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
+                                        }
+                                        break
+                                    }
+                                    count += 1
+                                }
+                            }
+                        }
                     }else{
                         var tempCount = 0
                         while Constant.TEMPORARY_DETAIL_VIDEO_THUMB.count == 0{
@@ -144,6 +165,7 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
                             self.presentBottomAlert(message: "동영상 썸네일을 불러오는 데 실패했습니다.")
                             cell.recipeImage.image = UIImage()
                         }else{
+                            
                             cell.recipeImage.image = Constant.TEMPORARY_DETAIL_VIDEO_THUMB[indexPath.item]
                         }
                     }
@@ -195,8 +217,8 @@ extension RecipeDetailPageVC: UICollectionViewDelegate, UICollectionViewDataSour
                         }
                     case .failure(let error):
                         // handle errror
-                        print(error)
-                        
+//                        print(error)
+                        self.presentAlert(title: "영상을 찾을 수 없습니다.")
                     }
                 }
         }

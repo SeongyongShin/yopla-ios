@@ -85,9 +85,8 @@ extension LoginVC{
         findPwV.layer.borderWidth = 1
         findPwV.clipsToBounds = true
         findEmailTF.backgroundColor = .shadowGray
-        findEmailPhone.backgroundColor = .shadowGray
+        findEmailPhone.isHidden = true
         findEmailTF.layer.cornerRadius = 5
-        findEmailPhone.layer.cornerRadius = 5
     
     }
     
@@ -125,7 +124,7 @@ extension LoginVC{
         
     }
     @IBAction func findPW(_sender: Any){
-        if self.findEmailTF.text != "" && self.findEmailPhone.text != ""{
+        if self.findEmailTF.text != ""{
             if isValidEmail(testStr: self.findEmailTF.text!){
                 findPWManager.postFindPW(PostFindPWRequest(email: self.findEmailTF.text!, phoneNumber: self.findEmailPhone.text!.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")), delegate: self)
                 
@@ -134,7 +133,7 @@ extension LoginVC{
                 self.presentAlert(title: "이메일 형식을 확인해주세요.")
             }
         }else{
-            self.presentAlert(title: "빈 칸을 채워주세요.")
+            self.presentAlert(title: "이메일을 채워주세요.")
         }
     }
     @IBAction func exitFindPW(_ sender: Any){
@@ -212,7 +211,7 @@ extension LoginVC{
     func didSuccessSignIn(result: PostSignInResult){
         print(result)
         if let jwt = result.jwt{
-            print("회원입니다.")
+//            print("회원입니다.")
             Constant.JWT_TOKEN = jwt
             Constant.USER_IDX = result.userIdx
 //            UserDefaults.standard.set(jwt, forKey: "jwt")

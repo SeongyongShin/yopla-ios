@@ -24,16 +24,10 @@ class PostSignInDataManager {
                     }
                     // 실패했을 때
                     else {
-                        print(response)
-                        switch response.code {
-                        case 2000: delegate.failedToRequest(message: "문제~")
-                        case 3000: delegate.failedToRequest(message: "문제")
-                        case 4000: delegate.failedToRequest(message: "적절한 요청이 아닙니다")
-                        default: delegate.failedToRequest(message: "문제 발생")
-                        }
+                        delegate.failedToRequest(message: "\(response.message )")
                     }
                 case .failure(let error):
-                    delegate.failedToRequest(message: "로그인 실패, 아이디또는 비밀번호를 확인하세요.")
+                    delegate.failedToRequest(message: "아이디 또는 비밀번호가 올바르지 않거나 서버가 원할하지 않습니다.")
                     print(error.localizedDescription)
                 }
             }

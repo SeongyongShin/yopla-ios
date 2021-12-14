@@ -15,6 +15,7 @@ class MyRegistedRecipeVC: BaseViewController {
     lazy var dataManager3: PostDeleteRecipeDataManager = PostDeleteRecipeDataManager()
     var itemList: [GetRegistedRecipeResult]?
     var bookMarkList: [GetBookMarkResult]?
+    @IBOutlet weak var guestAlert: UIView!
     @IBOutlet weak var tabBarItems: UITabBarItem!
     @IBOutlet weak var home1: UIButton!
     @IBOutlet weak var home2: UIButton!
@@ -31,12 +32,30 @@ class MyRegistedRecipeVC: BaseViewController {
             home1.isHidden = true
             home2.isHidden = true
         }
+        if Constant.IS_GUEST{
+            guestAlert.isHidden = false
+        }
     }
     
     @IBAction func homePressed(_ sender: Any) {
         self.makeTabBarRootVC("MainTabBar")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if Constant.IS_BOOKMARK_PAGE{
+            dataManager2.getBookMark(delegate: self)
+            VCTitleLabel.setTitle("북마크", for: .normal)
+        }else{
+            dataManager.getRecipeList(delegate: self)
+            home1.isHidden = true
+            home2.isHidden = true
+        }
+        if Constant.IS_GUEST{
+            guestAlert.isHidden = false
+        }
+    }
 }
+
 
 
 
@@ -191,7 +210,7 @@ extension MyRegistedRecipeVC: BookMarkCellDelegate{
     func modifyPressed(recipeId: Int){
         Constant.IS_MODIFY_PAGE = true
         Constant.CURRENT_RECIPE = recipeId
-        myRegistedDelegate?.goToVC("goToRegistRecipe")
+        myRegistedDelegate?.goToVC("goToModify")
 //        self.performSegue(withIdentifier: "goToRegistRecipeFromMyRegistedRecipe", sender: self)
     }
     

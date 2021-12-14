@@ -264,6 +264,28 @@
                                     <constraint firstItem="KIV-gd-sgz" firstAttribute="leading" secondItem="XyM-k7-u1b" secondAttribute="trailing" constant="20" id="pAV-e4-i6Y"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HPD-rm-IBH">
+                                <rect key="frame" x="0.0" y="99" width="414" height="763"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myd-fX-Znf" customClass="BaseButton" customModule="yopla" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="343" width="334" height="76.5"/>
+                                        <color key="backgroundColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="처음 화면으로 돌아가기"/>
+                                        <connections>
+                                            <action selector="logOutPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QCc-aR-n4j"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="myd-fX-Znf" firstAttribute="centerY" secondItem="HPD-rm-IBH" secondAttribute="centerY" id="1H5-Gx-Ivb"/>
+                                    <constraint firstItem="myd-fX-Znf" firstAttribute="centerX" secondItem="HPD-rm-IBH" secondAttribute="centerX" id="SUg-JP-mkb"/>
+                                    <constraint firstAttribute="trailing" secondItem="myd-fX-Znf" secondAttribute="trailing" constant="40" id="ddL-9Z-ejz"/>
+                                    <constraint firstItem="myd-fX-Znf" firstAttribute="height" secondItem="HPD-rm-IBH" secondAttribute="height" multiplier="0.1" id="fdd-cA-gEu"/>
+                                    <constraint firstItem="myd-fX-Znf" firstAttribute="leading" secondItem="HPD-rm-IBH" secondAttribute="leading" constant="40" id="xwe-0H-VzK"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -276,6 +298,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="PB5-Im-MXb" secondAttribute="trailing" id="D76-E5-Uld"/>
                             <constraint firstItem="wDA-2o-Mm0" firstAttribute="top" secondItem="0EZ-uI-beV" secondAttribute="bottom" constant="20" id="E1Y-3n-HX8"/>
                             <constraint firstItem="nU9-89-vWF" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="EuC-NG-X5q"/>
+                            <constraint firstItem="HPD-rm-IBH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="FCZ-kN-fDJ"/>
                             <constraint firstItem="VOy-dn-mbY" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.06" id="GCP-Kr-1Kq"/>
                             <constraint firstItem="lk8-YV-iBJ" firstAttribute="centerY" secondItem="USL-cJ-hRo" secondAttribute="centerY" id="HuC-92-dpA"/>
                             <constraint firstItem="8Dh-G0-4a6" firstAttribute="top" secondItem="ckv-0l-Wyh" secondAttribute="bottom" constant="20" id="JaO-0R-dxt"/>
@@ -287,6 +310,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="top" secondItem="nU9-89-vWF" secondAttribute="bottom" id="Piq-PE-VA5"/>
                             <constraint firstItem="pxV-QY-gYG" firstAttribute="leading" secondItem="USL-cJ-hRo" secondAttribute="leading" id="QC6-m4-b6j"/>
                             <constraint firstItem="ckv-0l-Wyh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="SeA-7L-g08"/>
+                            <constraint firstItem="HPD-rm-IBH" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="UHg-d7-TnK"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ckv-0l-Wyh" secondAttribute="trailing" id="VaA-K7-6G0"/>
                             <constraint firstItem="ckv-0l-Wyh" firstAttribute="top" secondItem="VOy-dn-mbY" secondAttribute="bottom" id="W0A-jd-jt7"/>
                             <constraint firstItem="PB5-Im-MXb" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="WaW-dj-5iS"/>
@@ -315,17 +339,20 @@
                             <constraint firstItem="VOy-dn-mbY" firstAttribute="top" secondItem="nU9-89-vWF" secondAttribute="bottom" id="rJN-Pn-anW"/>
                             <constraint firstItem="HbK-78-Sc1" firstAttribute="trailing" secondItem="lk8-YV-iBJ" secondAttribute="trailing" id="sgz-6E-oqP"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Kaa-kW-ayi" secondAttribute="trailing" id="srZ-da-StQ"/>
+                            <constraint firstItem="HPD-rm-IBH" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="uC1-wI-bGZ"/>
                             <constraint firstAttribute="trailing" secondItem="nU9-89-vWF" secondAttribute="trailing" id="ung-11-f6Y"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="wDA-2o-Mm0" secondAttribute="trailing" id="vtf-jU-KcA"/>
                             <constraint firstItem="44G-Bc-3fi" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.7" id="wLN-gU-4mU"/>
                             <constraint firstItem="Qzj-ad-o8g" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="xQV-vg-PX5"/>
                             <constraint firstItem="lJz-q0-kWH" firstAttribute="top" secondItem="Kaa-kW-ayi" secondAttribute="bottom" id="yR5-Le-WSc"/>
+                            <constraint firstItem="HPD-rm-IBH" firstAttribute="top" secondItem="ckv-0l-Wyh" secondAttribute="bottom" id="zBM-ts-MlP"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btn1" destination="qtS-bO-IMG" id="4u9-dk-16V"/>
                         <outlet property="btn2" destination="KIV-gd-sgz" id="C5O-Qn-sk5"/>
                         <outlet property="confirmV" destination="44G-Bc-3fi" id="Meq-nN-NAZ"/>
+                        <outlet property="guestV" destination="HPD-rm-IBH" id="Oh8-3z-Lje"/>
                         <outlet property="modifyBtn" destination="0EZ-uI-beV" id="exS-ia-GbV"/>
                         <outletCollection property="passwordTF" destination="lk8-YV-iBJ" collectionClass="NSMutableArray" id="fdI-cF-mWt"/>
                         <outletCollection property="passwordTF" destination="HbK-78-Sc1" collectionClass="NSMutableArray" id="MUB-xU-Bza"/>

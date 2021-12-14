@@ -11,6 +11,7 @@ import Kingfisher
 class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataSource {
     lazy var reportDataManager: ReportDataManager = ReportDataManager()
     lazy var dataManager: GetRecipeReviewDataManager = GetRecipeReviewDataManager()
+    @IBOutlet weak var guestAlert: UIView!
     @IBOutlet weak var reviewTv: UITableView!
     
     var reviewList: [GetRecipeReviewResult]?
@@ -21,8 +22,16 @@ class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataS
         reviewTv.dataSource = self
         reviewTv.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
         dataManager.getMyRecipeReview(delegate: self)
+        if Constant.IS_GUEST{
+            guestAlert.isHidden = false
+        }
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        dataManager.getMyRecipeReview(delegate: self)
+        if Constant.IS_GUEST{
+            guestAlert.isHidden = false
+        }
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if reviewList != nil{
@@ -80,6 +89,8 @@ class MyRecipeReviewVC: BaseViewController,UITableViewDelegate, UITableViewDataS
 }
 
 extension MyRecipeReviewVC: ReportCellDelegate{
+
+    
     func report(id: Int) {
         self.reportDataManager.postReportReview2(ReportRequest(targetId: id, type: "review"), delegate: self)
     }

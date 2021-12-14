@@ -163,6 +163,9 @@
                 <outlet property="created_at" destination="PQX-At-rnV" id="vc8-pa-NYO"/>
                 <outlet property="nickName" destination="nl7-JI-tq3" id="I3V-Mv-MSn"/>
                 <outlet property="profileImage" destination="GRn-ub-Dqn" id="yPW-J0-CcE"/>
+                <outlet property="report1" destination="kBw-Sv-FzZ" id="s2M-XP-dBF"/>
+                <outlet property="report2" destination="mMo-aF-0ST" id="gMB-3J-gCz"/>
+                <outlet property="report3" destination="Jfc-Eb-jtN" id="9T3-uJ-LQ8"/>
                 <outletCollection property="stars" destination="DNG-kH-Kg5" collectionClass="NSMutableArray" id="m7C-89-TaS"/>
                 <outletCollection property="stars" destination="LnS-UY-OcM" collectionClass="NSMutableArray" id="QLD-gt-20F"/>
                 <outletCollection property="stars" destination="6Tg-Fj-uD2" collectionClass="NSMutableArray" id="lhu-fo-r2l"/>

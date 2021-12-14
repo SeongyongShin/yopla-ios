@@ -28,6 +28,10 @@ class RecipeDetailStarVC: BaseViewController {
 extension RecipeDetailStarVC{
     // 별점 선택
     @objc func setStar(_ sender: UITapGestureRecognizer){
+        if Constant.IS_GUEST{
+            self.presentAlert(title: "로그인 후 이용가능합니다.")
+            return
+        }
         for i in sender.view!.tag...4{
             self.stars[i].image = UIImage(systemName: "star")
         }
@@ -38,10 +42,23 @@ extension RecipeDetailStarVC{
         Constant.RECIPE_STAR = sender.view!.tag
     }
     @IBAction func bookMarking(_ sender: Any){
+        if Constant.IS_GUEST{
+            self.presentAlert(title: "로그인 후 이용가능합니다.")
+            return
+        }
         BookmarkDataManager().postBookMark(recipeId: Constant.CURRENT_RECIPE, delegate: self)
     }
     
     @IBAction func reportRecipe(_ sender: Any){
+        if Constant.IS_GUEST{
+            self.presentAlert(title: "로그인 후 이용가능합니다.")
+            return
+        }
+        let c_r = Constant.CURRENT_RECIPE
+        if c_r == 11 || c_r == 12 || c_r == 13 || c_r == 15 || c_r == 16{
+            self.presentAlert(title: "YOPLA 공식 게시물은 신고할 수 없습니다.", message: "This recipe is offical yopla article so can't reported")
+            return
+        }
         if Constant.CURRENT_RECIPE_DETAIL?.result?.userNickName == Constant.MY_PROFILE?.userNickName{
             self.presentAlert(title: "자신의 게시물은 신고할 수 없습니다.")
             return
