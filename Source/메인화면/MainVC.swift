@@ -455,7 +455,6 @@ extension MainVC{
             return 0
         }
     }
-    
     //셀 반환
     func Cells(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         // 광고

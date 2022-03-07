@@ -10,6 +10,7 @@ import Alamofire
 class PostSignUpDataManager{
     // 회원가입
     func postSignUp(_ parameters: PostSignUpRequest, delegate: RegistVC){
+        print(parameters)
         AF.request("\(Constant.BASE_URL)/app/users/sign-up", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: PostSignUpResponse.self) { response in
