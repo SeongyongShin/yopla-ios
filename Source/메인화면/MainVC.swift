@@ -64,15 +64,16 @@ class MainVC: BaseViewController {
         
         setComponent()
         
-
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         if !Constant.DID_LOG_OUT{
             setComponent()
         }
         myMenuConst.constant = -self.view.frame.width
         myMenuV.layoutIfNeeded()
-//        print(Constant.CURRENT_RECIPE_TYPE)
+        
         self.clearConstant(current: Constant.CURRENT_RECIPE_TYPE)
         if Constant.CURRENT_RECIPE_TYPE == 1{
             UserDefaults.standard.set(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
@@ -95,6 +96,7 @@ class MainVC: BaseViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             NotificationCenter.default.addObserver(self, selector: #selector(self.detectOrientation), name: NSNotification.Name("UIDeviceOrientationDidChangeNotification"), object: nil)
 
         if Constant.viewFromDetail{
@@ -168,6 +170,7 @@ extension MainVC{
     //더보기
     @IBAction func moreView(_ sender: UIButton){
         Constant.CURRENT_MORE_RECIPE_TYPE = sender.tag
+//        self.performSegue(withIdentifier: "goToMoreRecipe", sender: self)
         mainDelegate?.goToVC("goToMoreRecipe")
 //        self.performSegue(withIdentifier: "goToMoreRecipe", sender: self)
     }
@@ -393,13 +396,12 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         else if tags == 2{
             let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
             Constant.CURRENT_RECIPE = cell.recipeIdx
-            
             mainDelegate?.goToVC("goToDetail")
 //            self.performSegue(withIdentifier: "goToDetail", sender: self)
         }else{
             let cell = collectionView.cellForItem(at: indexPath) as! RecipeProfileCell
             Constant.CURRENT_RECIPE = cell.recipeIdx
-            
+        
             mainDelegate?.goToVC("goToDetail")
 //            self.performSegue(withIdentifier: "goToDetail", sender: self)
         }
@@ -724,7 +726,7 @@ extension MainVC{
 
 
 
-extension MainVC{
-    @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
-    }
-}
+//extension MainVC{
+//    @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
+//    }
+//}

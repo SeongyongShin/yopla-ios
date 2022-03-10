@@ -10,7 +10,7 @@ import Kingfisher
 import AVFoundation
 import Photos
 
-class RecipeDetailVC: BaseViewController {
+class RecipeDetailVC: BaseViewController,SwipeProtocol {
     
     lazy var getRecipeDetail: GetRecipeDetailDataManager = GetRecipeDetailDataManager()
     
@@ -24,11 +24,14 @@ class RecipeDetailVC: BaseViewController {
     @IBOutlet weak var nickNameL: UILabel!
     @IBOutlet weak var hashTagL: UILabel!
     @IBOutlet weak var recipeIV: UIImageView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         backGroundV.layer.cornerRadius = 5
-        
+        let swipeToRight = UISwipeGestureRecognizer(target: self, action: #selector(self.directionToLeft))
+        swipeToRight.direction = .left
+        self.view.addGestureRecognizer(swipeToRight)
             getRecipeDetail.getRecipeDetail(delegate: self)
 //        //대중
 //        if Constant.CURRENT_RECIPE_TYPE == 0{
@@ -42,6 +45,9 @@ class RecipeDetailVC: BaseViewController {
     
     @IBAction func backPressed(_ sender: Any) {
         self.makeTabBarRootVC("MainTabBar")
+    }
+    @objc func directionToLeft() {
+        self.goToVC("goToDetail")
     }
     
 }

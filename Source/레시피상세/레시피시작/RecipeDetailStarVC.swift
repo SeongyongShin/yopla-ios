@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class RecipeDetailStarVC: BaseViewController {
+class RecipeDetailStarVC: BaseViewController, SwipeProtocol {
     lazy var reportDataManager: ReportDataManager = ReportDataManager()
     @IBOutlet weak var recipeTitle: UILabel!
     @IBOutlet weak var recipeImage: UIImageView!
@@ -17,11 +17,16 @@ class RecipeDetailStarVC: BaseViewController {
     @IBOutlet weak var starScore: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.swipeRecognizer(dst: "goToDetailPageFromStar")
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.directionToLeft))
+        swipe.direction = .left
+        self.view.addGestureRecognizer(swipe)
         setComponent()
         setStarTapGesture()
     }
-
+    
+    @objc func directionToLeft() {
+        self.goToVC("goToReview")
+    }
 }
 
 //MARK: 터치이벤트 설정

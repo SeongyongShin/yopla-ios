@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KY-xo-KBV">
-                                        <rect key="frame" x="20" y="0.0" width="29.5" height="54"/>
+                                        <rect key="frame" x="20" y="0.0" width="30.5" height="54"/>
                                         <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
@@ -34,7 +34,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjA-3z-MdE">
-                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70.5" height="54"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
                                             <action selector="homePressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dGq-9c-CEz"/>
@@ -159,7 +159,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5L-LJ-M9H">
-                                        <rect key="frame" x="20" y="0.0" width="29.5" height="54"/>
+                                        <rect key="frame" x="20" y="0.0" width="30.5" height="54"/>
                                         <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
@@ -167,7 +167,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="red-o4-Acq">
-                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70.5" height="54"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
                                             <action selector="homePressed:" destination="bao-It-FM2" eventType="touchUpInside" id="H5H-nB-8nz"/>
@@ -235,7 +235,7 @@
                         <outlet property="home1" destination="y5L-LJ-M9H" id="O7V-ca-Hr2"/>
                         <outlet property="home2" destination="red-o4-Acq" id="t7E-wC-Ylh"/>
                         <outlet property="recipeTV" destination="TgE-IS-psX" id="3Jk-RX-o7S"/>
-                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedBookMark" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="YIG-mE-Tyo"/>
+                        <segue destination="Lji-9g-3he" kind="show" identifier="goToDetailFromMyRegistedBookMark" id="YIG-mE-Tyo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BnU-6a-Ca4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

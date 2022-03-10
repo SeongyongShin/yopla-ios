@@ -11,7 +11,7 @@ import AVFoundation
 import AVKit
 //import VideoToolbox
 
-class RecipeDetailPageVC: BaseViewController {
+class RecipeDetailPageVC: BaseViewController, SwipeProtocol {
 
     var current_page = 0
     var max_page = 1
@@ -28,9 +28,46 @@ class RecipeDetailPageVC: BaseViewController {
         self.setComponent()
         max_page = Constant.CURRENT_RECIPE_DETAIL!.result2!.count
         pageControl.numberOfPages = max_page
+        let swipe1 = UISwipeGestureRecognizer(target: self, action: #selector(self.direction))
+        let swipe2 = UISwipeGestureRecognizer(target: self, action: #selector(self.direction))
+        swipe1.direction = .left
+        swipe2.direction = .right
+        self.view.addGestureRecognizer(swipe1)
+        self.view.addGestureRecognizer(swipe2)
         
     }
-
+    
+    @IBAction func backPressed(_ sender: UIButton) {
+        self.goToVC("unwindToDetail")
+    }
+    
+    @objc func direction(_ swipe: UISwipeGestureRecognizer){
+        switch swipe.direction{
+        case .left:
+            self.directionToLeft()
+        case .right:
+            self.directionToRight()
+        default:
+            break
+        }
+    }
+    
+    @objc func directionToLeft() {
+        if current_page == max_page - 1{
+            self.goToVC("goToStar")
+        }else{
+            current_page += 1
+            self.setCollectionPos()
+        }
+    }
+    @objc func directionToRight() {
+        if current_page == 0{
+//            self.goToVC("unwindToDetail")
+        }else{
+            current_page -= 1
+            self.setCollectionPos()
+        }
+    }
 }
 
 //MARK: 터치이벤트
@@ -38,7 +75,7 @@ extension RecipeDetailPageVC{
     //레시피 페이지 이동
     @objc func moveDirection(_ sender: UITapGestureRecognizer){
         if sender.view?.tag == 1 && current_page == (max_page - 1){
-            self.performSegue(withIdentifier: "goToStar", sender: self)
+            self.goToVC("goToStar")
         }
         
         if sender.view?.tag == 0 && current_page != 0{
@@ -48,6 +85,9 @@ extension RecipeDetailPageVC{
         }else{
             return
         }
+        self.setCollectionPos()
+    }
+    func setCollectionPos(){
         pageControl.currentPage = current_page
         let item = self.detailItem!.result2![current_page]
         self.setPage(title: item.title, ingredient: item.ingredients, content: item.contents)

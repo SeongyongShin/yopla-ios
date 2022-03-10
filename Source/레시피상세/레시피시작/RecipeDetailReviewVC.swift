@@ -37,7 +37,6 @@ class RecipeDetailReviewVC: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.swipeRecognizer(dst: "goToStarFromRecipeReview")
         setComponent()
         getReviewDataManager.getRecipeReview(recipeId: Constant.CURRENT_RECIPE, delegate: self)
     }

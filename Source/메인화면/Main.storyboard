@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aKW-fc-Mqm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6cr-ff-Uxt">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,7 +14,8 @@
         <!--MainTC-->
         <scene sceneID="XjV-P2-pbk">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBar" id="aKW-fc-Mqm" customClass="MainTC" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBar1" id="aKW-fc-Mqm" customClass="MainTC" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="3PG-cw-mYF"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SHX-u8-k5D" customClass="TabBarWithCorners" customModule="yopla" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -27,18 +28,33 @@
                         <segue destination="Q3q-Bg-oVz" kind="relationship" relationship="viewControllers" id="u64-bC-1ob"/>
                         <segue destination="gpm-Nc-UpF" kind="relationship" relationship="viewControllers" id="SVl-uZ-nX3"/>
                         <segue destination="aA0-Zh-1Xy" kind="relationship" relationship="viewControllers" id="WPd-ST-pzj"/>
-                        <segue destination="g1D-rt-xaC" kind="show" identifier="goMyRegistedRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="kKU-Rz-K5B"/>
-                        <segue destination="5tl-Kn-dqH" kind="show" identifier="goToDetail" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="CBl-TO-CaS"/>
-                        <segue destination="7Si-Eo-8gc" kind="show" identifier="goToRegistRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="J5U-49-clc"/>
-                        <segue destination="Hvf-qB-uNx" kind="show" identifier="goToMoreRecipe" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="vSz-IS-jG1"/>
-                        <segue destination="FWb-dA-1w7" kind="show" identifier="goToMyPageFromMain" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="d43-0H-BS9"/>
-                        <segue destination="5mV-tq-cij" kind="show" identifier="goToMySettingFromMain" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="0M4-go-YYe"/>
-                        <segue destination="uPx-UL-Seh" kind="show" identifier="goToModify" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="rzT-Sd-Z4c"/>
+                        <segue destination="g1D-rt-xaC" kind="show" identifier="goMyRegistedRecipe" id="kKU-Rz-K5B"/>
+                        <segue destination="5tl-Kn-dqH" kind="show" identifier="goToDetail" id="CBl-TO-CaS"/>
+                        <segue destination="7Si-Eo-8gc" kind="show" identifier="goToRegistRecipe" id="J5U-49-clc"/>
+                        <segue destination="FWb-dA-1w7" kind="show" identifier="goToMyPageFromMain" id="d43-0H-BS9"/>
+                        <segue destination="5mV-tq-cij" kind="show" identifier="goToMySettingFromMain" id="0M4-go-YYe"/>
+                        <segue destination="uPx-UL-Seh" kind="show" identifier="goToModify" id="rzT-Sd-Z4c"/>
+                        <segue destination="Hvf-qB-uNx" kind="show" identifier="goToMoreRecipe" id="Jys-tS-LZB"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2H3-w0-Bc5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="745" y="-613"/>
+            <point key="canvasLocation" x="748" y="-593"/>
+        </scene>
+        <!--BaseUI Navigation Controller-->
+        <scene sceneID="S5G-qr-gu6">
+            <objects>
+                <navigationController storyboardIdentifier="MainTabBar" modalPresentationStyle="fullScreen" navigationBarHidden="YES" id="6cr-ff-Uxt" customClass="BaseUINavigationController" customModule="yopla" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="K5S-n2-0go">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="aKW-fc-Mqm" kind="relationship" relationship="rootViewController" id="5fI-uG-dzv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b77-Yw-LBD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-216" y="-592"/>
         </scene>
         <!--MainVC-->
         <scene sceneID="pku-75-6e6">
@@ -64,12 +80,12 @@
                                                                 <rect key="frame" x="147.5" y="17.5" width="119" height="23.5"/>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhx-fV-Itm">
-                                                                <rect key="frame" x="373.5" y="7.5" width="20.5" height="43.5"/>
+                                                                <rect key="frame" x="371.5" y="6.5" width="22.5" height="45.5"/>
                                                                 <color key="tintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <imageReference key="image" image="bookmark.fill" catalog="system" symbolScale="large"/>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z71-cA-sjF">
-                                                                <rect key="frame" x="343.5" y="0.0" width="70.5" height="58.5"/>
+                                                                <rect key="frame" x="341.5" y="0.0" width="72.5" height="58.5"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <connections>
                                                                     <action selector="tabBookBell:" destination="AIu-Ub-uln" eventType="touchUpInside" id="Saj-un-3Id"/>
@@ -601,14 +617,14 @@
                                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuCell" id="wMn-7J-rSD" customClass="menuCell" customModule="yopla" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.5" width="207" height="43.5"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="207" height="43"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wMn-7J-rSD" id="cKu-En-hP9">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="43.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="43"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cS-pf-Ycg">
-                                                                            <rect key="frame" x="16" y="11" width="175" height="21.5"/>
+                                                                            <rect key="frame" x="16" y="11" width="175" height="21"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <color key="textColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -766,7 +782,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vDp-yP-Uzt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1987" y="-1321"/>
+            <point key="canvasLocation" x="-217" y="370"/>
         </scene>
         <!--RecipeDetail-->
         <scene sceneID="3xp-Ro-4CC">
@@ -776,7 +792,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZc-GH-yNx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3428" y="-905"/>
+            <point key="canvasLocation" x="1708" y="-827"/>
         </scene>
         <!--RegistRecipe-->
         <scene sceneID="dRJ-RO-nzq">
@@ -786,7 +802,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lcy-H9-7fI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3370" y="-827"/>
+            <point key="canvasLocation" x="1710" y="-778"/>
         </scene>
         <!--MyRegistedRecipe-->
         <scene sceneID="F5Z-mR-V49">
@@ -797,7 +813,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZYN-eD-r6j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1899" y="-111"/>
+            <point key="canvasLocation" x="749" y="78"/>
         </scene>
         <!--MyRecipeReview-->
         <scene sceneID="TFG-cB-nvY">
@@ -808,7 +824,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ro3-ZN-Cqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2219" y="-101"/>
+            <point key="canvasLocation" x="1094" y="78"/>
         </scene>
         <!--MyRegistedBookMark-->
         <scene sceneID="Vlg-KE-0BM">
@@ -818,7 +834,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AP1-y5-7zd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="-138"/>
+            <point key="canvasLocation" x="1749" y="-619"/>
         </scene>
         <!--MoreRecipe-->
         <scene sceneID="dO7-x7-GKJ">
@@ -828,7 +844,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vWk-0X-7fW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3277" y="-613"/>
+            <point key="canvasLocation" x="1704" y="-884"/>
         </scene>
         <!--MyPage-->
         <scene sceneID="7W6-Fc-O1g">
@@ -838,7 +854,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hr2-1q-PdK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3126" y="-413"/>
+            <point key="canvasLocation" x="1687" y="-733"/>
         </scene>
         <!--MySetting-->
         <scene sceneID="bWq-ev-v5M">
@@ -848,7 +864,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d39-Rv-92K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3018" y="-356"/>
+            <point key="canvasLocation" x="1705" y="-676"/>
         </scene>
         <!--RecipeModify-->
         <scene sceneID="0Gb-ee-TXR">
@@ -858,7 +874,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BsC-jc-eef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1505" y="-376"/>
+            <point key="canvasLocation" x="1720" y="-558"/>
         </scene>
         <!--SearchRecipe-->
         <scene sceneID="lMB-ya-f6y">
@@ -869,7 +885,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oG-J6-kRL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428" y="-111"/>
+            <point key="canvasLocation" x="382" y="78"/>
         </scene>
     </scenes>
     <resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="71.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQT-t4-Wva">
-                                        <rect key="frame" x="20" y="0.0" width="29.5" height="71.5"/>
+                                        <rect key="frame" x="20" y="0.0" width="30.5" height="71.5"/>
                                         <color key="tintColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
@@ -30,19 +30,19 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앞쪽타이틀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ia-Us-h6I">
-                                        <rect key="frame" x="69.5" y="0.0" width="82.5" height="71.5"/>
+                                        <rect key="frame" x="70.5" y="0.0" width="82.5" height="71.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" red="0.99819225069999995" green="0.37002331020000001" blue="0.42010253669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="뒤쪽타이틀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2y-dy-gyw">
-                                        <rect key="frame" x="157" y="0.0" width="82.5" height="71.5"/>
+                                        <rect key="frame" x="158" y="0.0" width="82.5" height="71.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wgF-c6-iTH">
-                                        <rect key="frame" x="0.0" y="0.0" width="239.5" height="71.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240.5" height="71.5"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
                                             <action selector="homePressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="vxO-Sl-2V9"/>
@@ -87,6 +87,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="A7d-zq-Tlz" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="5" id="0GL-r7-Xix"/>
                             <constraint firstItem="3Z8-Jf-4tA" firstAttribute="top" secondItem="0Yc-WG-ku2" secondAttribute="bottom" id="Adf-vS-pYQ"/>
@@ -101,16 +102,19 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="A7d-zq-Tlz" secondAttribute="trailing" constant="5" id="x3J-zz-r1s"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="mcr-YP-Vfw"/>
                     <connections>
                         <outlet property="moreCV" destination="A7d-zq-Tlz" id="wyU-FH-SX0"/>
                         <outlet property="title1" destination="9Ia-Us-h6I" id="nBf-PX-01I"/>
                         <outlet property="title2" destination="A2y-dy-gyw" id="IlT-Vx-YNy"/>
-                        <segue destination="hfy-5I-aqT" kind="show" identifier="goToDetailFromMore" customClass="SegueFromLeft" customModule="yopla" customModuleProvider="target" id="SMD-0e-XM2"/>
+                        <segue destination="hfy-5I-aqT" kind="show" identifier="goToDetailFromMore" id="SMD-0e-XM2"/>
+                        <segue destination="hDa-EO-N1K" kind="unwind" identifier="goBackToMain" unwindAction="unwindToMain:" id="oiu-A6-BS8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="hDa-EO-N1K" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="46" y="78"/>
+            <point key="canvasLocation" x="955.07246376811599" y="77.678571428571431"/>
         </scene>
         <!--RecipeDetail-->
         <scene sceneID="cqp-uK-IDx">
@@ -120,7 +124,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l25-5o-D6X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="890" y="-49"/>
+            <point key="canvasLocation" x="1799.2753623188407" y="-49.553571428571423"/>
         </scene>
     </scenes>
     <resources>

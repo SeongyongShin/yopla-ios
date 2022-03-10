@@ -11,10 +11,12 @@ class MoreRecipeVC: BaseViewController {
     @IBOutlet weak var title1: UILabel!
     @IBOutlet weak var title2: UILabel!
     @IBOutlet weak var moreCV: UICollectionView!
+    
     lazy var getMorePeopleRecipeDataManager: GetMorePeopleRecipeDataManager = GetMorePeopleRecipeDataManager()
     var itemList: [GetPeopleRecipeThumnails]?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         moreCV.register(UINib(nibName: "RecipeProfile", bundle: nil), forCellWithReuseIdentifier: "RecipeProfile")
         moreCV.delegate = self
         moreCV.dataSource = self
@@ -32,8 +34,11 @@ class MoreRecipeVC: BaseViewController {
     
     @IBAction func homePressed(_ sender: Any) {
         self.makeTabBarRootVC("MainTabBar")
+//        print("clicked")
+//        self.performSegue(withIdentifier: "goBackToMain", sender: self)
     }
     
+
 }
 //MARK: 델리겟
 extension MoreRecipeVC: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
